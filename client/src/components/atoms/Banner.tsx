@@ -8,7 +8,7 @@ const Img = styled.img`
 
 const Banner = () => {
   return (
-    <div className="Banner">
+    <div className="Banner" style={{ height: '1000px' }}>
       <Img src="images/macAndCoffee.jpg" alt=""></Img>
     </div>
   );
