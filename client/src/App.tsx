@@ -1,12 +1,12 @@
 import React from 'react';
-import Banner from './components/atoms/Banner';
+import Header from './components/molecules/Header';
+import Banner from './components/unreuse/Banner';
 
 const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <Banner />
-      </header>
+      <Header />
+      <Banner />
     </div>
   );
 };
