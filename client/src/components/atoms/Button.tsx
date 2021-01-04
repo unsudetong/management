@@ -9,11 +9,17 @@ const StyledButton = styled.button`
   cursor: pointer;
   padding-left: 1rem;
   padding-right: 1rem;
+  padding-top: 5px;
+
+  width: ${({ width }: any) => width || '100px'};
+  border-radius: ${({ radius }: any) => (radius === 'true' ? '10px' : '0px')};
 
 	height: 2.25rem;
   font-size: 1.1rem;
-
-  background: transparent;
+  background: ${({ background }: any) => background || 'transparent'};
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
   }
 `;
 
