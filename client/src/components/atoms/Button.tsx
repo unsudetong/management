@@ -20,11 +20,17 @@ const StyledButton = styled.button`
   margin-top: 20px;
   align-items: center;
   justify-content: center;
+
+  onclick: ${({ onclick }: any) => onclick};
   }
 `;
 
-const Button = ({ children, ...rest }: any) => {
-  return <StyledButton {...rest}>{children}</StyledButton>;
+const Button = ({ children, onclick, ...rest }: any) => {
+  return (
+    <StyledButton onClick={onclick} {...rest}>
+      {children}
+    </StyledButton>
+  );
 };
 
 export default Button;
