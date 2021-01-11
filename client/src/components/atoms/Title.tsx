@@ -18,7 +18,11 @@ type TitleProps = {
 };
 
 const Title = (props: TitleProps) => {
-  return <StyledTitle>{props.value}</StyledTitle>;
+  return (
+    <StyledTitle>
+      <a href="/">{props.value}</a>
+    </StyledTitle>
+  );
 };
 
 export default Title;
