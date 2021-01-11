@@ -11,10 +11,8 @@ const ProjectListBackground = styled.div`
 const OneOfProject = styled.div`
   display: flex;
   width: 70%;
-  height: 100%;
   margin-left: 15%;
   margin-right: 15%;
-  min-height: 300px;
   background: white;
 `;
 
@@ -24,12 +22,45 @@ const LeftSideOfProject = styled.div`
   border-right: 10px solid #f2f2f2;
 `;
 
+const RightSideOfProject = ({ value }: any) => {
+  const examples = [
+    '[미션] 2^3 큐브 알고리즘',
+    '[미션] 3^3 큐브 알고리즘',
+    '배경지식',
+    '객체지향 프로그래밍',
+  ];
+
+  return (
+    <div style={{ width: '100%' }}>
+      {examples.map((title, index) => (
+        <div
+          style={{
+            margin: '40px',
+            marginTop: '20px',
+            marginBottom: '20px',
+            fontSize: '20px',
+            background: '#f2f2f2',
+            width: 'calc(100% - 90px)',
+            padding: '5px',
+          }}
+          key={index}
+        >
+          {index} {title}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const ProjectList = () => {
   return (
     <ProjectListBackground>
       <OneOfProject>
-        <LeftSideOfProject>프로젝트 1 이름</LeftSideOfProject>
-        <div>프로젝트 게시글</div>
+        <LeftSideOfProject>
+          <p style={{ fontSize: '30px' }}>Day-1</p>
+          <span style={{ fontSize: '25px' }}>객체지향 프로그래밍</span>
+        </LeftSideOfProject>
+        <RightSideOfProject value="프로젝트 1은 무엇인지" />
       </OneOfProject>
     </ProjectListBackground>
   );
