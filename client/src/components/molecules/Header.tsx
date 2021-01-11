@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../atoms/Button';
@@ -10,20 +10,26 @@ const StyledHeader = styled.div`
   display: flex;
   height: 110px;
   width: 70%;
-  background: transparent;
+  background: ${(props: any) => props.color};
   border-bottom: 2px solid #eeeeee;
   justify-content: space-between;
   padding-left: 15%;
   padding-right: 15%;
+  z-index: 10;
 `;
 
 const Header = () => {
+  const [bgColor, setBgColor] = useState('transparent');
   const { state, onclick } = useContext(exportModule.LoginContext);
   const onclickLoginButton = () => onclick(!state);
 
+  const movePage = () => setBgColor('white');
+
   return (
-    <StyledHeader>
-      <Title value="Lucky Data" />
+    <StyledHeader color={bgColor}>
+      <Title value="Lucky ">
+        <span style={{ color: 'rgb(16,137,255)' }}>Data</span>
+      </Title>
       <div
         id="HeaderButtonGroup"
         style={{
@@ -35,13 +41,19 @@ const Header = () => {
         }}
       >
         <Link to="/member">
-          <Button color="#23374D">MEMBER</Button>
+          <Button onclick={movePage} color="#23374D">
+            MEMBER
+          </Button>
         </Link>
         <Link to="/project">
-          <Button color="#23374D">PROJECT</Button>
+          <Button onclick={movePage} color="#23374D">
+            PROJECT
+          </Button>
         </Link>
         <Link to="/history">
-          <Button color="#23374D">HISTORY</Button>
+          <Button onclick={movePage} color="#23374D">
+            HISTORY
+          </Button>
         </Link>
         <Button color="#23374D" onclick={onclickLoginButton}>
           LOGIN

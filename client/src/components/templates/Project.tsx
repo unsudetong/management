@@ -1,16 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import ProjectBanner from '../organisms/ProjectBanner';
+import ProjectList from '../organisms/ProjectList';
 
-const StyledMain = styled.div`
-  width: 70%;
-  padding-left: 15%;
-  padding-right: 15%;
+const StyledProject = styled.div`
   position: absolute;
+  width: 100%;
   top: 110px;
 `;
 
-const Main = ({ children }: any) => {
-  return <StyledMain>hello world</StyledMain>;
+const Project = ({ children }: any) => {
+  return (
+    <StyledProject>
+      <ProjectBanner />
+      <ProjectList />
+    </StyledProject>
+  );
 };
 
-export default Main;
+export default Project;
