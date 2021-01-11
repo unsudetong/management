@@ -1,5 +1,4 @@
-import React, { useRef, useContext, useEffect } from 'react';
-import exportModule from '../../App';
+import React from 'react';
 import styled from 'styled-components';
 
 declare module 'react' {

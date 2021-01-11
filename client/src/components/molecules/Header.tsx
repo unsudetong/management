@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../atoms/Button';
 import Title from '../atoms/Title';
 import exportModule from '../../App';
-import { stat } from 'fs';
 
 const StyledHeader = styled.div`
   position: fixed;
@@ -11,7 +11,7 @@ const StyledHeader = styled.div`
   height: 110px;
   width: 70%;
   background: transparent;
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid #eeeeee;
   justify-content: space-between;
   padding-left: 15%;
   padding-right: 15%;
@@ -34,9 +34,15 @@ const Header = () => {
           minWidth: '420px',
         }}
       >
-        <Button color="#23374D">MEMBER</Button>
-        <Button color="#23374D">PROJECT</Button>
-        <Button color="#23374D">HISTORY</Button>
+        <Link to="/member">
+          <Button color="#23374D">MEMBER</Button>
+        </Link>
+        <Link to="/project">
+          <Button color="#23374D">PROJECT</Button>
+        </Link>
+        <Link to="/history">
+          <Button color="#23374D">HISTORY</Button>
+        </Link>
         <Button color="#23374D" onclick={onclickLoginButton}>
           LOGIN
         </Button>

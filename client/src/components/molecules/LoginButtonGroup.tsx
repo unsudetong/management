@@ -1,7 +1,5 @@
 import React from 'react';
 import Button from '../atoms/Button';
-import styled from 'styled-components';
-// import { Link, Route, Switch } from 'react-router-dom';
 
 const LoginButtonGroup = () => {
   const loginButtons = ['github', 'google', 'facebook'];
