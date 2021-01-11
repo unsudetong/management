@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/molecules/Header';
 import Banner from './components/unreuse/Banner';
 import Modal from './components/organisms/Modal';
@@ -13,6 +13,19 @@ const LoginContext = React.createContext<State | null>(null);
 
 const App = () => {
   const [loginState, setLoginState] = useState(false);
+
+  const clickOutside = () => {
+    if (loginState) {
+      setLoginState(!loginState);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', clickOutside);
+    return () => {
+      document.removeEventListener('click', clickOutside);
+    };
+  });
 
   return (
     <div className="App">
