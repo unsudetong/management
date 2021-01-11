@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Button from '../atoms/Button';
 import Title from '../atoms/Title';
+import exportModule from '../../App';
+import { stat } from 'fs';
 
 const StyledHeader = styled.div`
   position: fixed;
@@ -16,6 +18,9 @@ const StyledHeader = styled.div`
 `;
 
 const Header = () => {
+  const { state, onclick } = useContext(exportModule.LoginContext);
+  const onclickLoginButton = () => onclick(!state);
+
   return (
     <StyledHeader>
       <Title value="Lucky Data" />
@@ -32,7 +37,9 @@ const Header = () => {
         <Button color="#23374D">MEMBER</Button>
         <Button color="#23374D">PROJECT</Button>
         <Button color="#23374D">HISTORY</Button>
-        <Button color="#23374D">LOGIN</Button>
+        <Button color="#23374D" onclick={onclickLoginButton}>
+          LOGIN
+        </Button>
       </div>
     </StyledHeader>
   );
