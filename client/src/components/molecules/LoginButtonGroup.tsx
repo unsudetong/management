@@ -8,9 +8,10 @@ const LoginButtonGroup = () => {
   const loginColor = ['rgb(70,70,70)', 'rgb(221,75,57)', 'rgb(59,89,152)'];
   const onLogin = (auth: string): Function => {
     const login = (name: string) => () => {
-      fetch('http://127.0.0.1:4000/auth/github').then(res => {
+      // 클릭된 버튼의 이름에 따라 로그인 API가 달라지게 한다.
+      fetch('http://127.0.0.1:4000/auth/' + name).then(res => {
         window.location.href = res.url;
-        console.log(res);
+        // console.log(res);
       });
     };
     return login(auth);
