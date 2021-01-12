@@ -20,7 +20,7 @@ const LoginButtonGroup = (): JSX.Element => {
       {loginButtons.map((strategy, index) => (
         <Button
           width="100%"
-          radius={true}
+          // radius={true}
           background={loginColor[index]}
           key={index}
           onclick={onLogin(loginButtons[index])}

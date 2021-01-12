@@ -10,7 +10,7 @@ const StyledMain = styled.div`
 `;
 
 const Main = (): JSX.Element => {
-  return <StyledMain>hello world</StyledMain>;
+  return <StyledMain></StyledMain>;
 };
 
 export default Main;
