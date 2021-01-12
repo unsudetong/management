@@ -4,12 +4,12 @@ const users = [
   { email: 'park@test.com', password: '789', name: 'Park' },
 ];
 
-type User = {
+type userProps = {
   email: string;
   password: string;
 };
 
-const signIn = ({ email, password }: User) => {
+const signIn = ({ email, password }: userProps): userProps | undefined => {
   const user = users.find(
     user => user.email === email && user.password === password,
   );

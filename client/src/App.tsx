@@ -5,14 +5,10 @@ import Modal from './components/organisms/Modal';
 import LoginButtonGroup from './components/molecules/LoginButtonGroup';
 import Main from './components/pages/Main';
 
-// import styled from 'styled-components';
-// import { Link, Route, Switch } from 'react-router-dom';
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const LoginContext = React.createContext<any | null>(null);
 
-type State = any;
-
-const LoginContext = React.createContext<State | null>(null);
-
-const App = () => {
+const App = (): JSX.Element => {
   const [loginState, setLoginState] = useState(false);
 
   const clickOutside = () => {

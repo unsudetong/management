@@ -22,7 +22,7 @@ const LeftSideOfProject = styled.div`
   border-right: 10px solid #f2f2f2;
 `;
 
-const RightSideOfProject = ({ value }: any) => {
+const RightSideOfProject = () => {
   const examples = [
     '[미션] 2^3 큐브 알고리즘',
     '[미션] 3^3 큐브 알고리즘',
@@ -52,7 +52,7 @@ const RightSideOfProject = ({ value }: any) => {
   );
 };
 
-const ProjectList = () => {
+const ProjectList = (): JSX.Element => {
   return (
     <ProjectListBackground>
       <OneOfProject>
@@ -60,7 +60,7 @@ const ProjectList = () => {
           <p style={{ fontSize: '30px' }}>Day-1</p>
           <span style={{ fontSize: '25px' }}>객체지향 프로그래밍</span>
         </LeftSideOfProject>
-        <RightSideOfProject value="프로젝트 1은 무엇인지" />
+        <RightSideOfProject />
       </OneOfProject>
     </ProjectListBackground>
   );

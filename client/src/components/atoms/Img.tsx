@@ -7,7 +7,11 @@ const StyledImg = styled.img`
   height: 100%;
 `;
 
-const Img = ({ children, ...rest }: any) => {
+type imgProps = {
+  children?: JSX.Element;
+};
+
+const Img = ({ children, ...rest }: imgProps): JSX.Element => {
   return <StyledImg {...rest}>{children}</StyledImg>;
 };
 

@@ -23,7 +23,7 @@ const ProjectBackgroundText = styled.span`
   padding-left: 15%;
 `;
 
-const ProjectBanner = () => {
+const ProjectBanner = (): JSX.Element => {
   return (
     <ProjectBackground>
       <ProjectBackgroundTitle>PROJECT</ProjectBackgroundTitle>

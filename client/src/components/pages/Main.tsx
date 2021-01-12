@@ -5,7 +5,7 @@ import Member from '../templates/Member';
 import Project from '../templates/Project';
 import History from '../templates/History';
 
-const Main = ({ children }: any) => {
+const Main = (): JSX.Element => {
   return (
     <>
       <Route exact path="/" component={Home}></Route>

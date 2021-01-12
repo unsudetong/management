@@ -1,7 +1,7 @@
 import React from 'react';
 import Banner from '../unreuse/Banner';
 
-const Main = ({ children }: any) => {
+const Main = (): JSX.Element => {
   return <Banner />;
 };
 

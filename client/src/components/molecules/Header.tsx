@@ -10,7 +10,7 @@ const StyledHeader = styled.div`
   display: flex;
   height: 110px;
   width: 70%;
-  background: ${(props: any) => props.color};
+  background: ${props => props.color};
   border-bottom: 2px solid #eeeeee;
   justify-content: space-between;
   padding-left: 15%;
@@ -18,7 +18,7 @@ const StyledHeader = styled.div`
   z-index: 10;
 `;
 
-const Header = () => {
+const Header = (): JSX.Element => {
   const [bgColor, setBgColor] = useState('transparent');
   const { state, onclick } = useContext(exportModule.LoginContext);
   const onclickLoginButton = () => onclick(!state);

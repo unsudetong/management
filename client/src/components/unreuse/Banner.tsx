@@ -8,7 +8,7 @@ const StyledBanner = styled.div`
   background-attachment: fixed;
 `;
 
-const Banner = () => {
+const Banner = (): JSX.Element => {
   return <StyledBanner />;
 };
 

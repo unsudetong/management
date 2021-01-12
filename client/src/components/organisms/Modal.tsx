@@ -3,8 +3,7 @@ import styled from 'styled-components';
 
 declare module 'react' {
   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    // extends React's HTMLAttributes
-    visible?: string;
+    visible?: boolean;
   }
 }
 
@@ -48,7 +47,13 @@ const ModalInner = styled.div`
   padding: 40px 20px;
 `;
 
-const Modal = ({ className, visible, children }: any) => {
+type modalProps = {
+  className?: string;
+  visible?: boolean;
+  children?: JSX.Element;
+};
+
+const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
   return (
     <ModalOverlay visible={visible}>
       <ModalWrapper className={className} tabIndex={-1} visible={visible}>

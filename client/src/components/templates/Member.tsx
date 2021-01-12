@@ -9,7 +9,7 @@ const StyledMain = styled.div`
   top: 110px;
 `;
 
-const Main = ({ children }: any) => {
+const Main = (): JSX.Element => {
   return <StyledMain>hello world</StyledMain>;
 };
 

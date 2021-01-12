@@ -9,7 +9,7 @@ const StyledProject = styled.div`
   top: 110px;
 `;
 
-const Project = ({ children }: any) => {
+const Project = (): JSX.Element => {
   return (
     <StyledProject>
       <ProjectBanner />

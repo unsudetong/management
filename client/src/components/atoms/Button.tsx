@@ -1,31 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
 
+declare module 'react' {
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    // extends React's HTMLAttributes
+    radius?: boolean;
+    width?: string;
+    background?: string;
+    onclick?: () => never;
+  }
+}
+
 const StyledButton = styled.button`
   display: inline-flex;
 	outline: none;
 	border:transparent;
-  color: ${({ color }) => color || 'white'};
+  color: ${props => props.color || 'white'};
   cursor: pointer;
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 5px;
 
-  width: ${({ width }: any) => width || '100px'};
-  border-radius: ${({ radius }: any) => (radius === 'true' ? '10px' : '0px')};
+  width: ${props => props.width || '100px'};
+  border-radius: ${props => (props.radius ? '10px' : '0px')};
 
 	height: 2.25rem;
   font-size: 1.1rem;
-  background: ${({ background }: any) => background || 'transparent'};
+  background: ${props => props.background || 'transparent'};
   margin-top: 20px;
   align-items: center;
   justify-content: center;
 
-  onclick: ${({ onclick }: any) => onclick};
+  onclick: ${props => props.onclick};
   }
 `;
 
-const Button = ({ children, onclick, ...rest }: any) => {
+type ButtonType = {
+  children?: HTMLElement | string;
+  radius?: boolean;
+  color?: string;
+  width?: string;
+  onclick?: () => void;
+  background?: string;
+};
+
+const Button = ({ onclick, children, ...rest }: ButtonType): JSX.Element => {
   return (
     <StyledButton onClick={onclick} {...rest}>
       {children}

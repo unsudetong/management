@@ -15,10 +15,10 @@ const StyledTitle = styled.span`
 
 type TitleProps = {
   value: string;
-  children: any;
+  children: JSX.Element;
 };
 
-const Title = ({ children, ...props }: TitleProps) => {
+const Title = ({ children, ...props }: TitleProps): JSX.Element => {
   return (
     <StyledTitle>
       <a href="/">
