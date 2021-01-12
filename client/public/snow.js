@@ -1,8 +1,8 @@
 window.onload = () => {
   // 기본적인 설정을 위해서 body에 style을 적용했다.
   const body = document.getElementsByTagName('body')[0];
-  body.style.margin = '0px';
-  body.style.overflow = 'hidden';
+  // body.style.margin = '0px';
+  // body.style.overflow = 'hidden';
 
   // 마찬가지로 canvas에 옵션을 주었다.
   const myCanvas = document.getElementById('myCanvas');

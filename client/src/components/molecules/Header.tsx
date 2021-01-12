@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../atoms/Button';
@@ -18,15 +18,14 @@ const StyledHeader = styled.div`
   z-index: 10;
 `;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 const Header = (): JSX.Element => {
-  const [bgColor, setBgColor] = useState('transparent');
   const { state, onclick } = useContext(exportModule.LoginContext);
   const onclickLoginButton = () => onclick(!state);
 
-  const movePage = () => setBgColor('white');
-
   return (
-    <StyledHeader color={bgColor}>
+    <StyledHeader color="transparents">
       <Title value="Lucky ">
         <span style={{ color: 'rgb(16,137,255)' }}>Data</span>
       </Title>
@@ -41,19 +40,13 @@ const Header = (): JSX.Element => {
         }}
       >
         <Link to="/member">
-          <Button onclick={movePage} color="#23374D">
-            MEMBER
-          </Button>
+          <Button color="#23374D">MEMBER</Button>
         </Link>
         <Link to="/project">
-          <Button onclick={movePage} color="#23374D">
-            PROJECT
-          </Button>
+          <Button color="#23374D">PROJECT</Button>
         </Link>
         <Link to="/history">
-          <Button onclick={movePage} color="#23374D">
-            HISTORY
-          </Button>
+          <Button color="#23374D">HISTORY</Button>
         </Link>
         <Button color="#23374D" onclick={onclickLoginButton}>
           LOGIN

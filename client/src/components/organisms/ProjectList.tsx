@@ -19,6 +19,7 @@ const OneOfProject = styled.div`
 const LeftSideOfProject = styled.div`
   width: 25%;
   min-height: 100%;
+  padding-left: 10px;
   border-right: 10px solid #f2f2f2;
 `;
 
@@ -39,9 +40,11 @@ const RightSideOfProject = () => {
             marginTop: '20px',
             marginBottom: '20px',
             fontSize: '20px',
-            background: '#f2f2f2',
+            background: '#e2e2e2',
             width: 'calc(100% - 90px)',
             padding: '5px',
+            fontWeight: 'bold',
+            borderRadius: '10px',
           }}
           key={index}
         >
@@ -58,7 +61,9 @@ const ProjectList = (): JSX.Element => {
       <OneOfProject>
         <LeftSideOfProject>
           <p style={{ fontSize: '30px' }}>Day-1</p>
-          <span style={{ fontSize: '25px' }}>객체지향 프로그래밍</span>
+          <span style={{ fontSize: '25px', fontWeight: 'bold' }}>
+            객체지향 프로그래밍
+          </span>
         </LeftSideOfProject>
         <RightSideOfProject />
       </OneOfProject>

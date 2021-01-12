@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledTitle = styled.span`
@@ -21,10 +22,10 @@ type TitleProps = {
 const Title = ({ children, ...props }: TitleProps): JSX.Element => {
   return (
     <StyledTitle>
-      <a href="/">
-        {props.value}
-        {children}
-      </a>
+      <Link to="/">
+        <span color="#23374D">{props.value}</span>
+        <span>{children}</span>
+      </Link>
     </StyledTitle>
   );
 };

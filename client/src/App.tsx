@@ -4,6 +4,7 @@ import Header from './components/molecules/Header';
 import Modal from './components/organisms/Modal';
 import LoginButtonGroup from './components/molecules/LoginButtonGroup';
 import Main from './components/pages/Main';
+import Store from './components/unreuse/Store';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LoginContext = React.createContext<any | null>(null);
@@ -26,17 +27,19 @@ const App = (): JSX.Element => {
 
   return (
     <div className="App">
-      <Router>
-        <LoginContext.Provider
-          value={{ state: loginState, onclick: setLoginState }}
-        >
-          <Modal visible={loginState}>
-            <LoginButtonGroup />
-          </Modal>
-          <Header />
-          <Main />
-        </LoginContext.Provider>
-      </Router>
+      <Store>
+        <Router>
+          <LoginContext.Provider
+            value={{ state: loginState, onclick: setLoginState }}
+          >
+            <Modal visible={loginState}>
+              <LoginButtonGroup />
+            </Modal>
+            <Header />
+            <Main />
+          </LoginContext.Provider>
+        </Router>
+      </Store>
     </div>
   );
 };

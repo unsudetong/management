@@ -12,7 +12,7 @@ const ProjectBackgroundTitle = styled.span`
   width: 70%;
   font-size: 80px;
   color: white;
-  padding-left: 15%;
+  padding-left: 16%;
 `;
 
 const ProjectBackgroundText = styled.span`
@@ -20,7 +20,7 @@ const ProjectBackgroundText = styled.span`
   width: 70%;
   font-size: 20px;
   color: white;
-  padding-left: 15%;
+  padding-left: 16.4%;
 `;
 
 const ProjectBanner = (): JSX.Element => {
