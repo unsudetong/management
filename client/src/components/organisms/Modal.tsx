@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import dotenv from 'dotenv';
 import { LoginContext } from '../../App';
@@ -68,24 +68,49 @@ type modalProps = {
 //   }
 // };
 
-const login = () => {
-  fetch(process.env.REACT_APP_SERVER_ADDRESS + '/auth/local', {
-    method: 'POST',
-  })
-    .then(res => res.json())
-    .then(res => {
-      localStorage.setItem('cookie', res.result);
-    });
-};
-
 const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
   const { state, onclick } = useContext(LoginContext);
+  const [id, setID] = useState(null);
+  const [password, setPassword] = useState(null);
+
+  const changeID = (event: any) => setID(event.target.value);
+  const changePassword = (event: any) => setPassword(event.target.value);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const clickOutside = ({ target }: any) => {
     if (state && document.getElementById('modalBackground') === target) {
       onclick();
     }
   };
 
+  const login = () => {
+    const params = `STUDENT_ID=${id}&PASSWORD=${password}`;
+    const url = process.env.REACT_APP_SERVER_ADDRESS + '/auth/local?' + params;
+    try {
+      fetch(url, {
+        body: JSON.stringify({
+          STUDNET_ID: id,
+          PASSWORD: password,
+        }),
+        method: 'POST',
+      })
+        .then(res => {
+          return res.json();
+        })
+        .then(res => {
+          if (res.message === 'success') {
+            localStorage.setItem('cookie', res.result);
+            onclick();
+          } else {
+            return;
+          }
+        });
+    } catch (error) {
+      console.log('로그인에 실패하였습니다.');
+    }
+  };
+
+  const isEnter = (event: any) => event.charCode === 13 && login();
   return (
     <ModalOverlay visible={visible}>
       <ModalWrapper
@@ -99,26 +124,31 @@ const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
           <h1 style={{ color: 'black', margin: '0px', marginBottom: '5px' }}>
             Login
           </h1>
-          <form action="post">
-            <input
-              placeholder="가천대학교 학번을 입력해주세요."
-              style={{ width: '100%', height: '30px', marginBottom: '5px' }}
-              id="student_id"
-            ></input>
-            <input
-              placeholder="비밀번호를 입력해주세요."
-              style={{ width: '100%', height: '30px', marginBottom: '5px' }}
-              id="password"
-            ></input>
-            <button
-              type="submit"
-              style={{ width: '100%', height: '30px', marginBottom: '5px' }}
-              id="login_button"
-              onClick={login}
-            >
-              login
-            </button>
-          </form>
+          <input
+            placeholder="가천대학교 학번을 입력해주세요."
+            style={{ width: '100%', height: '30px', marginBottom: '5px' }}
+            id="student_id"
+            name="student_id"
+            // value="201634101"
+            onChange={changeID}
+          ></input>
+          <input
+            type="password"
+            placeholder="비밀번호를 입력해주세요."
+            style={{ width: '100%', height: '30px', marginBottom: '5px' }}
+            id="password"
+            name="password"
+            // value="kakasoo"
+            onChange={changePassword}
+            onKeyPress={isEnter}
+          ></input>
+          <button
+            style={{ width: '100%', height: '30px', marginBottom: '5px' }}
+            id="login_button"
+            onClick={login}
+          >
+            login
+          </button>
           {/* <button onClick={authCheck}> auth check </button> */}
 
           {children}
