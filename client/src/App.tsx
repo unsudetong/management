@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Header from './components/molecules/Header';
 import Modal from './components/organisms/Modal';
@@ -6,31 +6,50 @@ import LoginButtonGroup from './components/molecules/LoginButtonGroup';
 import Main from './components/pages/Main';
 import Store from './components/unreuse/Store';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const LoginContext = React.createContext<any | null>(null);
+declare module 'react' {
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    visible?: boolean;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onclick?: () => any;
+    radius?: boolean;
+    width?: string;
+    background?: string;
+  }
+}
 
-const App = (): JSX.Element => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const LoginContext = React.createContext<any | null>(null);
+
+export const App = (): JSX.Element => {
   const [loginState, setLoginState] = useState(false);
 
-  const clickOutside = () => {
-    if (loginState) {
-      setLoginState(!loginState);
-    }
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // const clickOutside = ({ target }: any) => {
+  //   // console.log(target);
+  //   // console.log(document.getElementById('App'));
+  //   // console.log(document.getElementById('App')?.contains(target));
+  //   if (loginState && !document.getElementById('App')?.contains(target)) {
+  //     setLoginState(!loginState);
+  //   }
+  // };
 
-  useEffect(() => {
-    document.addEventListener('click', clickOutside);
-    return () => {
-      document.removeEventListener('click', clickOutside);
-    };
-  });
+  // useEffect(() => {
+  //   document.addEventListener('click', clickOutside);
+  //   return () => {
+  //     document.removeEventListener('click', clickOutside);
+  //   };
+  // });
 
   return (
-    <div className="App">
+    <div className="App" id="App">
       <Store>
         <Router>
           <LoginContext.Provider
-            value={{ state: loginState, onclick: setLoginState }}
+            value={{
+              visible: loginState,
+              state: loginState,
+              onclick: setLoginState,
+            }}
           >
             <Modal visible={loginState}>
               <LoginButtonGroup />
@@ -43,7 +62,3 @@ const App = (): JSX.Element => {
     </div>
   );
 };
-
-const exportModule = { App, LoginContext };
-
-export default exportModule;

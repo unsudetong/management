@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../atoms/Button';
 import Title from '../atoms/Title';
-import exportModule from '../../App';
+import { LoginContext } from '../../App';
 
 const StyledHeader = styled.div`
   position: fixed;
@@ -21,7 +21,7 @@ const StyledHeader = styled.div`
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 const Header = (): JSX.Element => {
-  const { state, onclick } = useContext(exportModule.LoginContext);
+  const { state, onclick } = useContext(LoginContext);
   const onclickLoginButton = () => onclick(!state);
 
   return (
