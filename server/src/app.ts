@@ -1,22 +1,110 @@
 import express from 'express';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+
+import compression from 'compression';
+import helmet from 'helmet';
+import cors from 'cors';
+
 import controllers from './controllers';
-import session from 'express-session';
+import sequelize from './models';
+
+import passport from 'passport';
+import jwt from 'jsonwebtoken';
+
+import passportInit from './passport';
+
+const isAuthenticate = (req, res, next, err) => {
+  // console.log('req.user : ', req.user);
+  if (!req.user) {
+    // console.log('user is not!');
+    next(err);
+  }
+
+  // console.log('user is found!');
+  next();
+};
+
+passportInit();
+
+sequelize.user.sync();
+sequelize.admin.sync();
+sequelize.article.sync();
+sequelize.project.sync();
+sequelize.track.sync();
+sequelize.projectArticle.sync();
 
 const app: express.Application = express();
 
-app.use(
-  session({
-    secret: 'key',
-    resave: true,
-    saveUninitialized: true,
-  }),
-);
+app.use(passport.initialize());
 
-app.use('/', (req, res, next) => {
-  console.log('do you have session? : ', req.session.id);
-  next();
+app.use([logger('dev'), cookieParser()]);
+app.use([compression(), helmet(), cors()]);
+
+passport.serializeUser(function (user: any, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  // User.findOne({ _id: id }, function (err, user) {
+  // done(err, user);
+  // });
+  done(null, id);
 });
 
 app.use('/', controllers);
+
+app.post(
+  '/auth',
+  isAuthenticate,
+  (req: express.Request, res: express.Response, next) => {
+    passport.authenticate('jwt', (error, user) => {
+      if (user) {
+        req.user = user;
+        return res.status(200).send({ user: user });
+      }
+      return res.status(400).send({ error: error, message: 'jwt login fail' });
+    })(req, res, next);
+  },
+);
+
+app.post('/auth/local', [
+  isAuthenticate,
+  async (req, res: express.Response, next) => {
+    try {
+      passport.authenticate('local', (passportError, user, info) => {
+        if (passportError || !user) {
+          res.status(400).json({ message: info.reason });
+          return;
+        }
+
+        req.login(user, { session: false }, loginError => {
+          if (loginError) {
+            // console.log('LOGIN ERROR!');
+            return res.send(loginError);
+          }
+
+          const token = jwt.sign(
+            {
+              STUDENT_ID: user.STUDENT_ID,
+              NAME: user.NAME,
+              PASSWORD: user.PASSWORD,
+            },
+            'beTr{]e>)!dQ9=V',
+            {
+              maxAge: 1000,
+            },
+          );
+
+          res.append('Authorization', token); //, { maxAge: 900000, httpOnly: true });
+          res.status(200).json({ message: 'success', result: token });
+        });
+      })(req, res);
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  },
+]);
 
 export default app;
