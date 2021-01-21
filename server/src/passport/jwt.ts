@@ -1,5 +1,7 @@
 import passportOfJwt from 'passport-jwt';
 import sequelize from '../models';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const { ExtractJwt, Strategy: JWTStrategy } = passportOfJwt;
 
@@ -11,7 +13,7 @@ const cookieExtractor = req => {
 
 const JWTConfig = {
   jwtFromRequest: cookieExtractor,
-  secretOrKey: 'beTr{]e>)!dQ9=V',
+  secretOrKey: process.env.PRIVATE_TOKEN_KEY,
 };
 
 const JWTVerify = async (jwtPayload, done) => {

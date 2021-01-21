@@ -14,6 +14,9 @@ import jwt from 'jsonwebtoken';
 
 import passportInit from './passport';
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 const isAuthenticate = (req, res, next, err) => {
   // console.log('req.user : ', req.user);
   if (!req.user) {
@@ -74,14 +77,13 @@ app.post('/auth/local', [
     try {
       passport.authenticate('local', (passportError, user, info) => {
         if (passportError || !user) {
-          res.status(400).json({ message: info.reason });
+          res.status(400).json({ message: '로그인에 실패하였습니다.' });
           return;
         }
 
         req.login(user, { session: false }, loginError => {
           if (loginError) {
-            // console.log('LOGIN ERROR!');
-            return res.send(loginError);
+            return res.send('loginError');
           }
 
           const token = jwt.sign(
@@ -90,10 +92,7 @@ app.post('/auth/local', [
               NAME: user.NAME,
               PASSWORD: user.PASSWORD,
             },
-            'beTr{]e>)!dQ9=V',
-            {
-              maxAge: 1000,
-            },
+            process.env.PRIVATE_TOKEN_KEY,
           );
 
           res.append('Authorization', token); //, { maxAge: 900000, httpOnly: true });
