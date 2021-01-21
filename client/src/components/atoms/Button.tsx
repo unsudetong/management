@@ -1,16 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-declare module 'react' {
-  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
-    // extends React's HTMLAttributes
-    radius?: boolean;
-    width?: string;
-    background?: string;
-    onclick?: () => never;
-  }
-}
-
 const StyledButton = styled.button`
   display: inline-flex;
 	outline: none;
