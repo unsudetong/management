@@ -9,6 +9,10 @@ const article = (sequelize, DataTypes) => {
         unique: true,
         allowNull: false,
       },
+      TITLE: {
+        type: DataTypes.TEXT,
+        allowNull: false,
+      },
       CONTENTS: {
         type: DataTypes.TEXT,
       },
