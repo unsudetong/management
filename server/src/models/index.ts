@@ -27,43 +27,6 @@ database.project = project(sequelize, Sequelize);
 database.track = track(sequelize, Sequelize);
 database.projectArticle = projectArticle(sequelize, Sequelize);
 
-database.user.belongsTo(database.track, {
-  foreignKey: 'TRACK_ID',
-  target: 'ID',
-});
-
-database.admin.belongsTo(database.user, {
-  foreignKey: 'USER_ID',
-  target: 'ID',
-});
-
-database.article.belongsTo(database.admin, {
-  foreignKey: 'WRITER',
-  target: 'ID',
-});
-
-database.article.belongsToMany(database.project, {
-  through: database.projectArticle,
-  foreignKey: 'ARTICLE_ID',
-  primaryKey: true,
-});
-
-database.project.belongsToMany(database.article, {
-  through: database.projectArticle,
-  foreignKey: 'PROJECT_ID',
-  primaryKey: true,
-});
-
-database.project.belongsTo(database.admin, {
-  foreignKey: 'WRITER',
-  target: 'ID',
-});
-
-database.project.belongsTo(database.track, {
-  foreignKey: 'TRACK_ID',
-  target: 'ID',
-});
-
 Object.keys(database).forEach(modelName => {
   if (database[modelName].associate) {
     database[modelName].associate(database);

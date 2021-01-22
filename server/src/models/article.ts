@@ -21,6 +21,13 @@ const article = (sequelize, DataTypes) => {
     },
   );
 
+  ARTICLES.associate = models => {
+    ARTICLES.belongsTo(models.admin, {
+      forignKey: 'WRITER',
+      target: 'ID',
+    });
+  };
+
   return ARTICLES;
 };
 

@@ -47,6 +47,13 @@ const user = (sequelize, DataTypes) => {
     },
   );
 
+  USERS.associate = models => {
+    USERS.belongsTo(models.track, {
+      foreignKey: 'TRACK_ID',
+      target: 'ID',
+    });
+  };
+
   return USERS;
 };
 

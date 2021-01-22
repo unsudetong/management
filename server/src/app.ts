@@ -6,7 +6,7 @@ import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
 
-import controllers from './controllers';
+import controllers from './routers';
 import sequelize from './models';
 
 import passport from 'passport';

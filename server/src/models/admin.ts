@@ -18,6 +18,19 @@ const admin = (sequelize, DataTypes) => {
     },
   );
 
+  ADMINS.associate = models => {
+    ADMINS.belongsTo(models.user, {
+      foreignKey: 'USER_ID',
+      target: 'ID',
+    });
+
+    ADMINS.belongsToMany(models.project, {
+      through: models.projectArticle,
+      foreignKey: 'ARTICLE_ID',
+      primaryKey: true,
+    });
+  };
+
   return ADMINS;
 };
 

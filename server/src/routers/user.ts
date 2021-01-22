@@ -5,8 +5,7 @@ import database from '../models';
 const user = database.user;
 
 router.route('/').get(async (req, res, next) => {
-  // const account = await user.findAll({});
-  console.log(req.headers);
+  const account = await user.findAll({});
   return res.json({});
 });
 
