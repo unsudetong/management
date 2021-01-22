@@ -1,12 +1,8 @@
 import express from 'express';
+import controller from '../controllers/user';
+
 const router = express.Router();
 
-import database from '../models';
-const user = database.user;
-
-router.route('/').get(async (req, res, next) => {
-  const account = await user.findAll({});
-  return res.json({});
-});
+router.route('/').get(controller.getAllUser);
 
 export default router;

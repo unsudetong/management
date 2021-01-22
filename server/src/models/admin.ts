@@ -21,14 +21,20 @@ const admin = (sequelize, DataTypes) => {
   ADMINS.associate = models => {
     ADMINS.belongsTo(models.user, {
       foreignKey: 'USER_ID',
-      target: 'ID',
+      targetKey: 'ID',
     });
 
-    ADMINS.belongsToMany(models.project, {
-      through: models.projectArticle,
-      foreignKey: 'ARTICLE_ID',
-      primaryKey: true,
+    ADMINS.hasMany(models.article, {
+      foreignKey: 'ADMIN_ID',
     });
+
+    // ADMINS.belongsToMany(models.project, {
+    // // through: models.projectArticle,
+    // through: 'PROJECT_ARTICLES',
+    //   foreignKey: 'ADMIN_ID',
+    //   target: 'ID',
+    //   primaryKey: true,
+    // });
   };
 
   return ADMINS;

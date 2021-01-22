@@ -22,9 +22,12 @@ const article = (sequelize, DataTypes) => {
   );
 
   ARTICLES.associate = models => {
-    ARTICLES.belongsTo(models.admin, {
-      forignKey: 'WRITER',
+    ARTICLES.belongsTo(models.project, {
+      through: models.projectArticle,
+      foreignKey: 'PROJECT_ID',
       target: 'ID',
+      // as: 'ARTICLE_ID',
+      primaryKey: true,
     });
   };
 

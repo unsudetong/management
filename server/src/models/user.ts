@@ -20,11 +20,11 @@ const user = (sequelize, DataTypes) => {
       },
       NAME: {
         type: DataTypes.STRING(18),
-        allowNull: false,
+        allowNull: true,
       },
       MAJOR: {
         type: DataTypes.STRING(18),
-        allowNull: false,
+        allowNull: true,
       },
       GITHUB_ID: {
         type: DataTypes.STRING(50),
@@ -36,7 +36,7 @@ const user = (sequelize, DataTypes) => {
       },
       DOUBLE_MAJOR: {
         type: DataTypes.STRING(18),
-        allowNull: false,
+        allowNull: true,
       },
     },
     {
@@ -48,9 +48,10 @@ const user = (sequelize, DataTypes) => {
   );
 
   USERS.associate = models => {
-    USERS.belongsTo(models.track, {
-      foreignKey: 'TRACK_ID',
-      target: 'ID',
+    USERS.belongsToMany(models.track, {
+      through: 'USER_TRACKS',
+      foreignKey: 'USER_ID',
+      // target: 'ID',
     });
   };
 

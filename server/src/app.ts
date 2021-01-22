@@ -30,11 +30,12 @@ const isAuthenticate = (req, res, next, err) => {
 
 passportInit();
 
-sequelize.user.sync();
-sequelize.admin.sync();
-sequelize.article.sync();
-sequelize.project.sync();
 sequelize.track.sync();
+sequelize.user.sync();
+sequelize.userTrack.sync();
+sequelize.admin.sync();
+sequelize.project.sync();
+sequelize.article.sync();
 sequelize.projectArticle.sync();
 
 const app: express.Application = express();
@@ -73,7 +74,7 @@ app.post(
 
 app.post('/auth/local', [
   isAuthenticate,
-  async (req, res: express.Response, next) => {
+  (req, res: express.Response, next) => {
     try {
       passport.authenticate('local', (passportError, user, info) => {
         if (passportError || !user) {

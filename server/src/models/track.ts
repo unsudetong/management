@@ -21,6 +21,14 @@ const track = (sequelize, DataTypes) => {
     },
   );
 
+  TRACKS.associate = models => {
+    TRACKS.belongsToMany(models.user, {
+      through: 'USER_TRACKS',
+      foreignKey: 'TRACK_ID',
+      // target: 'ID',
+    });
+  };
+
   return TRACKS;
 };
 

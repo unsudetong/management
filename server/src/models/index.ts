@@ -7,6 +7,7 @@ import article from './article';
 import project from './project';
 import track from './track';
 import projectArticle from './projectArticle';
+import userTrack from './userTrack';
 
 const env = process.env.NODE_ENV || 'development';
 const CURRENT_STATE = config[env];
@@ -20,14 +21,20 @@ const sequelize = new Sequelize(
 
 const database: any = { sequelize: sequelize, Sequelize: Sequelize };
 
-database.user = user(sequelize, Sequelize);
-database.admin = admin(sequelize, Sequelize);
-database.article = article(sequelize, Sequelize);
-database.project = project(sequelize, Sequelize);
 database.track = track(sequelize, Sequelize);
+
+database.user = user(sequelize, Sequelize);
+database.userTrack = userTrack(sequelize, Sequelize);
+
+database.admin = admin(sequelize, Sequelize);
+
+database.project = project(sequelize, Sequelize);
+database.article = article(sequelize, Sequelize);
+
 database.projectArticle = projectArticle(sequelize, Sequelize);
 
 Object.keys(database).forEach(modelName => {
+  console.log(modelName);
   if (database[modelName].associate) {
     database[modelName].associate(database);
   }
