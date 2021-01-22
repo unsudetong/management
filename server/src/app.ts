@@ -2,6 +2,8 @@ import express from 'express';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 
+import bodyParser from 'body-parser';
+
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -37,12 +39,16 @@ passportInit();
   await sequelize.admin.sync();
   await sequelize.project.sync();
   await sequelize.article.sync();
-  await sequelize.projectArticle.sync({ force: true });
-  console.log('database sync complete!');
+  await sequelize.projectArticle.sync();
+
+  console.log('DATABASE SYNC COMPLETE!');
+  // sequelize.user.
 })();
 
 const app: express.Application = express();
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(passport.initialize());
 
 app.use([logger('dev'), cookieParser()]);
