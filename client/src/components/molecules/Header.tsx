@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../atoms/Button';
@@ -20,9 +20,40 @@ const StyledHeader = styled.div`
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
+const authCheck = () => {
+  const myHeader = new Headers();
+  myHeader.append('Authorization', localStorage.getItem('cookie') || '');
+  try {
+    fetch(process.env.REACT_APP_SERVER_ADDRESS + '/auth', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: myHeader,
+    })
+      .then(result => result.json())
+      .then(result => result.user);
+  } catch (error) {
+    throw new Error('authCheck error');
+  }
+};
+
 const Header = (): JSX.Element => {
   const { state, onclick } = useContext(LoginContext);
-  const onclickLoginButton = () => onclick(!state);
+  const isLogin = localStorage.getItem('cookie') ? true : false;
+
+  const onclickLoginButton = () => {
+    console.log('login button clicked!');
+    onclick(!state);
+  };
+
+  const onclickLogoutButton = () => {
+    console.log('logout button clicked!');
+    localStorage.setItem('cookie', '');
+    window.location.reload();
+    // isLogin = localStorage.getItem('cookie') ? true : false;
+  };
+
+  const buttonText = isLogin ? 'LOGOUT' : 'LOGIN';
+  const loginOrOutclick = isLogin ? onclickLogoutButton : onclickLoginButton;
 
   return (
     <StyledHeader color="transparents">
@@ -48,8 +79,8 @@ const Header = (): JSX.Element => {
         <Link to="/history">
           <Button color="#23374D">HISTORY</Button>
         </Link>
-        <Button color="#23374D" onclick={onclickLoginButton}>
-          LOGIN
+        <Button color="#23374D" onclick={loginOrOutclick}>
+          {buttonText}
         </Button>
       </div>
     </StyledHeader>

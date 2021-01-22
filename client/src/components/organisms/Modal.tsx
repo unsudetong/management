@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import dotenv from 'dotenv';
 import { LoginContext } from '../../App';
@@ -52,26 +52,19 @@ type modalProps = {
   children?: JSX.Element;
 };
 
-// const authCheck = () => {
-//   const myHeader = new Headers();
-//   myHeader.append('Authorization', localStorage.getItem('cookie') || '');
-//   try {
-//     fetch(process.env.REACT_APP_SERVER_ADDRESS + '/auth', {
-//       method: 'POST',
-//       credentials: 'same-origin',
-//       headers: myHeader,
-//     })
-//       .then(result => result.json())
-//       .then(result => result.user);
-//   } catch (error) {
-//     throw new Error('authCheck error');
-//   }
-// };
-
 const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
   const { state, onclick } = useContext(LoginContext);
   const [id, setID] = useState(null);
   const [password, setPassword] = useState(null);
+  const [message, setMessage] = useState('정보를 입력 후 로그인을 눌려주세요.');
+  const [messageColor, setMEssageColor] = useState('red');
+
+  useEffect(() => {
+    if (localStorage.getItem('cookie')) {
+      setMessage('이미 로그인에 성공한 유저입니다.');
+      setMEssageColor('blue');
+    }
+  }, [state]);
 
   const changeID = (event: any) => setID(event.target.value);
   const changePassword = (event: any) => setPassword(event.target.value);
@@ -100,13 +93,19 @@ const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
         .then(res => {
           if (res.message === 'success') {
             localStorage.setItem('cookie', res.result);
+            setMessage('이미 로그인에 성공한 유저입니다.');
+            setMEssageColor('blue');
             onclick();
+            window.location.reload();
           } else {
+            setMessage('아이디와 비밀번호를 다시 확인해주세요.');
+            setMEssageColor('red');
             return;
           }
         });
     } catch (error) {
-      console.log('로그인에 실패하였습니다.');
+      setMessage('알 수 없는 이유로 로그인에 실패하였습니다.');
+      setMEssageColor('red');
     }
   };
 
@@ -150,7 +149,15 @@ const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
             login
           </button>
           {/* <button onClick={authCheck}> auth check </button> */}
-
+          <span
+            style={{
+              color: messageColor,
+              fontSize: '12px',
+              fontWeight: 'bold',
+            }}
+          >
+            {message}
+          </span>
           {children}
         </ModalInner>
       </ModalWrapper>
