@@ -30,13 +30,16 @@ const isAuthenticate = (req, res, next, err) => {
 
 passportInit();
 
-sequelize.track.sync();
-sequelize.user.sync();
-sequelize.userTrack.sync();
-sequelize.admin.sync();
-sequelize.project.sync();
-sequelize.article.sync();
-sequelize.projectArticle.sync();
+(async () => {
+  await sequelize.track.sync();
+  await sequelize.user.sync();
+  await sequelize.userTrack.sync();
+  await sequelize.admin.sync();
+  await sequelize.project.sync();
+  await sequelize.article.sync();
+  await sequelize.projectArticle.sync({ force: true });
+  console.log('database sync complete!');
+})();
 
 const app: express.Application = express();
 

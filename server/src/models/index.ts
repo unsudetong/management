@@ -34,7 +34,6 @@ database.article = article(sequelize, Sequelize);
 database.projectArticle = projectArticle(sequelize, Sequelize);
 
 Object.keys(database).forEach(modelName => {
-  console.log(modelName);
   if (database[modelName].associate) {
     database[modelName].associate(database);
   }

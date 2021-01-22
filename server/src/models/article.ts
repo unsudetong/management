@@ -21,15 +21,15 @@ const article = (sequelize, DataTypes) => {
     },
   );
 
-  ARTICLES.associate = models => {
-    ARTICLES.belongsTo(models.project, {
-      through: models.projectArticle,
-      foreignKey: 'PROJECT_ID',
-      target: 'ID',
-      // as: 'ARTICLE_ID',
-      primaryKey: true,
-    });
-  };
+  // ARTICLES.associate = models => {
+  //   ARTICLES.belongsTo(models.project, {
+  //     through: models.projectArticle,
+  //     // through: 'PROJECT_ARTICLES',
+  //     foreignKey: 'ARTICLE_ID',
+  //     targetKey: 'ID',
+  //     // primaryKey: true,
+  //   });
+  // };
 
   return ARTICLES;
 };

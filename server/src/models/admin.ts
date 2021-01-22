@@ -21,7 +21,7 @@ const admin = (sequelize, DataTypes) => {
   ADMINS.associate = models => {
     ADMINS.belongsTo(models.user, {
       foreignKey: 'USER_ID',
-      targetKey: 'ID',
+      // targetKey: 'ID',
     });
 
     ADMINS.hasMany(models.article, {
