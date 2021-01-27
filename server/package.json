@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "prestart": "tsc",
+    "pretest": "tsc",
+    "predev": "tsc",
+    "dev": "nodemon --watch src --delay 1 --exec ts-node dist/bin/www.js --mode development",
     "start": "nodemon --watch src --delay 1 --exec ts-node dist/bin/www.js",
     "test": "jest"
   },
@@ -21,7 +24,11 @@
       "ts-jest": {
         "enableTsDiagnostics": true
       }
-    }
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/dist/config/setup-test.js",
+      "<rootDir>/dist/config/dotenv-test.js"
+    ]
   },
   "keywords": [],
   "author": "",
