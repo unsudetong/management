@@ -34,16 +34,6 @@ const projectArticle = (sequelize, DataTypes) => {
     },
   );
 
-  // PROJECT_ARTICLES.associate = models => {
-  //   PROJECT_ARTICLES.hasMany(models.project, {
-  //     through: models.projectArticle,
-  //     foreignKey: 'ARTICLE_ID',
-  //     target: 'ID',
-  //     name: 'ARTICLE_ID',
-  //     fieldName: 'ARTICLE_ID',
-  //     // primaryKey: true,
-  //     targetKey: 'ID',
-  //   });
   return PROJECT_ARTICLES;
 };
 

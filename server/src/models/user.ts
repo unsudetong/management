@@ -26,14 +26,6 @@ const user = (sequelize, DataTypes) => {
         type: DataTypes.STRING(18),
         allowNull: true,
       },
-      // GITHUB_ID: {
-      //   type: DataTypes.STRING(50),
-      //   allowNull: true,
-      // },
-      // GOOGLE_ID: {
-      //   type: DataTypes.STRING(50),
-      //   allowNull: true,
-      // },
       OAUTH_ID: {
         type: DataTypes.STRING(50),
         allowNull: true,
@@ -55,7 +47,6 @@ const user = (sequelize, DataTypes) => {
     USERS.belongsToMany(models.track, {
       through: 'USER_TRACKS',
       foreignKey: 'USER_ID',
-      // target: 'ID',
     });
   };
 

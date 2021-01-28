@@ -9,7 +9,6 @@ import helmet from 'helmet';
 import cors from 'cors';
 
 import controllers from './routers';
-import sequelize from './models';
 
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
@@ -17,6 +16,8 @@ import jwt from 'jsonwebtoken';
 import passportInit from './passport';
 
 import dotenv from 'dotenv';
+import iconv from 'iconv-lite';
+
 dotenv.config();
 
 const isAuthenticate = (req, res, next, err) => {
@@ -31,19 +32,6 @@ const isAuthenticate = (req, res, next, err) => {
 };
 
 passportInit();
-
-(async () => {
-  await sequelize.track.sync();
-  await sequelize.user.sync();
-  await sequelize.userTrack.sync();
-  await sequelize.admin.sync();
-  await sequelize.project.sync();
-  await sequelize.article.sync();
-  await sequelize.projectArticle.sync();
-
-  console.log('DATABASE SYNC COMPLETE!');
-  // sequelize.user.
-})();
 
 const app: express.Application = express();
 
