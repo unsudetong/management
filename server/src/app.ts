@@ -16,7 +16,6 @@ import jwt from 'jsonwebtoken';
 import passportInit from './passport';
 
 import dotenv from 'dotenv';
-import iconv from 'iconv-lite';
 
 dotenv.config();
 

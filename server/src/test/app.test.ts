@@ -21,7 +21,8 @@ describe('DB TEST', () => {
     it('프로젝트 리스트를 조회합니다.', async done => {
       try {
         const response = await request(app).get('/projects');
-        // console.log(response.text);
+        console.log('response의 상태코드가 200이 나오기를 원합니다.');
+        console.log(response.text);
         expect(response.status).toEqual(200);
         done();
       } catch (error) {
@@ -34,7 +35,8 @@ describe('DB TEST', () => {
     it('GET / users 유저 리스트를 조회합니다.', async done => {
       try {
         const response = await request(app).get('/users');
-        // console.log(response.text);
+        console.log('response의 상태코드가 200이 나오기를 원합니다.');
+        console.log(response.text);
         expect(response.status).toEqual(200);
         done();
       } catch (error) {
@@ -47,7 +49,8 @@ describe('DB TEST', () => {
         const response = await request(app).post('/users').send({
           PASSWORD: 'kakasoo',
         });
-        // console.log(response.text);
+        console.log('response의 상태코드가 401이 나오기를 원합니다.');
+        console.log(response.text);
         expect(response.status).toEqual(401);
         done();
       } catch (error) {
@@ -58,9 +61,10 @@ describe('DB TEST', () => {
     it('POST / users 비밀번호 없이 로그인을 합니다.', async done => {
       try {
         const response = await request(app).post('/users').send({
-          STUDENT_ID: '201634101',
+          STUDENT_ID: '111111111',
         });
-        // console.log(response.text);
+        console.log('response의 상태코드가 401이 나오기를 원합니다.');
+        console.log(response.text);
         expect(response.status).toEqual(401);
         done();
       } catch (error) {
@@ -74,7 +78,8 @@ describe('DB TEST', () => {
           STUDENT_ID: '111111111',
           PASSWORD: 'kakasoo',
         });
-        // console.log(response.text);
+        console.log('response의 상태코드가 201이 나오기를 원합니다.');
+        console.log(response.text);
         expect(response.status).toEqual(201);
         done();
       } catch (error) {
@@ -85,10 +90,11 @@ describe('DB TEST', () => {
     it('POST / users 로그인 정보가 DB의 USER 정보와 일치합니다.', async done => {
       try {
         const response = await request(app).post('/users').send({
-          STUDENT_ID: '201634101',
+          STUDENT_ID: '111111111',
           PASSWORD: 'kakasoo',
         });
-        // console.log(response.text);
+        console.log('response의 상태코드가 200이 나오기를 원합니다.');
+        console.log(response.text);
         expect(response.status).toEqual(200);
         done();
       } catch (error) {
@@ -102,6 +108,8 @@ describe('DB TEST', () => {
           STUDENT_ID: '111111111',
           PASSWORD: 'kakasoo',
         });
+        console.log('response의 상태코드가 200이 나오기를 원합니다.');
+        console.log(response.text);
         expect(response.status).toEqual(200);
         done();
       } catch (error) {
