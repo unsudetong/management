@@ -13,23 +13,9 @@ describe('DB TEST', () => {
     await sequelize.projectArticle.sync({});
   });
 
-  afterAll(async () => {
-    // await sequelize.truncate({ cascade: true });
-  });
-
-  describe('PROJECTS TABLE', () => {
-    it('프로젝트 리스트를 조회합니다.', async done => {
-      try {
-        const response = await request(app).get('/projects');
-        console.log('response의 상태코드가 200이 나오기를 원합니다.');
-        console.log(response.text);
-        expect(response.status).toEqual(200);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
+  // afterAll(async () => {
+  // await sequelize.truncate({ cascade: true });
+  // });
 
   describe('USERS TABLE', () => {
     it('GET / users 유저 리스트를 조회합니다.', async done => {
@@ -108,6 +94,57 @@ describe('DB TEST', () => {
           STUDENT_ID: '111111111',
           PASSWORD: 'kakasoo',
         });
+        console.log('response의 상태코드가 200이 나오기를 원합니다.');
+        console.log(response.text);
+        expect(response.status).toEqual(200);
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+  });
+
+  describe('TRACK TABLE', () => {
+    it('GET / tracks 트랙 리스트를 조회합니다.', async done => {
+      try {
+        const response = await request(app).get('/tracks');
+        console.log('response의 상태코드가 200이 나오기를 원합니다.');
+        console.log(response.text);
+        expect(response.status).toEqual(200);
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+
+    it('POST / tracks 트랙을 하나 추가합니다.', async done => {
+      try {
+        const response = await request(app).post('/tracks');
+        console.log('response의 상태코드가 201이 나오기를 원합니다.');
+        console.log(response.text);
+        expect(response.status).toEqual(201);
+      } catch (error) {
+        done(error);
+      }
+    });
+
+    it('DELETE / tracks 트랙을 하나 삭제합니다.', async done => {
+      try {
+        const response = await request(app).post('/tracks');
+        console.log('response의 상태코드가 200이 나오기를 원합니다.');
+        console.log(response.text);
+        expect(response.status).toEqual(200);
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+  });
+
+  describe('PROJECTS TABLE', () => {
+    it('GET / projects 프로젝트 리스트를 조회합니다.', async done => {
+      try {
+        const response = await request(app).get('/projects');
         console.log('response의 상태코드가 200이 나오기를 원합니다.');
         console.log(response.text);
         expect(response.status).toEqual(200);
