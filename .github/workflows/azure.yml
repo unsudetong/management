@@ -1,4 +1,12 @@
 on: [push]
+env:
+  DB_HOST : ${{ secrets.DB_HOST }}
+  DB_USER : ${{ secrets.DB_USER }}
+  DB_NAME : ${{ secrets.DB_NAME }}
+  DB_PASSWORD : ${{ secrets.DB_PASSWORD }}
+  DB_PORT : ${{ secrets.DB_PORT }}
+  TEST_DB_NAME : ${{ secrets.TEST_DB_NAME }}
+  DB_DIALECT:  ${{ secrets.DB_DIALECT }}
 jobs:
   build-and-deploy:
     name: Build and Deploy
