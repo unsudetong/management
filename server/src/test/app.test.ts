@@ -13,9 +13,9 @@ describe('DB TEST', () => {
     await sequelize.projectArticle.sync({});
   });
 
-  // afterAll(async () => {
-  // await sequelize.truncate({ cascade: true });
-  // });
+  afterAll(async () => {
+    await sequelize.close();
+  });
 
   describe('USERS TABLE', () => {
     it('GET / users 유저 리스트를 조회합니다.', async done => {
@@ -119,10 +119,13 @@ describe('DB TEST', () => {
 
     it('POST / tracks 트랙을 하나 추가합니다.', async done => {
       try {
-        const response = await request(app).post('/tracks');
+        const response = await request(app).post('/tracks').send({
+          DEPARTMENT: 'math',
+        });
         console.log('response의 상태코드가 201이 나오기를 원합니다.');
         console.log(response.text);
         expect(response.status).toEqual(201);
+        done();
       } catch (error) {
         done(error);
       }
@@ -130,7 +133,9 @@ describe('DB TEST', () => {
 
     it('DELETE / tracks 트랙을 하나 삭제합니다.', async done => {
       try {
-        const response = await request(app).post('/tracks');
+        const response = await request(app).delete('/tracks').send({
+          DEPARTMENT: 'math',
+        });
         console.log('response의 상태코드가 200이 나오기를 원합니다.');
         console.log(response.text);
         expect(response.status).toEqual(200);

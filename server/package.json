@@ -9,7 +9,7 @@
     "predev": "tsc",
     "dev": "nodemon --watch src --delay 1 --exec ts-node dist/bin/www.js --mode development",
     "start": "nodemon --watch src --delay 1 --exec ts-node dist/bin/www.js",
-    "test": "jest"
+    "test": "jest --forceExit"
   },
   "jest": {
     "transform": {
@@ -29,7 +29,7 @@
       "<rootDir>/dist/config/setup-test.js",
       "<rootDir>/dist/config/dotenv-test.js"
     ],
-    "testTimeout": 5000
+    "testTimeout": 20000
   },
   "keywords": [],
   "author": "",
