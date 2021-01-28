@@ -47,9 +47,24 @@ class User {
 
       const newUser = await model.create({ STUDENT_ID, PASSWORD });
       return res.status(201).send({
-        message: '회원가입 및 로그인이 성공',
+        message: '회원가입이 성공',
         result: newUser,
       });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  static async deleteOneUser(req, res, next) {
+    try {
+      const { STUDENT_ID, PASSWORD } = req.body;
+      const result = await model.destroy({
+        where: { STUDENT_ID: STUDENT_ID, PASSWORD: PASSWORD },
+      });
+      if (!!result) {
+        return res.status(200).send({ message: '유저가 삭제되었습니다.' });
+      }
+      return res.status(400).send({ message: '해당하는 유저가 없습니다.' });
     } catch (error) {
       console.error(error);
     }

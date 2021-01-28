@@ -3,6 +3,10 @@ import controller from '../controllers/user';
 
 const router = express.Router();
 
-router.route('/').get(controller.getAllUser).post(controller.createOneUser);
+router
+  .route('/')
+  .get(controller.getAllUser)
+  .post(controller.createOneUser)
+  .delete(controller.deleteOneUser);
 
 export default router;

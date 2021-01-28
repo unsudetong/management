@@ -75,7 +75,7 @@ describe('DB TEST', () => {
           PASSWORD: 'kakasoo',
         });
         // console.log(response.text);
-        expect(response.status).toEqual(200);
+        expect(response.status).toEqual(201);
         done();
       } catch (error) {
         done(error);
