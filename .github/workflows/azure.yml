@@ -7,6 +7,9 @@ env:
   DB_PORT : ${{ secrets.DB_PORT }}
   TEST_DB_NAME : ${{ secrets.TEST_DB_NAME }}
   DB_DIALECT:  ${{ secrets.DB_DIALECT }}
+  PRIVATE_TOKEN_KEY: ${{ secrets.PRIVATE_TOKEN_KEY }}
+  GH_ID : ${{ secrets.GH_ID }}  
+  GH_SECRET : ${{ secrets.GH_SECRET }} 
 jobs:
   build-and-deploy:
     name: Build and Deploy
