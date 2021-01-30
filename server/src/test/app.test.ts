@@ -104,7 +104,7 @@ describe('DB TEST', () => {
     });
   });
 
-  describe('TRACK TABLE', () => {
+  describe('TRACKS TABLE', () => {
     it('GET / tracks 트랙 리스트를 조회합니다.', async done => {
       try {
         const response = await request(app).get('/tracks');
@@ -193,6 +193,57 @@ describe('DB TEST', () => {
         });
         await request(app).delete('/tracks').send({
           DEPARTMENT: 'math',
+        });
+
+        console.log('response의 상태코드가 200이 나오기를 원합니다.');
+        console.log(response.text);
+        expect(response.status).toEqual(200);
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+  });
+
+  describe('ADMIN TABLE', () => {
+    it('GET / admins 트랙 리스트를 조회합니다.', async done => {
+      try {
+        const response = await request(app).get('/admins');
+        console.log('response의 상태코드가 200이 나오기를 원합니다.');
+        console.log(response.text);
+        expect(response.status).toEqual(200);
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+
+    it('POST / admins 트랙을 하나 추가합니다.', async done => {
+      try {
+        await request(app).post('/users').send({
+          STUDENT_ID: '111111111',
+          PASSWORD: 'kakasoo',
+        });
+        const response = await request(app).post('/admins').send({
+          STUDENT_ID: '111111111',
+        });
+        console.log('response의 상태코드가 201이 나오기를 원합니다.');
+        console.log(response.text);
+        expect(response.status).toEqual(201);
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+
+    it('DELETE / admins 트랙을 하나 삭제합니다.', async done => {
+      try {
+        const response = await request(app).delete('/admins').send({
+          STUDENT_ID: '111111111',
+        });
+        await request(app).delete('/users').send({
+          STUDENT_ID: '111111111',
+          PASSWORD: 'kakasoo',
         });
 
         console.log('response의 상태코드가 200이 나오기를 원합니다.');
