@@ -1,5 +1,4 @@
 import models from '../models';
-import track from '../models/track';
 const model = models.track;
 
 class Track {

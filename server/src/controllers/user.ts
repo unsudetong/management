@@ -1,8 +1,6 @@
 import models from '../models';
 const model = models.user;
 
-// TODO : 상태코드를 전부 추가해놔야 한다.
-
 class User {
   static async getAllUser(req, res, next) {
     try {
@@ -60,9 +58,19 @@ class User {
   static async deleteOneUser(req, res, next) {
     try {
       const { STUDENT_ID, PASSWORD } = await req.body;
+      if (!STUDENT_ID) {
+        return res.status(401).send({ message: '학번을 다시 확인해주세요.' });
+      }
+      if (!PASSWORD) {
+        return res
+          .status(401)
+          .send({ message: '비밀번호을 다시 확인해주세요.' });
+      }
+
       const result = await model.destroy({
         where: { STUDENT_ID, PASSWORD },
       });
+
       if (!!result) {
         return res.status(200).send({ message: '유저가 삭제되었습니다.' });
       }
