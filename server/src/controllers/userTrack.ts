@@ -37,8 +37,6 @@ class UserTrack {
       }
       const createdUser = await userModel.findOne({ where: { STUDENT_ID } });
       const createdTrack = await trackModel.findOne({ where: { DEPARTMENT } });
-      // console.log('createdUser : ', createdUser.ID);
-      // console.log('createdTrack : ', createdTrack.ID);
 
       const isCreated = await model.findOne({
         where: { USER_ID: createdUser.ID, TRACK_ID: createdTrack.ID },
@@ -54,7 +52,6 @@ class UserTrack {
         USER_ID: createdUser.ID,
         TRACK_ID: createdTrack.ID,
       });
-      console.log('newUserTrack : ', newUserTrack);
 
       return res.status(201).send({
         message: '해당 트랙에 유저를 등록하는 데에 성공하였습니다.',
