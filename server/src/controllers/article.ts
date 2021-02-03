@@ -25,7 +25,7 @@ class Article {
 
   static async getAllArticleOfProejct(req, res, next) {
     try {
-      const { PROJECT_ID } = req.body;
+      const { PROJECT_ID } = req.params;
       const articles = await model.findAll({
         where: { PROJECT_ID: PROJECT_ID },
       });

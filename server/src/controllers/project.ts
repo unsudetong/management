@@ -25,7 +25,7 @@ class Project {
 
   static async getAlloProjectOfTrack(req, res, next) {
     try {
-      const { TRACK_ID } = await req.body;
+      const { TRACK_ID } = await req.params;
       const projects = await model.findAll({ where: { TRACK_ID: TRACK_ID } });
       res
         .status(200)
