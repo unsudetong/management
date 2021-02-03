@@ -59,10 +59,7 @@ app.post('/auth', (req: express.Request, res: express.Response, next) => {
 
 app.post('/auth/local', (req, res: express.Response, next) => {
   try {
-    console.log('auth/local start...');
     passport.authenticate('local', (passportError, user, info) => {
-      console.log('user : ', user);
-      console.log('login info  : ', info);
       if (passportError || !user) {
         res.status(400).json({ message: '로그인에 실패하였습니다.' });
         return;

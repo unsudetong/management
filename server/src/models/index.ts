@@ -6,11 +6,9 @@ import admin from './admin';
 import article from './article';
 import project from './project';
 import track from './track';
-import projectArticle from './projectArticle';
 import userTrack from './userTrack';
 
 const env = process.env.NODE_ENV || 'development';
-console.log(process.env.NODE_ENV);
 const CURRENT_STATE: any = config[env];
 console.log('CURRENT_STATE : ', CURRENT_STATE);
 
@@ -29,7 +27,6 @@ database.userTrack = userTrack(sequelize, Sequelize);
 database.admin = admin(sequelize, Sequelize);
 database.project = project(sequelize, Sequelize);
 database.article = article(sequelize, Sequelize);
-database.projectArticle = projectArticle(sequelize, Sequelize);
 
 Object.keys(database).forEach(modelName => {
   if (database[modelName].associate) {
