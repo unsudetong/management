@@ -9,4 +9,6 @@ router
   .post(controller.createOneProject)
   .delete(controller.deleteOneProject);
 
+router.route('/:TRACK_ID').get(controller.getAlloProjectOfTrack);
+
 export default router;

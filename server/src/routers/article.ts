@@ -9,4 +9,6 @@ router
   .post(controller.createOneArticle)
   .delete(controller.deleteOneArticle);
 
+router.route('/:PROJECT_ID').get(controller.getAllArticleOfProejct);
+
 export default router;
