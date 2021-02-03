@@ -2,8 +2,6 @@ import express from 'express';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 
-import bodyParser from 'body-parser';
-
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
@@ -19,88 +17,88 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const isAuthenticate = (req, res, next, err) => {
-  // console.log('req.user : ', req.user);
-  if (!req.user) {
-    // console.log('user is not!');
-    next(err);
-  }
-
-  // console.log('user is found!');
+const isCheck = (req, res, next) => {
+  console.log('req.user : ', req.user);
+  console.log('req.body : ', req.body);
   next();
 };
 
-passportInit();
+const isAuthenticate = (req, res, next) => {
+  passport.authenticate('jwt', (error, user) => {
+    if (user) {
+      req.user = user;
+      return next();
+    }
+    return res.status(400).send({ error: error, message: 'jwt login fail' });
+  })(req, res, next);
+};
 
 const app: express.Application = express();
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use(passport.initialize());
 
 app.use([logger('dev'), cookieParser()]);
 app.use([compression(), helmet(), cors()]);
 
-passport.serializeUser(function (user: any, done) {
-  done(null, user.id);
+passportInit();
+
+app.use('/', isCheck);
+
+app.post('/auth', (req: express.Request, res: express.Response, next) => {
+  passport.authenticate('jwt', (error, user) => {
+    if (user) {
+      req.user = user;
+      return res.status(200).send({ user: user });
+    }
+    return res.status(400).send({ error: error, message: 'jwt login fail' });
+  })(req, res, next);
 });
 
-passport.deserializeUser(function (id, done) {
-  // User.findOne({ _id: id }, function (err, user) {
-  // done(err, user);
-  // });
-  done(null, id);
-});
-
-app.use('/', controllers);
-
-app.post(
-  '/auth',
-  isAuthenticate,
-  (req: express.Request, res: express.Response, next) => {
-    passport.authenticate('jwt', (error, user) => {
-      if (user) {
-        req.user = user;
-        return res.status(200).send({ user: user });
+app.post('/auth/local', (req, res: express.Response, next) => {
+  try {
+    console.log('auth/local start...');
+    passport.authenticate('local', (passportError, user, info) => {
+      console.log('user : ', user);
+      console.log('login info  : ', info);
+      if (passportError || !user) {
+        res.status(400).json({ message: '로그인에 실패하였습니다.' });
+        return;
       }
-      return res.status(400).send({ error: error, message: 'jwt login fail' });
-    })(req, res, next);
-  },
-);
 
-app.post('/auth/local', [
-  isAuthenticate,
-  (req, res: express.Response, next) => {
-    try {
-      passport.authenticate('local', (passportError, user, info) => {
-        if (passportError || !user) {
-          res.status(400).json({ message: '로그인에 실패하였습니다.' });
-          return;
+      req.login(user, { session: false }, loginError => {
+        if (loginError) {
+          return res.send('loginError');
         }
 
-        req.login(user, { session: false }, loginError => {
-          if (loginError) {
-            return res.send('loginError');
-          }
+        const token = jwt.sign(
+          {
+            STUDENT_ID: user.STUDENT_ID,
+            NAME: user.NAME,
+            DATE: Date.now(),
+          },
+          process.env.PRIVATE_TOKEN_KEY,
+        );
 
-          const token = jwt.sign(
-            {
-              STUDENT_ID: user.STUDENT_ID,
-              NAME: user.NAME,
-              PASSWORD: user.PASSWORD,
-            },
-            process.env.PRIVATE_TOKEN_KEY,
-          );
-
-          res.append('Authorization', token); //, { maxAge: 900000, httpOnly: true });
-          res.status(200).json({ message: 'success', result: token });
+        res.append('Authorization', token);
+        res.status(200).json({
+          message: 'success',
+          result: { TOKEN: token, USER_INDEX: user.ID },
         });
-      })(req, res);
-    } catch (error) {
-      console.error(error);
-      next(error);
-    }
-  },
-]);
+      });
+    })(req, res);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+app.use('/', isAuthenticate, controllers);
+
+app.use((err, req, res, next) => {
+  res.status(500).send('error', { error: err });
+});
 
 export default app;
