@@ -23,6 +23,21 @@ class Project {
     }
   }
 
+  static async getAlloProjectOfTrack(req, res, next) {
+    try {
+      const { TRACK_ID } = await req.body;
+      const projects = await model.findAll({ where: { TRACK_ID: TRACK_ID } });
+      res
+        .status(200)
+        .send({ message: '해당 트랙의 프로젝트들입니다.', result: projects });
+    } catch (error) {
+      console.log(error);
+      return res.status(401).send({
+        message: '해당 트랙에서 프로젝트를 가져오는 데에 실패하였습니다.',
+      });
+    }
+  }
+
   static async createOneProject(req, res, next) {
     try {
       const { TITLE, DEPARTMENT } = await req.body;
