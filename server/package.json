@@ -9,7 +9,7 @@
     "predev": "tsc",
     "dev": " cross-env NODE_ENV=development nodemon --watch src --delay 1 --exec ts-node dist/bin/www.js",
     "start": " cross-env NODE_ENV=production nodemon --watch src --delay 1 --exec ts-node dist/bin/www.js",
-    "test": "jest --forceExit"
+    "test": "cross-env NODE_ENV=development jest --forceExit"
   },
   "jest": {
     "transform": {
