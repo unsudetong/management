@@ -1,4 +1,5 @@
 import models from '../models';
+const projectModel = models.project;
 const model = models.article;
 
 class Article {
@@ -56,7 +57,6 @@ class Article {
       const createdProject = await projectModel.findOne({
         where: { TITLE: PROJECT_TITLE },
       });
-      console.log(createdProject);
 
       if (!createdProject) {
         res.status(401).send({
@@ -64,12 +64,10 @@ class Article {
         });
       }
 
-      console.log(1);
       const isCreated = await model.findOne({
         where: { TITLE: TITLE, PROJECT_ID: createdProject.ID },
       });
 
-      console.log(2);
       if (!!isCreated) {
         return res.status(200).send({
           message: '이미 이 게시글은 생성되어 있습니다.',
@@ -77,14 +75,12 @@ class Article {
         });
       }
 
-      console.log(3);
       const newArticle = await model.create({
         PROJECT_ID: createdProject.ID,
         TITLE,
         CONTENT,
       });
 
-      console.log(4);
       return res.status(201).send({
         message: '해당 프로젝트에 게시글을 등록하는 데에 성공하였습니다.',
         result: newArticle,
