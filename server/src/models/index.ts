@@ -10,7 +10,8 @@ import projectArticle from './projectArticle';
 import userTrack from './userTrack';
 
 const env = process.env.NODE_ENV || 'development';
-const CURRENT_STATE: any = config['development'];
+console.log(process.env.NODE_ENV);
+const CURRENT_STATE: any = config[env];
 console.log('CURRENT_STATE : ', CURRENT_STATE);
 
 const sequelize = new Sequelize(

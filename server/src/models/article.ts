@@ -25,6 +25,11 @@ const article = (sequelize, DataTypes) => {
     },
   );
 
+  ARTICLES.associate = models => {
+    ARTICLES.belongsTo(models.project, {
+      foreignKey: 'PROJECT_ID',
+    });
+  };
   return ARTICLES;
 };
 

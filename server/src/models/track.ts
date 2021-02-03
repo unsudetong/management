@@ -11,6 +11,7 @@ const track = (sequelize, DataTypes) => {
       },
       DEPARTMENT: {
         type: DataTypes.STRING(18),
+        unique: true,
       },
     },
     {

@@ -29,7 +29,6 @@ const project = (sequelize, DataTypes) => {
 
     PROJECTS.belongsTo(models.track, {
       foreignKey: 'TRACK_ID',
-      targetKey: 'ID',
     });
   };
 
