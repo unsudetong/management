@@ -24,6 +24,21 @@ class UserTrack {
     }
   }
 
+  static async getAllTrackOfUser(req, res, next) {
+    try {
+      const { USER_ID } = req.params;
+      const userTracks = await model.findAll({ where: { USER_ID: USER_ID } });
+      return res
+        .status(200)
+        .send({ message: '특정 유저의 트랙 정보입니다.', result: userTracks });
+    } catch (error) {
+      console.error(error);
+      return res.status(401).send({
+        message: '특정 유저의 트랙 정보를 가져오는 데에 실패하였습니다.',
+      });
+    }
+  }
+
   static async createOneUserTrack(req, res, next) {
     try {
       const { STUDENT_ID, DEPARTMENT } = await req.body;
