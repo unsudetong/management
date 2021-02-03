@@ -10,7 +10,6 @@ describe('DB TEST', () => {
     await sequelize.admin.sync({});
     await sequelize.project.sync({});
     await sequelize.article.sync({});
-    await sequelize.projectArticle.sync({});
   });
 
   afterAll(async () => {
