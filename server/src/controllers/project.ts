@@ -38,6 +38,7 @@ class Project {
     }
   }
 
+  // TODO : DEPARTMENT가 아니라 TRACK의 ID를 받아 등록할 수 있도록 해야 한다.
   static async createOneProject(req, res, next) {
     try {
       const { TITLE, DEPARTMENT } = await req.body;
@@ -47,7 +48,13 @@ class Project {
       if (!DEPARTMENT) {
         return res.status(401).send({ message: '분야를 다시 확인해주세요.' });
       }
-      const createdTrack = await trackModel.findOne({ where: { TITLE } });
+      const createdTrack = await trackModel.findOne({ where: { DEPARTMENT } });
+      if (!createdTrack) {
+        return res.status(401).send({
+          message: '해당하는 트랙이 없습니다.',
+        });
+      }
+
       const isCreated = await model.findOne({
         where: { TITLE, TRACK_ID: createdTrack.ID },
       });
@@ -60,6 +67,7 @@ class Project {
       }
 
       const newProject = await model.create({
+        TITLE: TITLE,
         TRACK_ID: createdTrack.ID,
       });
 
@@ -71,7 +79,7 @@ class Project {
       console.error(error);
       return res
         .status(401)
-        .send({ message: '프로젝트_트랙 관계 생성에 실패하였습니다.' });
+        .send({ message: '프로젝트 생성에 실패하였습니다.' });
     }
   }
 
@@ -79,15 +87,15 @@ class Project {
     try {
       const { TITLE, DEPARTMENT } = await req.body;
       if (!TITLE) {
-        return res.status(401).send({ message: '분야를 다시 확인해주세요.' });
+        return res.status(401).send({ message: '제목을 다시 확인해주세요.' });
       }
       if (!DEPARTMENT) {
         return res.status(401).send({ message: '분야를 다시 확인해주세요.' });
       }
-      const createdTrack = await trackModel.findOne({ where: { TITLE } });
+      const createdTrack = await trackModel.findOne({ where: { DEPARTMENT } });
 
       const result = await model.destroy({
-        where: { TITLE, TRACK_ID: createdTrack.ID },
+        where: { TITLE: TITLE, TRACK_ID: createdTrack.ID },
       });
 
       if (!!result) {
@@ -102,4 +110,5 @@ class Project {
     }
   }
 }
+
 export default Project;
