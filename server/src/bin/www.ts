@@ -10,8 +10,6 @@ import sequelize from '../models';
   await sequelize.admin.sync();
   await sequelize.project.sync();
   await sequelize.article.sync();
-  await sequelize.projectArticle.sync();
-  console.log('DB SYNC CLEAR.');
 })();
 
 const port: number = Number(process.env.PORT) || 4000;

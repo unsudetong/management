@@ -18,7 +18,7 @@ const config = {
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
     dialect: process.env.DB_DIALECT,
-    logging: true,
+    logging: false,
   },
 };
 

@@ -39,8 +39,6 @@ app.use([compression(), helmet(), cors()]);
 
 passportInit();
 
-app.use('/', isCheck);
-
 app.post('/auth', (req: express.Request, res: express.Response, next) => {
   passport.authenticate('jwt', (error, user) => {
     if (user) {
