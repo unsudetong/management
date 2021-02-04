@@ -17,13 +17,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const isCheck = (req, res, next) => {
-  console.log('req.user : ', req.user);
-  console.log('req.body : ', req.body);
-  next();
-};
-
-const isAuthenticate = (req, res, next) => {
+const isAuthenticate = (req, res: express.Response, next) => {
   passport.authenticate('jwt', (error, user) => {
     if (user) {
       req.user = user;
@@ -82,7 +76,7 @@ app.post('/auth/local', (req, res: express.Response, next) => {
         res.append('Authorization', token);
         res.status(200).json({
           message: 'success',
-          result: { TOKEN: token, USER_INDEX: user.ID },
+          result: token,
         });
       });
     })(req, res);
