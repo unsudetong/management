@@ -77,19 +77,20 @@ const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
   };
 
   const login = () => {
-    const params = `STUDENT_ID=${id}&PASSWORD=${password}`;
-    const url = process.env.REACT_APP_SERVER_ADDRESS + '/auth/local?' + params;
+    const url = process.env.REACT_APP_SERVER_ADDRESS + '/auth/local';
     try {
       fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'same-origin',
         body: JSON.stringify({
-          STUDNET_ID: id,
+          STUDENT_ID: id,
           PASSWORD: password,
         }),
-        method: 'POST',
       })
-        .then(res => {
-          return res.json();
-        })
+        .then(res => res.json())
         .then(res => {
           if (res.message === 'success') {
             localStorage.setItem('cookie', res.result);

@@ -2,34 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const ProjectBackground = styled.div`
-  background: #3e3e3e;
+  background-image: url(./images/TRACK.png);
   width: 100%;
-  height: 300px;
-`;
-
-const ProjectBackgroundTitle = styled.span`
-  position: absolute;
-  width: 70%;
-  font-size: 80px;
-  color: white;
-  padding-left: 16%;
-`;
-
-const ProjectBackgroundText = styled.span`
-  position: absolute;
-  width: 70%;
-  font-size: 20px;
-  color: white;
-  padding-left: 16.4%;
+  min-height: 119px;
+  height: 119px;
 `;
 
 const ProjectBanner = (): JSX.Element => {
-  return (
-    <ProjectBackground>
-      <ProjectBackgroundTitle>PROJECT</ProjectBackgroundTitle>
-      <ProjectBackgroundText>운수데통 LevelUp</ProjectBackgroundText>
-    </ProjectBackground>
-  );
+  return <ProjectBackground></ProjectBackground>;
 };
 
 export default ProjectBanner;
