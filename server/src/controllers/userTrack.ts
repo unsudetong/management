@@ -24,6 +24,28 @@ class UserTrack {
     }
   }
 
+  static async getOneUserTrack(req, res, next) {
+    try {
+      const userTracks = await model.findAll({
+        where: { USER_ID: req.user.ID },
+      });
+      if (!userTracks.length) {
+        return res.status(200).send({
+          message: '현재 아무 유저_트랙 관계도 없습니다.',
+          result: userTracks,
+        });
+      }
+      return res
+        .status(200)
+        .send({ message: '유저_트랙 관계의 목록입니다.', result: userTracks });
+    } catch (error) {
+      console.error(error);
+      return res.status(401).send({
+        message: '유저_트랙 관계 정보를 가져오는 데에서 오류가 발생하였습니다.',
+      });
+    }
+  }
+
   static async getAllTrackOfUser(req, res, next) {
     try {
       const { USER_ID } = req.params;
