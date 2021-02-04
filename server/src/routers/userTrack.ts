@@ -3,6 +3,8 @@ import controller from '../controllers/userTrack';
 
 const router = express.Router();
 
+router.route('/:USER_ID').get(controller.getAllTrackOfUser);
+
 router
   .route('/')
   .get(controller.getAllUserTrack)
