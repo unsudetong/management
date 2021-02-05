@@ -1,5 +1,6 @@
 import passportOfJwt from 'passport-jwt';
-import sequelize from '../models';
+// import sequelize from '../sequelize_models';
+import User from '../models/user';
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -18,10 +19,8 @@ const JWTConfig = {
 
 const JWTVerify = async (jwtPayload, done) => {
   try {
-    const user = await sequelize.user.findOne({
-      where: { STUDENT_ID: jwtPayload.STUDENT_ID },
-    });
-
+    const user = await User.findAllWhere(jwtPayload.STUDENT_ID);
+    console.log(user);
     if (user) return done(null, user);
     return done(null, false, { reason: '올바르지 않은 인증정보입니다.' });
   } catch (error) {

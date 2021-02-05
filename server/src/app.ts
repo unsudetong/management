@@ -72,7 +72,7 @@ app.post('/auth/local', (req, res: express.Response, next) => {
         );
 
         res.append('Authorization', token);
-        res.status(200).json({
+        res.status(200).send({
           message: 'success',
           result: token,
         });
@@ -84,10 +84,11 @@ app.post('/auth/local', (req, res: express.Response, next) => {
   }
 });
 
-app.use('/', isAuthenticate, controllers);
+// app.use('/', isAuthenticate, controllers);
+app.use('/', controllers);
 
 app.use((err, req, res, next) => {
-  res.status(500).send('error', { error: err });
+  res.status(500).send({ error: err });
 });
 
 export default app;
