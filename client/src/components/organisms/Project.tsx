@@ -15,11 +15,12 @@ const StyledProject = styled.div<any>`
 const Project = (props: any): JSX.Element => {
   const project_id = props.projectNum;
   const title = props.title;
+  const articles = props.articles;
 
   return (
     <StyledProject>
       <ProjectDescription title={title}></ProjectDescription>
-      <ProjectList projectNum={project_id}></ProjectList>
+      <ProjectList projectNum={project_id} articles={articles}></ProjectList>
     </StyledProject>
   );
 };

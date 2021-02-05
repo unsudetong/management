@@ -1,18 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const StyledImg = styled.img`
+const StyledImg = styled.img<any>`
   src: ${props => props.src};
   overflow: hidden;
-  height: 100%;
+  height: ${props => props.height || '100%'};
+  margin-top: ${props => props.marginTop || '10px'};
 `;
 
-type imgProps = {
-  children?: JSX.Element;
-};
-
-const Img = ({ children, ...rest }: imgProps): JSX.Element => {
-  return <StyledImg {...rest}>{children}</StyledImg>;
+const Img = ({ ...rest }: any): JSX.Element => {
+  return <StyledImg {...rest}></StyledImg>;
 };
 
 export default Img;
