@@ -1,56 +1,14 @@
-const user = (sequelize, DataTypes) => {
-  const USERS = sequelize.define(
-    'USERS',
-    {
-      ID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        unique: true,
-        allowNull: false,
-      },
-      STUDENT_ID: {
-        type: DataTypes.INTEGER,
-        unique: true,
-        allowNull: false,
-      },
-      PASSWORD: {
-        type: DataTypes.STRING(18),
-        allowNull: false,
-      },
-      NAME: {
-        type: DataTypes.STRING(18),
-        allowNull: true,
-      },
-      MAJOR: {
-        type: DataTypes.STRING(18),
-        allowNull: true,
-      },
-      OAUTH_ID: {
-        type: DataTypes.STRING(50),
-        allowNull: true,
-      },
-      DOUBLE_MAJOR: {
-        type: DataTypes.STRING(18),
-        allowNull: true,
-      },
-    },
-    {
-      freezeTableName: true,
-      createdAt: true,
-      updatedAt: true,
-      deletedAt: true,
-    },
-  );
+import Model from './model.js';
 
-  USERS.associate = models => {
-    USERS.belongsToMany(models.track, {
-      through: 'USER_TRACKS',
-      foreignKey: 'USER_ID',
-    });
-  };
+const GET_QUERY = 'SELECT * FROM USERS';
+const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE ID = ${term}`;
+const POST_QUERY = POST_DATA => ``;
+const DELETE_QUERY = id => ``;
 
-  return USERS;
-};
+class User extends Model {
+  constructor() {
+    super(GET_QUERY, GET_QUERY_WHERE, POST_QUERY, DELETE_QUERY);
+  }
+}
 
-export default user;
+export default new User();

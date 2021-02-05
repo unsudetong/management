@@ -1,35 +1,14 @@
-const admin = (sequelize, DataTypes) => {
-  const ADMINS = sequelize.define(
-    'ADMINS',
-    {
-      ID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        unique: true,
-        allowNull: false,
-      },
-    },
-    {
-      freezeTableName: true,
-      createdAt: true,
-      updatedAt: true,
-      deletedAt: true,
-    },
-  );
+import Model from './model.js';
 
-  ADMINS.associate = models => {
-    ADMINS.belongsTo(models.user, {
-      foreignKey: 'USER_ID',
-      // targetKey: 'ID',
-    });
+const GET_QUERY = 'SELECT * FROM ADIMINS';
+const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE ID = ${term}`;
+const POST_QUERY = POST_DATA => ``;
+const DELETE_QUERY = id => ``;
 
-    ADMINS.hasMany(models.article, {
-      foreignKey: 'ADMIN_ID',
-    });
-  };
+class Admin extends Model {
+  constructor() {
+    super(GET_QUERY, GET_QUERY_WHERE, POST_QUERY, DELETE_QUERY);
+  }
+}
 
-  return ADMINS;
-};
-
-export default admin;
+export default new Admin();

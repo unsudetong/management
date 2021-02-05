@@ -1,36 +1,14 @@
-const article = (sequelize, DataTypes) => {
-  const ARTICLES = sequelize.define(
-    'ARTICLES',
-    {
-      ID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        unique: true,
-        allowNull: false,
-      },
-      TITLE: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      CONTENTS: {
-        type: DataTypes.TEXT,
-      },
-    },
-    {
-      freezeTableName: true,
-      createdAt: true,
-      updatedAt: true,
-      deletedAt: true,
-    },
-  );
+import Model from './model.js';
 
-  ARTICLES.associate = models => {
-    ARTICLES.belongsTo(models.project, {
-      foreignKey: 'PROJECT_ID',
-    });
-  };
-  return ARTICLES;
-};
+const GET_QUERY = 'SELECT * FROM ARTICLES';
+const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE PROJECT_ID = ${term}`;
+const POST_QUERY = POST_DATA => ``;
+const DELETE_QUERY = id => ``;
 
-export default article;
+class Article extends Model {
+  constructor() {
+    super(GET_QUERY, GET_QUERY_WHERE, POST_QUERY, DELETE_QUERY);
+  }
+}
+
+export default new Article();

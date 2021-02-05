@@ -1,38 +1,14 @@
-const project = (sequelize, DataTypes) => {
-  const PROJECTS = sequelize.define(
-    'PROJECTS',
-    {
-      ID: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        unique: true,
-        allowNull: false,
-      },
-      TITLE: {
-        type: DataTypes.TEXT,
-      },
-    },
-    {
-      freezeTableName: true,
-      createdAt: true,
-      updatedAt: true,
-      deletedAt: true,
-    },
-  );
+import Model from './model.js';
 
-  PROJECTS.associate = models => {
-    PROJECTS.belongsTo(models.admin, {
-      foreignKey: 'WRITER',
-      targetKey: 'ID',
-    });
+const GET_QUERY = 'SELECT * FROM PROJECTS';
+const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE TRACK_ID = ${term}`;
+const POST_QUERY = POST_DATA => ``;
+const DELETE_QUERY = id => ``;
 
-    PROJECTS.belongsTo(models.track, {
-      foreignKey: 'TRACK_ID',
-    });
-  };
+class Project extends Model {
+  constructor() {
+    super(GET_QUERY, GET_QUERY_WHERE, POST_QUERY, DELETE_QUERY);
+  }
+}
 
-  return PROJECTS;
-};
-
-export default project;
+export default new Project();
