@@ -1,15 +1,9 @@
-import models from '../models';
-const model = models.user;
+import model from '../models/user';
 
 class User {
   static async getAllUser(req, res, next) {
     try {
-      const users = await model.findAll({});
-      if (!users.length) {
-        return res
-          .status(200)
-          .send({ message: '현재 아무 유저도 없습니다.', result: users });
-      }
+      const [users] = await model.findAll();
       return res
         .status(200)
         .send({ message: '유저의 목록입니다.', result: users });
@@ -32,9 +26,7 @@ class User {
           .status(401)
           .send({ message: '비밀번호을 다시 확인해주세요.' });
       }
-      const isCreated = await model.findAll({
-        where: { STUDENT_ID },
-      });
+      const isCreated = await model.findAllWhere(STUDENT_ID);
 
       if (!!isCreated.length) {
         return res.status(200).send({
@@ -66,14 +58,8 @@ class User {
           .status(401)
           .send({ message: '비밀번호을 다시 확인해주세요.' });
       }
+      await model.destroy({ STUDENT_ID, PASSWORD });
 
-      const result = await model.destroy({
-        where: { STUDENT_ID, PASSWORD },
-      });
-
-      if (!!result) {
-        return res.status(200).send({ message: '유저가 삭제되었습니다.' });
-      }
       return res.status(400).send({ message: '해당하는 유저가 없습니다.' });
     } catch (error) {
       console.error(error);

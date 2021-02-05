@@ -1,15 +1,9 @@
-import models from '../models';
-const model = models.track;
+import model from '../models/track';
 
 class Track {
   static async getAllTrack(req, res, next) {
     try {
-      const tracks = await model.findAll({});
-      if (!tracks.length) {
-        return res
-          .status(200)
-          .send({ message: '현재 아무 트랙도 없습니다.', result: tracks });
-      }
+      const [tracks] = await model.findAll();
       return res
         .status(200)
         .send({ message: '트랙의 목록입니다.', result: tracks });
@@ -27,7 +21,7 @@ class Track {
       if (!DEPARTMENT) {
         return res.status(401).send({ message: '분야를 다시 확인해주세요.' });
       }
-      const isCreated = await model.findAll({ where: { DEPARTMENT } });
+      const isCreated = await model.findAllWhere(DEPARTMENT);
       if (!!isCreated.length) {
         return res
           .status(200)
@@ -46,14 +40,9 @@ class Track {
 
   static async deleteOneTrack(req, res, next) {
     try {
-      const { DEPARTMENT } = await req.body;
-      const result = await model.destroy({
-        where: { DEPARTMENT },
-      });
-      if (!!result) {
-        return res.status(200).send({ message: '트랙이 삭제되었습니다.' });
-      }
-      return res.status(400).send({ message: '해당하는 트랙이 없습니다.' });
+      const { ID } = await req.body;
+      await model.destroy(ID);
+      return res.status(200).send({ message: '트랙이 삭제되었습니다.' });
     } catch (error) {
       console.error(error);
       return res.status(401).send({ message: '트랙 삭제에 실패하였습니다.' });

@@ -1,17 +1,9 @@
-import models from '../models';
-const projectModel = models.project;
-const model = models.article;
+import model from '../models/article';
 
 class Article {
   static async getAllArticle(req, res, next) {
     try {
-      const articles = await model.findAll({});
-      if (!articles.length) {
-        return res.status(200).send({
-          message: '현재 아무 게시글도 없습니다.',
-          result: articles,
-        });
-      }
+      const [articles] = await model.findAll();
       return res
         .status(200)
         .send({ message: '게시글의 목록입니다.', result: articles });
@@ -26,9 +18,7 @@ class Article {
   static async getAllArticleOfProejct(req, res, next) {
     try {
       const { PROJECT_ID } = req.params;
-      const articles = await model.findAll({
-        where: { PROJECT_ID: PROJECT_ID },
-      });
+      const [articles] = await model.findAllWhere(PROJECT_ID);
       return res.status(200).send({
         message: '특정 프로젝트의 게시글 목록입니다.',
         result: articles,
@@ -43,42 +33,20 @@ class Article {
 
   static async createOneArticle(req, res, next) {
     try {
-      const { TITLE, PROJECT_TITLE, CONTENT } = await req.body;
+      const { TITLE, PROJECT_ID, CONTENTS } = await req.body;
       if (!TITLE) {
         return res.status(401).send({ message: '제목을 다시 확인해주세요.' });
       }
-      if (!PROJECT_TITLE) {
+      if (!PROJECT_ID) {
         return res
           .status(401)
-          .send({ message: '프로젝트 제목을 다시 확인해주세요.' });
-      }
-
-      // TODO : 다른 트랙에도 동일한 프로젝트 이름이 있을 수 있으니, unique한 값으로 탐색해야 한다.
-      const createdProject = await projectModel.findOne({
-        where: { TITLE: PROJECT_TITLE },
-      });
-
-      if (!createdProject) {
-        res.status(401).send({
-          message: '해당하는 프로젝트가 없습니다.',
-        });
-      }
-
-      const isCreated = await model.findOne({
-        where: { TITLE: TITLE, PROJECT_ID: createdProject.ID },
-      });
-
-      if (!!isCreated) {
-        return res.status(200).send({
-          message: '이미 이 게시글은 생성되어 있습니다.',
-          result: isCreated,
-        });
+          .send({ message: '프로젝트 ID를 다시 확인해주세요.' });
       }
 
       const newArticle = await model.create({
-        PROJECT_ID: createdProject.ID,
-        TITLE,
-        CONTENT,
+        PROJECT_ID: PROJECT_ID,
+        TITLE: TITLE,
+        CONTENTS: CONTENTS,
       });
 
       return res.status(201).send({
@@ -93,29 +61,17 @@ class Article {
 
   static async deleteOneArticle(req, res, next) {
     try {
-      const { TITLE, PROJECT_TITLE } = await req.body;
+      const { TITLE, PROJECT_ID } = await req.body;
       if (!TITLE) {
         return res.status(401).send({ message: '제목을 다시 확인해주세요.' });
       }
-      if (!PROJECT_TITLE) {
+      if (!PROJECT_ID) {
         return res
           .status(401)
           .send({ message: '프로젝트 제목을 다시 확인해주세요.' });
       }
-
-      // TODO : 다른 트랙에도 동일한 프로젝트 이름이 있을 수 있으니, unique한 값으로 탐색해야 한다.
-      const createdProject = await projectModel.findOne({
-        where: { TITLE: PROJECT_TITLE },
-      });
-
-      const result = await model.destroy({
-        where: { TITLE, PROJECT_ID: createdProject.ID },
-      });
-
-      if (!!result) {
-        return res.status(200).send({ message: '게시글이 삭제되었습니다.' });
-      }
-      return res.status(400).send({ message: '해당하는 게시글이 없습니다.' });
+      await model.destroy({ TITLE: TITLE, PROJECT_ID: PROJECT_ID });
+      return res.status(200).send({ message: '게시글이 삭제되었습니다.' });
     } catch (error) {
       console.error(error);
       return res.status(401).send({ message: '게시글 삭제에 실패하였습니다.' });
