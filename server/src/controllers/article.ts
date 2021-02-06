@@ -21,7 +21,7 @@ class Article {
       const [articles] = await model.findAllWhere(ARTICLE_ID);
       return res.status(200).send({
         message: '특정 게시글입니다.',
-        result: articles,
+        result: articles[0],
       });
     } catch (error) {
       console.error(error);
