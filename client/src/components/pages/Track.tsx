@@ -12,8 +12,6 @@ const StyledTrack = styled.div`
 `;
 
 const Track = ({ match }: any): JSX.Element => {
-  console.log(match);
-  const data = 2;
   return (
     <StyledTrack>
       <ProjectBanner />
