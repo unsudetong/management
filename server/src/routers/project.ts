@@ -5,10 +5,11 @@ const router = express.Router();
 
 router.route('/:TRACK_ID').get(controller.getAlloProjectOfTrack);
 
+router.route('/:PROJECT_ID').delete(controller.deleteOneProject);
+
 router
   .route('/')
   .get(controller.getAllProject)
-  .post(controller.createOneProject)
-  .delete(controller.deleteOneProject);
+  .post(controller.createOneProject);
 
 export default router;

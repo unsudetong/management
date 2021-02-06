@@ -1,9 +1,9 @@
-import Model from './model.js';
+import Model from './model';
 
 const GET_QUERY = 'SELECT * FROM USERS';
 const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE ID = ${term}`;
-const POST_QUERY = POST_DATA => ``;
-const DELETE_QUERY = id => ``;
+const POST_QUERY = `INSERT INTO USERS SET ?`;
+const DELETE_QUERY = ID => `DELETE FROM USERS WHERE ID = ${ID}`;
 
 class User extends Model {
   constructor() {

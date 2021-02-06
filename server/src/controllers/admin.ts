@@ -17,21 +17,20 @@ class Admin {
 
   static async createOneAdmin(req, res, next) {
     try {
-      const { USER_ID } = await req.body;
+      const { USER_ID } = await req.params;
       if (!USER_ID) {
         return res.status(401).send({ message: '학번을 다시 확인해주세요.' });
       }
 
-      const isCreated = await model.findAllWhere(USER_ID);
-
-      if (!!isCreated) {
+      const [isCreated]: any = await model.findAllWhere(USER_ID);
+      if (!isCreated.length) {
         return res.status(200).send({
           message: '이미 이 관리자는 등록되어 있습니다.',
           result: isCreated,
         });
       }
 
-      const newAdmin = await model.create(USER_ID);
+      const newAdmin = await model.create({ USER_ID });
 
       return res.status(201).send({
         message: '해당 트랙에 관리자를 등록하는 데에 성공하였습니다.',
@@ -47,14 +46,11 @@ class Admin {
 
   static async deleteOneAdmin(req, res, next) {
     try {
-      const { USER_ID } = await req.body;
+      const { USER_ID } = await req.params;
       if (!USER_ID) {
         return res.status(401).send({ message: '학번을 다시 확인해주세요.' });
       }
-
-      // TODO : 관리자 ID와 USER의 ID 중 어느 것을 통해 찾는 것이 옳은가?
       await model.destroy(USER_ID);
-
       return res.status(200).send({ message: '관리자가 삭제되었습니다.' });
     } catch (error) {
       console.error(error);

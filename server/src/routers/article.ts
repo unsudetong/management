@@ -5,10 +5,11 @@ const router = express.Router();
 
 router.route('/:PROJECT_ID').get(controller.getAllArticleOfProejct);
 
+router.route('./:ARTICLE_ID').delete(controller.deleteOneArticle);
+
 router
   .route('/')
   .get(controller.getAllArticle)
-  .post(controller.createOneArticle)
-  .delete(controller.deleteOneArticle);
+  .post(controller.createOneArticle);
 
 export default router;

@@ -33,7 +33,7 @@ class Article {
 
   static async createOneArticle(req, res, next) {
     try {
-      const { TITLE, PROJECT_ID, CONTENTS } = await req.body;
+      const { TITLE, PROJECT_ID, CONTENTS, ADMIN_ID } = await req.body;
       if (!TITLE) {
         return res.status(401).send({ message: '제목을 다시 확인해주세요.' });
       }
@@ -42,11 +42,17 @@ class Article {
           .status(401)
           .send({ message: '프로젝트 ID를 다시 확인해주세요.' });
       }
+      if (!ADMIN_ID) {
+        return res
+          .status(401)
+          .send({ message: '관리자 ID를 다시 확인해주세요.' });
+      }
 
       const newArticle = await model.create({
-        PROJECT_ID: PROJECT_ID,
-        TITLE: TITLE,
-        CONTENTS: CONTENTS,
+        PROJECT_ID,
+        TITLE,
+        CONTENTS,
+        ADMIN_ID,
       });
 
       return res.status(201).send({
@@ -61,16 +67,8 @@ class Article {
 
   static async deleteOneArticle(req, res, next) {
     try {
-      const { TITLE, PROJECT_ID } = await req.body;
-      if (!TITLE) {
-        return res.status(401).send({ message: '제목을 다시 확인해주세요.' });
-      }
-      if (!PROJECT_ID) {
-        return res
-          .status(401)
-          .send({ message: '프로젝트 제목을 다시 확인해주세요.' });
-      }
-      await model.destroy({ TITLE: TITLE, PROJECT_ID: PROJECT_ID });
+      const { ARTICLE_ID } = await req.params;
+      await model.destroy(ARTICLE_ID);
       return res.status(200).send({ message: '게시글이 삭제되었습니다.' });
     } catch (error) {
       console.error(error);

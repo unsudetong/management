@@ -26,17 +26,8 @@ class User {
           .status(401)
           .send({ message: '비밀번호을 다시 확인해주세요.' });
       }
-      const isCreated = await model.findAllWhere(STUDENT_ID);
 
-      if (!!isCreated.length) {
-        return res.status(200).send({
-          message: '동일한 학번의 유저가 존재합니다!',
-          result: isCreated,
-        });
-      }
-
-      // TODO : PASSWORD를 hash하는 함수를 반드시, 반드시! 만들 것.
-      const newUser = await model.create({ STUDENT_ID, PASSWORD });
+      const [newUser] = await model.create({ STUDENT_ID, PASSWORD });
       return res.status(201).send({
         message: '회원가입에 성공하였습니다.',
         result: newUser,
@@ -49,18 +40,9 @@ class User {
 
   static async deleteOneUser(req, res, next) {
     try {
-      const { STUDENT_ID, PASSWORD } = await req.body;
-      if (!STUDENT_ID) {
-        return res.status(401).send({ message: '학번을 다시 확인해주세요.' });
-      }
-      if (!PASSWORD) {
-        return res
-          .status(401)
-          .send({ message: '비밀번호을 다시 확인해주세요.' });
-      }
-      await model.destroy({ STUDENT_ID, PASSWORD });
-
-      return res.status(400).send({ message: '해당하는 유저가 없습니다.' });
+      const { USER_ID } = await req.params;
+      await model.destroy(USER_ID);
+      return res.status(400).send({ message: '유저를 삭제하였습니다.' });
     } catch (error) {
       console.error(error);
       return res.status(401).send({ message: '유저 삭제에 실패하였습니다.' });

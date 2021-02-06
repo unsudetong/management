@@ -1,10 +1,11 @@
-import Model from './model.js';
+import Model from './model';
 import pool from '../config/pool';
 
 const GET_QUERY = 'SELECT * FROM USER_TRACKS';
 const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE USER_ID = ${term} LIMIT 1`;
-const POST_QUERY = POST_DATA => ``;
-const DELETE_QUERY = id => ``;
+const POST_QUERY = `INSERT INTO USER_TRACKS SET ?`;
+const DELETE_QUERY = ID => `DELETE FROM USER_TRACKS WHERE ID = ${ID}`;
+
 const TRACK_PAGE_SQL = TRACK_ID =>
   `SELECT A.ID AS ARTICLE_ID, A.TITLE AS ARTICLE_TITLE, T.ID AS TRACK_ID, P.ID AS PROJECT_ID, P.TITLE AS PROJECT_TITLE, P.WRITER AS PROJECT_WRITER 
   FROM TRACKS AS T 
@@ -13,7 +14,6 @@ const TRACK_PAGE_SQL = TRACK_ID =>
   WHERE T.ID = ${TRACK_ID} 
  `;
 
-// TRACK PROJECT ARTICLE
 class UserTrack extends Model {
   ARTICLES_OF_PROJECTS_OF_TRACK: (Number) => string;
 

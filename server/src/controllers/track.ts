@@ -40,8 +40,8 @@ class Track {
 
   static async deleteOneTrack(req, res, next) {
     try {
-      const { ID } = await req.body;
-      await model.destroy(ID);
+      const { TRACK_ID } = await req.params;
+      await model.destroy(TRACK_ID);
       return res.status(200).send({ message: '트랙이 삭제되었습니다.' });
     } catch (error) {
       console.error(error);

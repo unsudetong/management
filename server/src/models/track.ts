@@ -1,9 +1,9 @@
-import Model from './model.js';
+import Model from './model';
 
 const GET_QUERY = 'SELECT * FROM TRACKS';
 const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE ID = ${term}`;
-const POST_QUERY = POST_DATA => ``;
-const DELETE_QUERY = id => ``;
+const POST_QUERY = `INSERT INTO TRACKS SET ?`;
+const DELETE_QUERY = ID => `DELETE FROM TRACKS WHERE ID = ${ID}`;
 
 class Track extends Model {
   constructor() {

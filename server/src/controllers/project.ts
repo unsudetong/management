@@ -33,24 +33,21 @@ class Project {
   // TODO : DEPARTMENT가 아니라 TRACK의 ID를 받아 등록할 수 있도록 해야 한다.
   static async createOneProject(req, res, next) {
     try {
-      const { TITLE, CONTENTS, TRACK_ID } = await req.body;
+      const { TITLE, TRACK_ID, WRITER } = await req.body;
       if (!TITLE) {
         return res.status(401).send({ message: '제목을 다시 확인해주세요.' });
       }
       if (!TRACK_ID) {
         return res.status(401).send({ message: '트랙을 다시 확인해주세요.' });
       }
+      if (!WRITER) {
+        return res.status(401).send({ message: '작성자를 다시 확인해주세요.' });
+      }
 
-      // const isCreated = await model.findAllWhere({
-      //   TITLE: TITLE,
-      //   CONTENTS: CONTENTS,
-      //   TRACK_ID: TRACK_ID,
-      // });
-
-      const newProject = await model.create({
+      const [newProject] = await model.create({
         TITLE: TITLE,
-        CONTENTS: CONTENTS,
         TRACK_ID: TRACK_ID,
+        WRITER: WRITER,
       });
 
       return res.status(201).send({
@@ -67,10 +64,7 @@ class Project {
 
   static async deleteOneProject(req, res, next) {
     try {
-      const { PROJECT_ID } = await req.body;
-      if (!PROJECT_ID) {
-        return res.status(401).send({ message: '제목을 다시 확인해주세요.' });
-      }
+      const { PROJECT_ID } = await req.params;
       await model.destroy(PROJECT_ID);
       return res.status(200).send({ message: '프로젝트가 삭제되었습니다.' });
     } catch (error) {

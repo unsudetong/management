@@ -3,10 +3,8 @@ import controller from '../controllers/track';
 
 const router = express.Router();
 
-router
-  .route('/')
-  .get(controller.getAllTrack)
-  .post(controller.createOneTrack)
-  .delete(controller.deleteOneTrack);
+router.route('/:TRACK_ID').delete(controller.deleteOneTrack);
+
+router.route('/').get(controller.getAllTrack).post(controller.createOneTrack);
 
 export default router;

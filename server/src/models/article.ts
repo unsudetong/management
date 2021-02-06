@@ -1,9 +1,9 @@
-import Model from './model.js';
+import Model from './model';
 
 const GET_QUERY = 'SELECT * FROM ARTICLES';
 const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE PROJECT_ID = ${term}`;
-const POST_QUERY = POST_DATA => ``;
-const DELETE_QUERY = id => ``;
+const POST_QUERY = `INSERT INTO ARTICLES SET ?`;
+const DELETE_QUERY = ID => `DELETE FROM ARTICLES WHERE ID = ${ID}`;
 
 class Article extends Model {
   constructor() {

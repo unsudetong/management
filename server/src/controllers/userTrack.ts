@@ -132,9 +132,7 @@ class UserTrack {
       if (!TRACK_ID) {
         return res.status(401).send({ message: '트랙을 다시 확인해주세요.' });
       }
-
       await model.destroy({ USER_ID: USER_ID, TRACK_ID: TRACK_ID });
-
       return res
         .status(200)
         .send({ message: '유저_트랙 관계가 삭제되었습니다.' });

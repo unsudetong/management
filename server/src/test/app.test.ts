@@ -1,20 +1,20 @@
 import request from 'supertest';
-import sequelize from '../models';
+// import {admin, article, } from '../models';
 import app from '../app';
 
 describe('DB TEST', () => {
-  beforeAll(async () => {
-    await sequelize.track.sync({});
-    await sequelize.user.sync({});
-    await sequelize.userTrack.sync({});
-    await sequelize.admin.sync({});
-    await sequelize.project.sync({});
-    await sequelize.article.sync({});
-  });
+  // beforeAll(async () => {
+  //   await sequelize.track.sync({});
+  //   await sequelize.user.sync({});
+  //   await sequelize.userTrack.sync({});
+  //   await sequelize.admin.sync({});
+  //   await sequelize.project.sync({});
+  //   await sequelize.article.sync({});
+  // });
 
-  afterAll(async () => {
-    await sequelize.close();
-  });
+  // afterAll(async () => {
+  //   await sequelize.close();
+  // });
 
   describe('USERS TABLE', () => {
     it('GET / users 유저 리스트를 조회합니다.', async done => {

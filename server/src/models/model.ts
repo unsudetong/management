@@ -3,7 +3,7 @@ import pool from '../config/pool';
 class Model {
   GET_QUERY: string;
   GET_QUERY_WHERE: (string) => string;
-  POST_QUERY: (object) => string;
+  POST_QUERY: string;
   DELETE_QUERY: (string) => string;
 
   constructor(GET_QUERY, GET_QUERY_WHERE, POST_QUERY, DELETE_QUERY) {
@@ -45,7 +45,7 @@ class Model {
     const conn = await pool.getConnection();
     try {
       await conn.beginTransaction();
-      return conn.query(this.POST_QUERY(POST_DATA));
+      return conn.query(this.POST_QUERY, POST_DATA);
     } catch (error) {
       conn.rollback();
       console.error(error);
