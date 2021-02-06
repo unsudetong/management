@@ -13,7 +13,7 @@ const Main = (): JSX.Element => {
             paddingRight: '2.7%',
             paddingTop: '1.2%',
           }}
-          src="./images/main_about us_img.png"
+          src="/images/main_about us_img.png"
         ></img>
         <div
           style={{
@@ -36,7 +36,7 @@ const Main = (): JSX.Element => {
         >
           <img
             style={{ width: '22%', borderRadius: '10px', height: '50.5%' }}
-            src="./images/about us_1.jpg"
+            src="/images/about us_1.jpg"
           ></img>
           <img
             style={{
@@ -46,11 +46,11 @@ const Main = (): JSX.Element => {
               borderRadius: '10px',
               height: '50.5%',
             }}
-            src="./images/about us_2.jpg"
+            src="/images/about us_2.jpg"
           ></img>
           <img
             style={{ width: '22%', borderRadius: '10px', height: '50.5%' }}
-            src="./images/about us_3.jpg"
+            src="/images/about us_3.jpg"
           ></img>
         </div>
       </div>

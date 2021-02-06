@@ -45,7 +45,7 @@ const Header = (): JSX.Element => {
       <Img
         height="40px"
         marginTop="10px"
-        src="./images/header_logo_black.png"
+        src="/images/header_logo_black.png"
       ></Img>
       <HeaderButtonGroup>
         <Link to="/track">

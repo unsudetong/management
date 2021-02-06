@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Home from '../templates/Home';
-import Track from '../templates/Track';
+import Home from './Home';
+import Track from './Track';
 
 const Main = (): JSX.Element => {
   return (

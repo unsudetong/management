@@ -5,14 +5,14 @@ const Banner = (): JSX.Element => {
   return (
     <>
       <div style={{ height: '60px' }}></div>
-      <img src="./images/main_img.jpg"></img>
+      <img src="/images/main_img.jpg"></img>
       <img
         style={{
           position: 'absolute',
           top: 'calc(17.5% + 60px)',
           left: '17.7%',
         }}
-        src="./images/main_luckydata.png"
+        src="/images/main_luckydata.png"
       ></img>
       <div
         style={{
