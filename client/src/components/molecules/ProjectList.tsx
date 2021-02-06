@@ -1,22 +1,22 @@
 import React from 'react';
-import styled from 'styled-components';
 import Span from '../atoms/Span';
-
-const Article = styled.div<any>`
-  key: ${props => props.index};
-  padding-left: 312px;
-  padding-bottom: 20px;
-`;
+import Article from './Article';
 
 const ProjectList = (props: any) => {
   const articles = props.articles;
+  const trackUrl = props.trackUrl;
 
   return (
     <div style={{ width: '100%' }}>
       {articles?.map((article: any, index: any) => (
-        <Article key={index} paddingLeft="312px" paddingBottom="20px">
-          <Span text={article.atitle}></Span>
-        </Article>
+        <Article
+          key={index}
+          paddingLeft="312px"
+          paddingBottom="20px"
+          title={article.atitle}
+          articleID={article.aid}
+          trackUrl={trackUrl}
+        ></Article>
       ))}
     </div>
   );

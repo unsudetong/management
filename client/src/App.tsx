@@ -23,23 +23,6 @@ export const LoginContext = React.createContext<any | null>(null);
 export const App = (): JSX.Element => {
   const [loginState, setLoginState] = useState(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const clickOutside = ({ target }: any) => {
-  //   // console.log(target);
-  //   // console.log(document.getElementById('App'));
-  //   // console.log(document.getElementById('App')?.contains(target));
-  //   if (loginState && !document.getElementById('App')?.contains(target)) {
-  //     setLoginState(!loginState);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   document.addEventListener('click', clickOutside);
-  //   return () => {
-  //     document.removeEventListener('click', clickOutside);
-  //   };
-  // });
-
   return (
     <div className="App" id="App">
       <Store>

@@ -16,11 +16,16 @@ const Project = (props: any): JSX.Element => {
   const project_id = props.projectNum;
   const title = props.title;
   const articles = props.articles;
+  const trackUrl = props.trackUrl;
 
   return (
     <StyledProject>
       <ProjectDescription title={title}></ProjectDescription>
-      <ProjectList projectNum={project_id} articles={articles}></ProjectList>
+      <ProjectList
+        projectNum={project_id}
+        articles={articles}
+        trackUrl={trackUrl}
+      ></ProjectList>
     </StyledProject>
   );
 };

@@ -1,3 +1,4 @@
+import { Console } from 'console';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -44,10 +45,9 @@ const TrackList = (props: any): JSX.Element => {
         <StyledOneTrack>
           <Link
             to={`${props.match.url}/${track.ID}`}
-            key={index}
             style={{ fontSize: '30px' }}
           >
-            <Button width="100%">
+            <Button key={index} width="100%">
               <Span text={track.DEPARTMENT} width="100%"></Span>
             </Button>
           </Link>

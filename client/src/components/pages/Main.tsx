@@ -7,7 +7,7 @@ const Main = (): JSX.Element => {
   return (
     <>
       <Route exact path="/" component={Home}></Route>
-      <Route path="/track" component={Track}></Route>
+      <Route path="/tracks" component={Track}></Route>
     </>
   );
 };

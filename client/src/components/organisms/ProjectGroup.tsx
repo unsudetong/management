@@ -57,6 +57,7 @@ const ProjectGroup = (props: any): JSX.Element => {
           projectNum={project.pid}
           title={project.ptitle}
           articles={project.child}
+          trackUrl={props.match.url}
         ></Project>
       ))}
     </StyledProjectGroup>

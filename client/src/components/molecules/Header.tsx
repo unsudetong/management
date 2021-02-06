@@ -48,7 +48,7 @@ const Header = (): JSX.Element => {
         src="/images/header_logo_black.png"
       ></Img>
       <HeaderButtonGroup>
-        <Link to="/track">
+        <Link to="/tracks">
           <Button color="#23374D">TRACK</Button>
         </Link>
         <Button color="#23374D" onclick={loginOrOutclick}>
