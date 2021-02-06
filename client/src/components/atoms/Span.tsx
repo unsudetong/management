@@ -12,6 +12,8 @@ const StyledSpan = styled.span<any>`
   letter-spacing: ${props => props.letterSpacing};
   margin-right: ${props => props.marginRight};
   color: ${props => props.color || 'black'};
+  width: ${props => props.width};
+  height: ${props => props.height};
 `;
 
 const Span = ({ text, ...rest }: any): JSX.Element => {

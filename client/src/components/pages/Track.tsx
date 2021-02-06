@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Route } from 'react-router-dom';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import styled from 'styled-components';
 import ProjectBanner from '../organisms/ProjectBanner';
 import ProjectGroup from '../organisms/ProjectGroup';

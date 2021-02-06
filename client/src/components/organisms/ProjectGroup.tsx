@@ -10,6 +10,7 @@ const StyledProjectGroup = styled.div`
   padding-right: 17.7%;
 `;
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const ProjectGroup = (props: any): JSX.Element => {
   const [projects, setProjects] = useState<any>([]);
   // TODO : TRACK_ID를 받을 수 있도록 해야 한다.

@@ -1,6 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import Button from '../atoms/Button';
+import Span from '../atoms/Span';
+
+const StyledTrackList = styled.div`
+  margin-left: 17.2%;
+  margin-right: 17.2%;
+  margin-top: 3.2%;
+  border: 1px solid red;
+`;
+
+const StyledOneTrack = styled.div`
+  border: 1px solid green;
+`;
 
 const TrackList = (props: any): JSX.Element => {
   const [tracks, setTracks] = useState([]);
@@ -26,17 +39,21 @@ const TrackList = (props: any): JSX.Element => {
   }, []);
 
   return (
-    <>
+    <StyledTrackList>
       {tracks?.map((track: any, index) => (
-        <Link
-          to={`${props.match.url}/${track.ID}`}
-          key={index}
-          style={{ fontSize: '30px' }}
-        >
-          {track.DEPARTMENT}
-        </Link>
+        <StyledOneTrack>
+          <Link
+            to={`${props.match.url}/${track.ID}`}
+            key={index}
+            style={{ fontSize: '30px' }}
+          >
+            <Button width="100%">
+              <Span text={track.DEPARTMENT} width="100%"></Span>
+            </Button>
+          </Link>
+        </StyledOneTrack>
       ))}
-    </>
+    </StyledTrackList>
   );
 };
 

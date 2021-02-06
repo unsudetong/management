@@ -26,7 +26,7 @@ const StyledButton = styled.button`
 `;
 
 type ButtonType = {
-  children?: HTMLElement | string;
+  children?: any;
   radius?: boolean;
   color?: string;
   width?: string;
