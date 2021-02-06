@@ -15,18 +15,18 @@ class Article {
     }
   }
 
-  static async getAllArticleOfProejct(req, res, next) {
+  static async getOneArticle(req, res, next) {
     try {
-      const { PROJECT_ID } = req.params;
-      const [articles] = await model.findAllWhere(PROJECT_ID);
+      const { ARTICLE_ID } = req.params;
+      const [articles] = await model.findAllWhere(ARTICLE_ID);
       return res.status(200).send({
-        message: '특정 프로젝트의 게시글 목록입니다.',
+        message: '특정 게시글입니다.',
         result: articles,
       });
     } catch (error) {
       console.error(error);
       return res.status(401).send({
-        message: '특정 프로젝트의 게시글들을 가져오는 데에 실패하였습니다.',
+        message: '특정 게시글을 가져오는 데에 실패하였습니다.',
       });
     }
   }

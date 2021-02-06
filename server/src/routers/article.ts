@@ -3,9 +3,10 @@ import controller from '../controllers/article';
 
 const router = express.Router();
 
-router.route('/:PROJECT_ID').get(controller.getAllArticleOfProejct);
-
-router.route('./:ARTICLE_ID').delete(controller.deleteOneArticle);
+router
+  .route('/:ARTICLE_ID')
+  .get(controller.getOneArticle)
+  .delete(controller.deleteOneArticle);
 
 router
   .route('/')
