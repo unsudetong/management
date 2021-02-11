@@ -13,24 +13,21 @@ const passportConfig = {
 
 const passportVerify = async (STUDENT_ID, PASSWORD, done) => {
   try {
-    const users = await User.findAllWhere(STUDENT_ID);
-    const user: any = users[0];
+    const [users] = await User.findAllWhere(STUDENT_ID);
+    const user = users[0];
 
-    if (!user.length) {
+    if (!user) {
       done(null, false, { reason: '존재하지 않는 사용자 입니다.' });
       return;
     }
 
-    const userData = user[0];
-    if (PASSWORD === userData.PASSWORD) {
+    if (PASSWORD === user.PASSWORD) {
       done(null, user);
       return;
     }
 
-    console.log(2);
     done(null, false, { reason: '올바르지 않은 비밀번호 입니다.' });
   } catch (error) {
-    console.log(3);
     console.error(error);
     done(error);
   }
