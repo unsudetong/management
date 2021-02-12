@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import helmet from 'helmet';
 import passport from 'passport';
+import cors from 'cors';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -20,4 +21,5 @@ export const thirdPartyMiddleware = [
   compression(),
   helmet(),
   passport.initialize(),
+  cors(),
 ];
