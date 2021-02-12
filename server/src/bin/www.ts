@@ -1,20 +1,20 @@
 import app from '../app';
-import { createServer } from 'http';
+// import { createServer } from 'http';
 
-// import sequelize from '../sequelize_models';
+// const port: number = Number(process.env.PORT) || 3000;
+// const server = createServer(app);
 
-// (async () => {
-//   await sequelize.track.sync();
-//   await sequelize.user.sync();
-//   await sequelize.userTrack.sync();
-//   await sequelize.admin.sync();
-//   await sequelize.project.sync();
-//   await sequelize.article.sync();
-// })();
+// server.listen(port, () => {
+//   console.log(`port ${port} is ready...`);
+// });
 
-const port: number = Number(process.env.PORT) || 3000;
-const server = createServer(app);
+import greenLock from 'greenlock-express';
 
-server.listen(port, () => {
-  console.log(`port ${port} is ready...`);
-});
+greenLock
+  .init({
+    packageRoot: __dirname + '/../../',
+    configDir: './greenlock.d',
+    maintainerEmail: 'kscodebase@gmail.com',
+    cluster: false,
+  })
+  .serve(app);

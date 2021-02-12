@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Response } from 'express';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 
@@ -27,6 +27,12 @@ app.use([logger('dev'), cookieParser()]);
 app.use([compression(), helmet(), cors()]);
 
 passportInit();
+
+app.all('/*', function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
+  next();
+});
 
 app.use('/', routers);
 
