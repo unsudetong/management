@@ -5,7 +5,7 @@ import project from './project';
 import track from './track';
 import userTrack from './userTrack';
 import user from './user';
-import auth from './auth';
+import auth from './login/auth';
 import { isAuthenticate } from '../passport/jwt';
 
 const router = express.Router();

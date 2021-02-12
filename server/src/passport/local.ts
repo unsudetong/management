@@ -7,13 +7,13 @@ import bcrypt from 'bcrypt';
 const { Strategy: LocalStrategy } = passportOfLocal;
 
 const passportConfig = {
-  usernameField: 'STUDENT_ID',
+  usernameField: 'USER_ID',
   passwordField: 'PASSWORD',
 };
 
-const passportVerify = async (STUDENT_ID, PASSWORD, done) => {
+const passportVerify = async (USER_ID, PASSWORD, done) => {
   try {
-    const [users] = await User.findAllWhere(STUDENT_ID);
+    const [users] = await User.findAllWhere(USER_ID);
     const user = users[0];
 
     if (!user) {

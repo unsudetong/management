@@ -12,7 +12,7 @@ import { createServer } from 'http';
 //   await sequelize.article.sync();
 // })();
 
-const port: number = Number(process.env.PORT) || 4000;
+const port: number = Number(process.env.PORT) || 3000;
 const server = createServer(app);
 
 server.listen(port, () => {

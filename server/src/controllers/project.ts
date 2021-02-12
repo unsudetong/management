@@ -6,10 +6,10 @@ class Project {
       const [projects] = await model.findAll();
       return res
         .status(200)
-        .send({ message: '프로젝트의 목록입니다.', result: projects });
+        .json({ message: '프로젝트의 목록입니다.', result: projects });
     } catch (error) {
       console.error(error);
-      return res.status(401).send({
+      return res.status(401).json({
         message: '프로젝트 정보를 가져오는 데에서 오류가 발생하였습니다.',
       });
     }
@@ -21,10 +21,10 @@ class Project {
       const [projects] = await model.findAllWhere(TRACK_ID);
       res
         .status(200)
-        .send({ message: '해당 트랙의 프로젝트들입니다.', result: projects });
+        .json({ message: '해당 트랙의 프로젝트들입니다.', result: projects });
     } catch (error) {
       console.log(error);
-      return res.status(401).send({
+      return res.status(401).json({
         message: '해당 트랙에서 프로젝트를 가져오는 데에 실패하였습니다.',
       });
     }
@@ -34,15 +34,15 @@ class Project {
   static async createOneProject(req, res, next) {
     try {
       const { TITLE, TRACK_ID, WRITER } = await req.body;
-      if (!TITLE) {
-        return res.status(401).send({ message: '제목을 다시 확인해주세요.' });
-      }
-      if (!TRACK_ID) {
-        return res.status(401).send({ message: '트랙을 다시 확인해주세요.' });
-      }
-      if (!WRITER) {
-        return res.status(401).send({ message: '작성자를 다시 확인해주세요.' });
-      }
+      // if (!TITLE) {
+      //   return res.status(401).json({ message: '제목을 다시 확인해주세요.' });
+      // }
+      // if (!TRACK_ID) {
+      //   return res.status(401).json({ message: '트랙을 다시 확인해주세요.' });
+      // }
+      // if (!WRITER) {
+      //   return res.status(401).json({ message: '작성자를 다시 확인해주세요.' });
+      // }
 
       const [newProject] = await model.create({
         TITLE: TITLE,
@@ -50,7 +50,7 @@ class Project {
         WRITER: WRITER,
       });
 
-      return res.status(201).send({
+      return res.status(201).json({
         message: '해당 트랙에 프로젝트를 등록하는 데에 성공하였습니다.',
         result: newProject,
       });
@@ -58,7 +58,7 @@ class Project {
       console.error(error);
       return res
         .status(401)
-        .send({ message: '프로젝트 생성에 실패하였습니다.' });
+        .json({ message: '프로젝트 생성에 실패하였습니다.' });
     }
   }
 
@@ -66,12 +66,12 @@ class Project {
     try {
       const { PROJECT_ID } = await req.params;
       await model.destroy(PROJECT_ID);
-      return res.status(200).send({ message: '프로젝트가 삭제되었습니다.' });
+      return res.status(200).json({ message: '프로젝트가 삭제되었습니다.' });
     } catch (error) {
       console.error(error);
       return res
         .status(401)
-        .send({ message: '프로젝트 삭제에 실패하였습니다.' });
+        .json({ message: '프로젝트 삭제에 실패하였습니다.' });
     }
   }
 }

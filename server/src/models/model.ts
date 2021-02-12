@@ -1,4 +1,4 @@
-import pool from '../config/pool';
+import pool from '../config/database/pool';
 
 class Model {
   GET_QUERY: string;

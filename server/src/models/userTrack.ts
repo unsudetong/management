@@ -1,5 +1,5 @@
 import Model from './model';
-import pool from '../config/pool';
+import pool from '../config/database/pool';
 
 const GET_QUERY = 'SELECT * FROM USER_TRACKS';
 const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE USER_ID = ${term} LIMIT 1`;
