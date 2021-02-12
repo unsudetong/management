@@ -1,4 +1,3 @@
-import { Console } from 'console';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -42,7 +41,7 @@ const TrackList = (props: any): JSX.Element => {
   return (
     <StyledTrackList>
       {tracks?.map((track: any, index) => (
-        <StyledOneTrack>
+        <StyledOneTrack key={index}>
           <Link
             to={`${props.match.url}/${track.ID}`}
             style={{ fontSize: '30px' }}

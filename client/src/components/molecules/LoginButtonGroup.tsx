@@ -8,9 +8,12 @@ const LoginButtonGroup = (): JSX.Element => {
   const loginColor = ['rgb(70,70,70)', 'rgb(221,75,57)', 'rgb(59,89,152)'];
   const onLogin = (auth: string): (() => void) => {
     const login = (name: string) => () => {
-      fetch(process.env.REACT_APP_SERVER_ADDRESS + `auth/${name}`).then(res => {
-        window.location.href = res.url;
-      });
+      fetch(process.env.REACT_APP_SERVER_ADDRESS + `/auth/${name}`).then(
+        res => {
+          window.location.href = res.url;
+          localStorage.setItem('cookie', document.cookie.split('=')[1]);
+        },
+      );
     };
     return login(auth);
   };

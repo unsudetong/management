@@ -86,7 +86,7 @@ const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
         },
         credentials: 'same-origin',
         body: JSON.stringify({
-          STUDENT_ID: id,
+          USER_ID: id,
           PASSWORD: password,
         }),
       })
@@ -94,10 +94,13 @@ const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
         .then(res => {
           if (res.message === 'success') {
             localStorage.setItem('cookie', res.result);
+
             setMessage('이미 로그인에 성공한 유저입니다.');
             setMEssageColor('blue');
             onclick();
-            window.location.reload();
+            window.location.href = String(
+              process.env.REACT_CLIENT_ROOT_ADDRESS,
+            );
           } else {
             setMessage('아이디와 비밀번호를 다시 확인해주세요.');
             setMEssageColor('red');
@@ -125,10 +128,10 @@ const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
             Login
           </h1>
           <input
-            placeholder="가천대학교 학번을 입력해주세요."
+            placeholder="아이디를 입력해주세요."
             style={{ width: '100%', height: '30px', marginBottom: '5px' }}
-            id="student_id"
-            name="student_id"
+            id="user_id"
+            name="user_id"
             // value="201634101"
             onChange={changeID}
           ></input>
