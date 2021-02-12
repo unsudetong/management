@@ -99,7 +99,7 @@ const Modal = ({ className, visible, children }: modalProps): JSX.Element => {
             setMEssageColor('blue');
             onclick();
             window.location.href = String(
-              process.env.REACT_CLIENT_ROOT_ADDRESS,
+              process.env.REACT_APP_CLIENT_ROOT_ADDRESS,
             );
           } else {
             setMessage('아이디와 비밀번호를 다시 확인해주세요.');
