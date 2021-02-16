@@ -18,15 +18,6 @@ class User {
   static async createOneUser(req, res, next) {
     try {
       const { USER_ID, PASSWORD } = await req.body;
-      // if (!USER_ID) {
-      //   return res.status(401).json({ message: '학번을 다시 확인해주세요.' });
-      // }
-      // if (!PASSWORD) {
-      //   return res
-      //     .status(401)
-      //     .json({ message: '비밀번호을 다시 확인해주세요.' });
-      // }
-
       const [newUser] = await model.create({ USER_ID, PASSWORD });
       return res.status(201).json({
         message: '회원가입에 성공하였습니다.',

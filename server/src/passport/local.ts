@@ -1,5 +1,4 @@
 import passportOfLocal from 'passport-local';
-// import sequelize from '../sequelize_models';
 import User from '../models/user';
 
 import bcrypt from 'bcrypt';

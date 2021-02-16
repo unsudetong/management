@@ -1,9 +1,15 @@
 import app from '../app';
-import { createServer } from 'http';
 
-const port: number = Number(process.env.PORT) || 3000;
-const server = createServer(app);
+import https from 'https';
+import { readFileSync } from 'fs';
+import path from 'path';
 
-server.listen(port, () => {
-  console.log(`port ${port} is ready...`);
+console.log(__dirname);
+const option = {
+  key: readFileSync(__dirname + '/../../keys/private.pem'),
+  cert: readFileSync(__dirname + '/../../keys/public.pem'),
+};
+
+https.createServer(option, app).listen(4000, () => {
+  console.log('HTTPS server listening on port ' + 4000);
 });

@@ -18,16 +18,6 @@ class Track {
   static async createOneTrack(req, res, next) {
     try {
       const { DEPARTMENT } = await req.body;
-      // if (!DEPARTMENT) {
-      //   return res.status(401).json({ message: '분야를 다시 확인해주세요.' });
-      // }
-      // const isCreated = await model.findAllWhere(DEPARTMENT);
-      // if (!!isCreated.length) {
-      //   return res
-      //     .status(200)
-      //     .json({ message: '이미 생성된 트랙입니다.', result: isCreated });
-      // }
-
       const newTrack = await model.create({ DEPARTMENT });
       return res
         .status(201)

@@ -18,18 +18,6 @@ class Admin {
   static async createOneAdmin(req, res, next) {
     try {
       const { USER_ID } = await req.params;
-      // if (!USER_ID) {
-      //   return res.status(401).json({ message: '학번을 다시 확인해주세요.' });
-      // }
-
-      // const [isCreated]: any = await model.findAllWhere(USER_ID);
-      // if (!isCreated.length) {
-      //   return res.status(200).json({
-      //     message: '이미 이 관리자는 등록되어 있습니다.',
-      //     result: isCreated,
-      //   });
-      // }
-
       const newAdmin = await model.create({ USER_ID });
 
       return res.status(201).json({

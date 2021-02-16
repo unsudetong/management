@@ -34,20 +34,6 @@ class Article {
   static async createOneArticle(req, res, next) {
     try {
       const { TITLE, PROJECT_ID, CONTENTS, ADMIN_ID } = await req.body;
-      // if (!TITLE) {
-      //   return res.status(401).json({ message: '제목을 다시 확인해주세요.' });
-      // }
-      // if (!PROJECT_ID) {
-      //   return res
-      //     .status(401)
-      //     .json({ message: '프로젝트 ID를 다시 확인해주세요.' });
-      // }
-      // if (!ADMIN_ID) {
-      //   return res
-      //     .status(401)
-      //     .json({ message: '관리자 ID를 다시 확인해주세요.' });
-      // }
-
       const newArticle = await model.create({
         PROJECT_ID,
         TITLE,
