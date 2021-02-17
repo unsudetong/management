@@ -1,7 +1,6 @@
 import GithubStretegy from 'passport-github';
-import dotenv from 'dotenv';
 import User from '../models/user';
-dotenv.config();
+import oAuth from '../config/passport';
 
 const githubLoginCallback = async (accessToken, refreshToken, profile, cb) => {
   const { id, avatar_url, name, email } = profile._json;
@@ -27,9 +26,9 @@ const githubLoginCallback = async (accessToken, refreshToken, profile, cb) => {
 
 export default new GithubStretegy(
   {
-    clientID: process.env.GH_ID,
-    clientSecret: process.env.GH_SECRET,
-    callbackURL: process.env.SERVER_APP_ROOT + '/auth/github/callback',
+    clientID: oAuth.github.clientID,
+    clientSecret: oAuth.github.clientSecret,
+    callbackURL: oAuth.github.callbackURL + '/auth/github/callback',
     session: false,
   },
   githubLoginCallback,
