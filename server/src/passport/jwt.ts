@@ -11,6 +11,7 @@ export const isAuthenticate = (
   next: NextFunction,
 ) => {
   passport.authenticate('jwt', (error, user) => {
+    console.log('jwtUser : ', user);
     if (user) {
       req.user = user;
       return next();
