@@ -10,7 +10,6 @@ const oAuth = {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
       callbackURL: process.env.GH_DEV_CALLBACK_URL,
-      clientRootURL: process.env.CLIENT_ROOT_URL,
     },
   },
   production: {
@@ -18,11 +17,8 @@ const oAuth = {
       clientID: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
       callbackURL: process.env.GH_CALLBACK_URL,
-      clientRootURL: process.env.CLIENT_ROOT_URL,
     },
   },
 };
 
-const option = process.env.NODE_ENV || 'production';
-
-export default oAuth[option];
+export default oAuth[process.env.NODE_ENV];

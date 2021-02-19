@@ -28,7 +28,7 @@ export default new GithubStretegy(
   {
     clientID: oAuth.github.clientID,
     clientSecret: oAuth.github.clientSecret,
-    callbackURL: oAuth.github.callbackURL + '/auth/github/callback',
+    callbackURL: oAuth.github.callbackURL,
     session: false,
   },
   githubLoginCallback,
