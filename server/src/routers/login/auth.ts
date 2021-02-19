@@ -69,7 +69,8 @@ router.get('/github/callback', githubFailure, (req: Request, res: Response) => {
     process.env.PRIVATE_TOKEN_KEY,
   );
 
-  res.cookie('token', token);
+  // res.cookie('token', token);
+  res.setHeader('authorization', token);
   res.redirect(oAuth.callbackURL);
 });
 
