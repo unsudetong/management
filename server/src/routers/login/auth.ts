@@ -70,11 +70,11 @@ router.get('/github/callback', githubFailure, (req: Request, res: Response) => {
   );
 
   res.cookie('token', token);
-  res.redirect(oAuth.production.github.callbackURL);
+  res.redirect(oAuth.production.github.clientRootURL);
 });
 
 router.get('/github/loginFail', githubLoginFail, (req, res) => {
-  res.redirect(oAuth.production.github.callbackURL);
+  res.redirect(oAuth.production.github.clientRootURL);
 });
 
 export default router;
