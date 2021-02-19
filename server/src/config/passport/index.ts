@@ -23,4 +23,6 @@ const oAuth = {
   },
 };
 
-export default oAuth[process.env.NODE_ENV];
+const option = process.env.NODE_ENV || 'production';
+
+export default oAuth[option];
