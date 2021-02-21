@@ -70,9 +70,11 @@ router.get('/github/callback', githubFailure, (req: Request, res: Response) => {
   );
 
   res.cookie('token', token, {
+    httpOnly: false,
     maxAge: 600000,
     path: '/',
     domain: '.luckydata.site/',
+    secure: false,
   });
 
   res.append('Set-Cookie', token);
