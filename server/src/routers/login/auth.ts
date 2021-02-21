@@ -68,12 +68,12 @@ router.get('/github/callback', githubFailure, (req: Request, res: Response) => {
     },
     process.env.PRIVATE_TOKEN_KEY,
   );
+  // res.cookie('token', token);
+  // res.append(
+  //   'Set-Cookie',
+  //   `token=${token}; Path=/; Domain=www.luckydata.site;`,
+  // );
 
-  res.cookie('token', token);
-  res.append(
-    'Set-Cookie',
-    `token=${token}; Path=/; Domain=www.luckydata.site;`,
-  );
   res.redirect(process.env.CLIENT_URL);
 });
 
