@@ -6,7 +6,6 @@ import compression from 'compression';
 import helmet from 'helmet';
 import passport from 'passport';
 import cors from 'cors';
-import session from 'express-session';
 
 import dotenv from 'dotenv';
 
@@ -20,15 +19,6 @@ const corsOption = {
 };
 
 export const expressMiddleware = [
-  session({
-    secret: 'test',
-    saveUninitialized: true,
-    resave: true,
-    cookie: {
-      httpOnly: false,
-      secure: false,
-    },
-  }),
   express.json(),
   express.urlencoded({ extended: false }),
 ];

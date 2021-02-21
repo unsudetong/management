@@ -75,13 +75,11 @@ router.get('/github/callback', githubFailure, (req: Request, res: Response) => {
     domain: 'www.luckydata.site',
   };
 
-  res.cookie('token', token, options);
+  res.cookie('token', token, options).redirect(process.env.CLIENT_URL);
   // res.append(
   //   'Set-Cookie',
   //   `token=${token}; Path=/; Domain=www.luckydata.site;`,
   // );
-
-  res.redirect(process.env.CLIENT_URL);
 });
 
 router.get('/github/loginFail', githubLoginFail, (req, res) => {
