@@ -22,7 +22,7 @@ export const thirdPartyMiddleware = [
   helmet(),
   passport.initialize(),
   cors({
-    origin: '*',
+    origin: 'http://www.luckydata.site/',
     credentials: true,
   }),
 ];
