@@ -70,7 +70,13 @@ router.get('/github/callback', githubFailure, (req: Request, res: Response) => {
     },
     process.env.PRIVATE_TOKEN_KEY,
   );
-  userToken = token;
+  res.cookie('token', token, {
+    httpOnly: false,
+    domain: req.headers.origin,
+    path: '/',
+    maxAge: 60 * 60 * 1000,
+  });
+  console.log(100);
   res.redirect(process.env.CLIENT_URL);
 });
 
