@@ -78,6 +78,10 @@ router.get('/github/callback', githubFailure, (req: Request, res: Response) => {
   });
 
   res.append('Set-Cookie', token);
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+  console.log(res);
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+
   res.redirect(process.env.CLIENT_URL);
 });
 
