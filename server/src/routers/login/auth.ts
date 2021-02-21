@@ -68,7 +68,14 @@ router.get('/github/callback', githubFailure, (req: Request, res: Response) => {
     },
     process.env.PRIVATE_TOKEN_KEY,
   );
-  // res.cookie('token', token);
+
+  const options = {
+    secure: false,
+    httpOnly: false,
+    domain: 'www.luckydata.site',
+  };
+
+  res.cookie('token', token, options);
   // res.append(
   //   'Set-Cookie',
   //   `token=${token}; Path=/; Domain=www.luckydata.site;`,
