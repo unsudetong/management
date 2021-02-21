@@ -21,7 +21,7 @@ app.use(thirdPartyMiddleware);
 passportInit();
 
 app.use(function (req: Request, res: Response, next: NextFunction) {
-  res.header('Access-Control-Allow-Origin', 'http://www.luckydata.site');
+  res.header('Access-Control-Allow-Origin', '*');
   res.setHeader(
     'Access-Control-Allow-Methods',
     'GET, POST, OPTIONS, PUT, PATCH, DELETE',

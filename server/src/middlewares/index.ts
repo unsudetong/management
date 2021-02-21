@@ -21,5 +21,8 @@ export const thirdPartyMiddleware = [
   compression(),
   helmet(),
   passport.initialize(),
-  cors(),
+  cors({
+    origin: '*',
+    credentials: true,
+  }),
 ];
