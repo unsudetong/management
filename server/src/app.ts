@@ -20,20 +20,6 @@ app.use(thirdPartyMiddleware);
 
 passportInit();
 
-app.use(function (req: Request, res: Response, next: NextFunction) {
-  res.append('Access-Control-Allow-Origin', ['*']);
-  res.append(
-    'Access-Control-Allow-Methods',
-    'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-  );
-  res.append(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept',
-  );
-  res.append('Access-Control-Allow-Credentials', 'true');
-  next();
-});
-
 app.use('/', routers);
 
 app.use((err, req, res, next) => {
