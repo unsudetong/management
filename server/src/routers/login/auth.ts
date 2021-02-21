@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 import oAuth from '../../config/passport';
 dotenv.config();
 
+let userToken: any = '';
+
 const router = express.Router();
 
 router.post('/', (req: Request, res: Response, next: NextFunction) => {
@@ -53,7 +55,7 @@ router.post('/local', (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.get('/', (req, res, next) => {
-  res.send({ message: 'ok' });
+  res.send({ token: userToken });
 });
 
 router.get('/github', github);
@@ -68,18 +70,8 @@ router.get('/github/callback', githubFailure, (req: Request, res: Response) => {
     },
     process.env.PRIVATE_TOKEN_KEY,
   );
-
-  const options = {
-    secure: false,
-    httpOnly: false,
-    domain: 'www.luckydata.site',
-  };
-
-  res.cookie('token', token, options).redirect(process.env.CLIENT_URL);
-  // res.append(
-  //   'Set-Cookie',
-  //   `token=${token}; Path=/; Domain=www.luckydata.site;`,
-  // );
+  userToken = token;
+  res.redirect(process.env.CLIENT_URL);
 });
 
 router.get('/github/loginFail', githubLoginFail, (req, res) => {
