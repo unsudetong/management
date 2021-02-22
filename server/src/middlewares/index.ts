@@ -12,12 +12,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const corsOption = {
-  origin: /\.luckydata\.site$/,
-  methods: 'GET,HEAD,POST,PATCH,DELETE,OPTIONS',
+  // origin: /\.luckydata\.site$/,
+  origin: true,
+  // methods: 'GET,HEAD,POST,PATCH,DELETE,OPTIONS',
   credentials: true,
-  allowedHeaders: 'Content-Type, Authorization, X-Requested-With',
+  // allowedHeaders: 'Content-Type, Authorization, X-Requested-With',
 };
-
+console.log(1234567);
 export const expressMiddleware = [
   express.json(),
   express.urlencoded({ extended: false }),
