@@ -66,6 +66,10 @@ router.post('/github', async (req, res, next) => {
   const client_id = oAuth.github.clientID;
   const client_secret = oAuth.github.clientSecret;
 
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+  console.log(code, client_id, client_secret);
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+
   try {
     const response = await axios.post(
       'https://github.com/login/oauth/access_token',
