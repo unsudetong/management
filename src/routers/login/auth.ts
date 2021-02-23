@@ -81,12 +81,19 @@ router.post('/github', async (req, res, next) => {
       },
     );
 
+    console.log('response : ', response);
+
     const token = response.data.access_token;
+
+    console.log('response token : ', token);
+
     const { data } = await axios.get('https://api.github.com/user', {
       headers: {
         Authorization: `token ${token}`,
       },
     });
+
+    console.log('data : ', data);
 
     const [users]: any = await User.oAuthLogin(data.id);
     let user = users && users.length && users[0];
