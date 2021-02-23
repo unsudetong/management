@@ -1,8 +1,9 @@
-import express, { Request, NextFunction, Response } from 'express';
+import express, { Request, Response } from 'express';
 import routers from './routers';
 import passport from 'passport';
 import passportInit from './passport';
 import dotenv from 'dotenv';
+import path from 'path';
 
 import { expressMiddleware, thirdPartyMiddleware } from './middlewares';
 
@@ -20,7 +21,7 @@ app.use(thirdPartyMiddleware);
 
 passportInit();
 
-app.use('/', routers);
+app.use('/api', routers);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ error: err });

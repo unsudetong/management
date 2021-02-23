@@ -4,6 +4,7 @@ class Track {
   static async getAllTrack(req, res, next) {
     try {
       const [tracks] = await model.findAll();
+      console.log('tracks : ', tracks);
       return res
         .status(200)
         .json({ message: '트랙의 목록입니다.', result: tracks });

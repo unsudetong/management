@@ -23,7 +23,7 @@ const githubLoginCallback = async (accessToken, refreshToken, profile, cb) => {
     return cb(error);
   }
 };
-
+console.log(oAuth);
 export default new GithubStretegy(
   {
     clientID: oAuth.github.clientID,
