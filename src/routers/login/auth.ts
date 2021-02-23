@@ -102,6 +102,7 @@ router.post('/github', async (req, res, next) => {
     const [users]: any = await User.oAuthLogin(data.id);
     let user = users && users.length && users[0];
 
+    console.log('before user : ', user);
     if (!user) {
       const [newUser] = await User.create({
         NAME: data.id,
@@ -111,6 +112,8 @@ router.post('/github', async (req, res, next) => {
       });
       user = newUser;
     }
+
+    console.log('after user : ', user);
 
     const access_token = jwt.sign(
       {
