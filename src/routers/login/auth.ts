@@ -112,8 +112,10 @@ router.post('/github', async (req, res, next) => {
       });
       user = newUser;
     }
-
     console.log('after user : ', user);
+    console.log('user_id : ', user.USER_ID);
+    console.log('user_NAME : ', user.NAME);
+    console.log('newUSer array? : ', user[0]);
 
     const access_token = jwt.sign(
       {
