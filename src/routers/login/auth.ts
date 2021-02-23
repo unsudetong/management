@@ -104,7 +104,7 @@ router.post('/github', async (req, res, next) => {
 
     if (!user) {
       const [newUser] = await User.create({
-        NAME: name,
+        NAME: data.id,
         OAUTH_ID: data.id,
         USER_ID: data.id,
         PASSWORD: data.id,
