@@ -104,18 +104,24 @@ router.post('/github', async (req, res, next) => {
 
     console.log('before user : ', user);
     if (!user) {
-      const [newUser] = await User.create({
+      await User.create({
         NAME: data.id,
         OAUTH_ID: data.id,
         USER_ID: data.id,
         PASSWORD: data.id,
       });
-      user = newUser;
+
+      res.json({
+        access_token: jwt.sign(
+          {
+            USER_ID: data.id,
+            NAME: data.id,
+            DATE: Date.now(),
+          },
+          process.env.PRIVATE_TOKEN_KEY,
+        ),
+      });
     }
-    console.log('after user : ', user);
-    console.log('user_id : ', user.USER_ID);
-    console.log('user_NAME : ', user.NAME);
-    console.log('newUSer array? : ', user[0]);
 
     const access_token = jwt.sign(
       {
@@ -126,11 +132,9 @@ router.post('/github', async (req, res, next) => {
       process.env.PRIVATE_TOKEN_KEY,
     );
 
-    console.log('access_token : ', access_token);
-
     return res.json({ access_token });
   } catch (error) {
-    // console.error(error);
+    console.error(error);
     throw new Error(error);
   }
 });
