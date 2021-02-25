@@ -8,15 +8,15 @@ const option =
   process.env.NODE_ENV === 'production'
     ? {
         key: fs.readFileSync(
-          __dirname + '/../../../../../cert/luckydata.domain.key.pem',
+          __dirname + '/../../../../cert/luckydata.domain.key.pem',
           'utf-8',
         ),
         cert: fs.readFileSync(
-          __dirname + '/../../../../../cert/luckydata.domain.pem',
+          __dirname + '/../../../../cert/luckydata.domain.pem',
           'utf-8',
         ),
         ca: fs.readFileSync(
-          __dirname + '/../../../../../cert/luckydata.domain.ca.pem',
+          __dirname + '/../../../../cert/luckydata.domain.ca.pem',
           'utf-8',
         ),
       }
