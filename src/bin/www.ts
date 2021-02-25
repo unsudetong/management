@@ -1,22 +1,39 @@
 import app from '../app';
-
-/*
+import http, { Server } from 'http';
 import https from 'https';
-import { readFileSync } from 'fs';
-import path from 'path';
+import fs from 'fs';
+import { Request, Response } from 'express';
 
-const option = {
-  key: readFileSync(__dirname + '/../../keys/private.pem'),
-  cert: readFileSync(__dirname + '/../../keys/public.pem'),
-};
+const option =
+  process.env.NODE_ENV === 'production'
+    ? {
+        key: fs.readFileSync(
+          __dirname + '/../../../../../cert/key.pem',
+          'utf-8',
+        ),
+        cert: fs.readFileSync(
+          __dirname + '/../../../../../cert/crt.pem',
+          'utf-8',
+        ),
+        ca: fs.readFileSync(__dirname + '/../../../../../cert/ca.pem', 'utf-8'),
+      }
+    : undefined;
 
-https.createServer(option, app).listen(4000, () => {
-  console.log('HTTPS server listening on port ' + 4000);
-});
+option
+  ? https.createServer(option, app).listen(443, () => {
+      console.log('https server on port : ', 443);
+    })
+  : undefined;
 
-*/
-
-import http from 'http';
-http.createServer(app).listen(4000, () => {
-  console.log('http server on port : ', 4000);
-});
+option
+  ? http
+      .createServer((req: Request, res: Response) => {
+        res.writeHead(301, {
+          Location: 'https://' + req.headers['host'] + req.url,
+        });
+        res.end();
+      })
+      .listen(4000)
+  : http.createServer(app).listen(4000, () => {
+      console.log('http server on port : ', 4000);
+    });
