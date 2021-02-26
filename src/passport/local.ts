@@ -19,7 +19,7 @@ const passportVerify = async (USER_ID, PASSWORD, done) => {
       return;
     }
 
-    if (bcrypt.compare(PASSWORD, user.PASSWORD)) {
+    if (await bcrypt.compare(PASSWORD, user.PASSWORD)) {
       done(null, user);
       return;
     }

@@ -42,6 +42,8 @@ class Model {
   }
 
   async create(POST_DATA) {
+    console.log(this.POST_QUERY);
+    console.log(POST_DATA);
     const conn = await pool.getConnection();
     try {
       await conn.beginTransaction();

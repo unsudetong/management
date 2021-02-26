@@ -6,7 +6,7 @@ const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE USER_ID = ${term} LIMIT 1`;
 const POST_QUERY = `INSERT INTO USERS SET ?`;
 const DELETE_QUERY = ID => `DELETE FROM USERS WHERE ID = ${ID}`;
 const OAUTH_QUERY = OAUTH_ID =>
-  GET_QUERY + ` WHERE OAUTH_ID = ${OAUTH_ID} LIMIT 1`;
+  GET_QUERY + ` WHERE USER_ID = ${OAUTH_ID} LIMIT 1`;
 
 class User extends Model {
   OUATH_QUERY: (string) => string;
