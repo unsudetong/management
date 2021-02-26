@@ -17,7 +17,8 @@ class Track {
 
   static async createOneTrack(req, res, next) {
     try {
-      const { DEPARTMENT } = await req.body;
+      const { DEPARTMENT, ORDER } = await req.body;
+      console.log(DEPARTMENT, ORDER);
       const newTrack = await model.create({ DEPARTMENT });
       return res
         .status(201)

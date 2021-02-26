@@ -2,7 +2,7 @@ import Model from './model';
 import pool from '../config/database/pool';
 
 const GET_QUERY = 'SELECT * FROM USERS';
-const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE USER_ID = ${term} LIMIT 1`;
+const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE USER_ID = "${term}"`;
 const POST_QUERY = `INSERT INTO USERS SET ?`;
 const DELETE_QUERY = ID => `DELETE FROM USERS WHERE ID = ${ID}`;
 const OAUTH_QUERY = OAUTH_ID =>

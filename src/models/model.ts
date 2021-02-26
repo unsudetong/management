@@ -29,6 +29,7 @@ class Model {
 
   async findAllWhere(value) {
     const conn = await pool.getConnection();
+    console.log(this.GET_QUERY_WHERE(value));
     try {
       await conn.beginTransaction();
       return conn.query(this.GET_QUERY_WHERE(value));
