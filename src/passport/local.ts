@@ -1,6 +1,5 @@
 import passportOfLocal from 'passport-local';
 import User from '../models/user';
-
 import bcrypt from 'bcrypt';
 
 const { Strategy: LocalStrategy } = passportOfLocal;
@@ -20,7 +19,7 @@ const passportVerify = async (USER_ID, PASSWORD, done) => {
       return;
     }
 
-    if (PASSWORD === user.PASSWORD) {
+    if (bcrypt.compare(PASSWORD, user.PASSWORD)) {
       done(null, user);
       return;
     }

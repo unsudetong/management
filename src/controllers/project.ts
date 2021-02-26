@@ -23,7 +23,6 @@ class Project {
         .status(200)
         .json({ message: '해당 트랙의 프로젝트들입니다.', result: projects });
     } catch (error) {
-      console.log(error);
       return res.status(401).json({
         message: '해당 트랙에서 프로젝트를 가져오는 데에 실패하였습니다.',
       });

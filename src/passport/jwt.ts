@@ -11,7 +11,6 @@ export const isAuthenticate = (
   next: NextFunction,
 ) => {
   passport.authenticate('jwt', (error, user) => {
-    console.log('isAuth user : ', user);
     if (user) {
       req.user = user;
       return next();
@@ -30,7 +29,6 @@ const JWTConfig: passportOfJwt.StrategyOptions = {
 
 const JWTVerify = async (jwtPayload, done) => {
   try {
-    console.log('jwtPayLoad : ', jwtPayload);
     const [users] = await User.findAllWhere(jwtPayload.USER_ID);
     const user = users[0];
     if (user) return done(null, user);

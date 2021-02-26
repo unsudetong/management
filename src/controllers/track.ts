@@ -4,7 +4,6 @@ class Track {
   static async getAllTrack(req, res, next) {
     try {
       const [tracks] = await model.findAll();
-      console.log('tracks : ', tracks);
       return res
         .status(200)
         .json({ message: '트랙의 목록입니다.', result: tracks });
@@ -24,7 +23,7 @@ class Track {
         .status(201)
         .json({ message: '트랙 생성에 성공하였습니다.', result: newTrack });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       return res.status(401).json({ message: '트랙 생성에 실패하였습니다.' });
     }
   }

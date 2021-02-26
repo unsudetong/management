@@ -1,4 +1,5 @@
 import model from '../models/user';
+import bcrypt from 'bcrypt';
 
 class User {
   static async getAllUser(req, res, next) {
@@ -18,7 +19,19 @@ class User {
   static async createOneUser(req, res, next) {
     try {
       const { USER_ID, PASSWORD } = await req.body;
-      const [newUser] = await model.create({ USER_ID, PASSWORD });
+      const [isUser] = await model.findAllWhere(USER_ID);
+      if (isUser) {
+        return res.status(400).json({
+          message: '이미 생성된 유저입니다.',
+        });
+      }
+
+      const hashPassword = await bcrypt.hash(PASSWORD, 12);
+
+      const [newUser] = await model.create({
+        USER_ID: USER_ID,
+        PASSWORD: hashPassword,
+      });
       return res.status(201).json({
         message: '회원가입에 성공하였습니다.',
         result: newUser,

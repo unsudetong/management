@@ -17,10 +17,11 @@ class User extends Model {
   }
 
   async oAuthLogin(value) {
+    const githubUserID = value.id;
     const conn = await pool.getConnection();
     try {
       await conn.beginTransaction();
-      return conn.query(OAUTH_QUERY(value));
+      return conn.query(OAUTH_QUERY(githubUserID));
     } catch (error) {
       conn.rollback();
       console.error(error);
