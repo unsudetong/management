@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.route('/:USER_ID').delete(controller.deleteOneAdmin);
 router.route('/:USER_ID').post(controller.createOneAdmin);
-router.route('/').get(controller.getAllAdmin);
+router.route('/').get(controller.getAllAdmin).head(controller.isAdmin);
 
 export default router;

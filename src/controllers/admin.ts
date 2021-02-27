@@ -1,7 +1,8 @@
 import model from '../models/admin';
+import { Request, Response, NextFunction } from 'express';
 
 class Admin {
-  static async getAllAdmin(req, res, next) {
+  static async getAllAdmin(req: Request, res: Response, next: NextFunction) {
     try {
       const [admins] = await model.findAll();
       return res
@@ -15,7 +16,7 @@ class Admin {
     }
   }
 
-  static async createOneAdmin(req, res, next) {
+  static async createOneAdmin(req: Request, res: Response, next: NextFunction) {
     try {
       const { USER_ID } = await req.params;
       const newAdmin = await model.create({ USER_ID });
@@ -32,7 +33,7 @@ class Admin {
     }
   }
 
-  static async deleteOneAdmin(req, res, next) {
+  static async deleteOneAdmin(req: Request, res: Response, next: NextFunction) {
     try {
       const { USER_ID } = await req.params;
       if (!USER_ID) {
@@ -43,6 +44,20 @@ class Admin {
     } catch (error) {
       console.error(error);
       return res.status(401).json({ message: '관리자 삭제에 실패하였습니다.' });
+    }
+  }
+
+  static async isAdmin(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user: any = req.user;
+      const [result]: any = await model.GET_QUERY_WHERE(user.ID);
+      if (result) {
+        return res.sendStatus(200);
+      }
+      return res.sendStatus(400);
+    } catch (error) {
+      console.error(error);
+      return res.sendStatus(401);
     }
   }
 }

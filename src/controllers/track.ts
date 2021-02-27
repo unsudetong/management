@@ -1,7 +1,8 @@
 import model from '../models/track';
+import { Request, Response, NextFunction } from 'express';
 
 class Track {
-  static async getAllTrack(req, res, next) {
+  static async getAllTrack(req: Request, res: Response, next: NextFunction) {
     try {
       const [tracks] = await model.findAll();
       return res
@@ -15,11 +16,10 @@ class Track {
     }
   }
 
-  static async createOneTrack(req, res, next) {
+  static async createOneTrack(req: Request, res: Response, next: NextFunction) {
     try {
       const { DEPARTMENT, ORDER } = await req.body;
-      console.log(DEPARTMENT, ORDER);
-      const newTrack = await model.create({ DEPARTMENT });
+      const newTrack = await model.create({ DEPARTMENT, ORDER });
       return res
         .status(201)
         .json({ message: '트랙 생성에 성공하였습니다.', result: newTrack });
@@ -29,7 +29,7 @@ class Track {
     }
   }
 
-  static async deleteOneTrack(req, res, next) {
+  static async deleteOneTrack(req: Request, res: Response, next: NextFunction) {
     try {
       const { TRACK_ID } = await req.params;
       await model.destroy(TRACK_ID);

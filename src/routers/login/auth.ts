@@ -60,60 +60,63 @@ router.post('/local', (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.post('/github', async (req, res, next) => {
-  const { code } = req.body;
-  const client_id = oAuth.github.clientID;
-  const client_secret = oAuth.github.clientSecret;
+router.post(
+  '/github',
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { code } = req.body;
+    const client_id = oAuth.github.clientID;
+    const client_secret = oAuth.github.clientSecret;
 
-  try {
-    const response = await axios.post(
-      'https://github.com/login/oauth/access_token',
-      {
-        code,
-        client_id,
-        client_secret,
-      },
-      {
-        headers: {
-          accept: 'application/json',
-        },
-      },
-    );
-
-    const token = response.data.access_token;
-    const { data } = await axios.get('https://api.github.com/user', {
-      headers: {
-        Authorization: `token ${token}`,
-      },
-    });
-
-    const [users]: any = await User.oAuthLogin(data);
-
-    if (!users.length) {
-      const hashPassword = await bcrypt.hash(String(data.id), 12);
-      await User.create({
-        NAME: data.name,
-        OAUTH_ID: 'github',
-        USER_ID: data.id,
-        PASSWORD: hashPassword,
-      });
-    }
-
-    return res.status(200).json({
-      message: 'github login에 성공하였습니다.',
-      access_token: jwt.sign(
+    try {
+      const response = await axios.post(
+        'https://github.com/login/oauth/access_token',
         {
-          USER_ID: data.id,
-          NAME: data.name,
-          DATE: Date.now(),
+          code,
+          client_id,
+          client_secret,
         },
-        process.env.PRIVATE_TOKEN_KEY,
-      ),
-    });
-  } catch (error) {
-    console.error(error);
-    throw new Error(error);
-  }
-});
+        {
+          headers: {
+            accept: 'application/json',
+          },
+        },
+      );
+
+      const token = response.data.access_token;
+      const { data } = await axios.get('https://api.github.com/user', {
+        headers: {
+          Authorization: `token ${token}`,
+        },
+      });
+
+      const [users]: any = await User.oAuthLogin(data);
+
+      if (!users.length) {
+        const hashPassword = await bcrypt.hash(String(data.id), 12);
+        await User.create({
+          NAME: data.name,
+          OAUTH_ID: 'github',
+          USER_ID: data.id,
+          PASSWORD: hashPassword,
+        });
+      }
+
+      return res.status(200).json({
+        message: 'github login에 성공하였습니다.',
+        access_token: jwt.sign(
+          {
+            USER_ID: data.id,
+            NAME: data.name,
+            DATE: Date.now(),
+          },
+          process.env.PRIVATE_TOKEN_KEY,
+        ),
+      });
+    } catch (error) {
+      console.error(error);
+      throw new Error(error);
+    }
+  },
+);
 
 export default router;

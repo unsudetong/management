@@ -1,8 +1,13 @@
 import userTrack from '../models/userTrack';
 import model from '../models/userTrack';
+import { Request, Response, NextFunction } from 'express';
 
 class UserTrack {
-  static async getAllUserTrack(req, res, next) {
+  static async getAllUserTrack(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const [userTracks] = await model.findAll();
       return res
@@ -16,7 +21,11 @@ class UserTrack {
     }
   }
 
-  static async getOneUserTrack(req, res, next) {
+  static async getOneUserTrack(
+    req: Request & any,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const [userTracks] = await model.findAllWhere(req.user.ID);
       return res
@@ -30,7 +39,11 @@ class UserTrack {
     }
   }
 
-  static async getAllTrackOfUser(req, res, next) {
+  static async getAllTrackOfUser(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const { USER_ID } = req.params;
       const [userTracks] = await model.findAllWhere(USER_ID);
@@ -45,7 +58,11 @@ class UserTrack {
     }
   }
 
-  static async getAllArticlesOfProjectsOfTracks(req, res, next) {
+  static async getAllArticlesOfProjectsOfTracks(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       let result = [];
       const { TRACK_ID } = req.params;
@@ -82,7 +99,11 @@ class UserTrack {
     }
   }
 
-  static async deleteOneUserTrack(req, res, next) {
+  static async deleteOneUserTrack(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const { USER_ID, TRACK_ID } = await req.body;
       if (!USER_ID) {

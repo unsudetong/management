@@ -29,7 +29,6 @@ class Model {
 
   async findAllWhere(value) {
     const conn = await pool.getConnection();
-    console.log(this.GET_QUERY_WHERE(value));
     try {
       await conn.beginTransaction();
       return conn.query(this.GET_QUERY_WHERE(value));
@@ -43,8 +42,6 @@ class Model {
   }
 
   async create(POST_DATA) {
-    console.log(this.POST_QUERY);
-    console.log(POST_DATA);
     const conn = await pool.getConnection();
     try {
       await conn.beginTransaction();

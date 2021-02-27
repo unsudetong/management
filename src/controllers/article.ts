@@ -1,7 +1,8 @@
 import model from '../models/article';
+import { Request, Response, NextFunction } from 'express';
 
 class Article {
-  static async getAllArticle(req, res, next) {
+  static async getAllArticle(req: Request, res: Response, next: NextFunction) {
     try {
       const [articles] = await model.findAll();
       return res
@@ -15,7 +16,7 @@ class Article {
     }
   }
 
-  static async getOneArticle(req, res, next) {
+  static async getOneArticle(req: Request, res: Response, next: NextFunction) {
     try {
       const { ARTICLE_ID } = req.params;
       const [articles] = await model.findAllWhere(ARTICLE_ID);
@@ -31,14 +32,19 @@ class Article {
     }
   }
 
-  static async createOneArticle(req, res, next) {
+  static async createOneArticle(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
-      const { TITLE, PROJECT_ID, CONTENTS, ADMIN_ID } = await req.body;
+      const { TITLE, PROJECT_ID, CONTENTS, ADMIN_ID, ORDER } = await req.body;
       const newArticle = await model.create({
         PROJECT_ID,
         TITLE,
         CONTENTS,
         ADMIN_ID,
+        ORDER,
       });
 
       return res.status(201).json({
@@ -51,7 +57,11 @@ class Article {
     }
   }
 
-  static async deleteOneArticle(req, res, next) {
+  static async deleteOneArticle(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) {
     try {
       const { ARTICLE_ID } = await req.params;
       await model.destroy(ARTICLE_ID);
