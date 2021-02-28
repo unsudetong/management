@@ -7,7 +7,7 @@ const router = express.Router();
 router
   .route('/:ARTICLE_ID')
   .get(controller.getOneArticle)
-  .delete(controller.deleteOneArticle);
+  .delete(adminCheckMiddleware, controller.deleteOneArticle);
 
 router
   .route('/')
