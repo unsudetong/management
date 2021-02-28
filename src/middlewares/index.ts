@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 
@@ -8,6 +8,7 @@ import passport from 'passport';
 import cors from 'cors';
 
 import dotenv from 'dotenv';
+import admins from '../models/admin';
 
 dotenv.config();
 
@@ -32,3 +33,16 @@ export const thirdPartyMiddleware = [
   passport.initialize(),
   cors(corsOption),
 ];
+
+export const adminCheckMiddleware = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const user: any = req.user;
+  const [isAdmin]: any = await admins.findAllWhere(user.USER_ID);
+  if (!isAdmin.length) {
+    res.send(401);
+  }
+  next();
+};

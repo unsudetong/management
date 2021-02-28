@@ -18,8 +18,8 @@ class Admin {
 
   static async createOneAdmin(req: Request, res: Response, next: NextFunction) {
     try {
-      const { USER_ID } = await req.params;
-      const newAdmin = await model.create({ USER_ID });
+      const { ID } = await req.body;
+      const newAdmin = await model.create({ USER_ID: ID });
 
       return res.status(201).json({
         message: '해당 트랙에 관리자를 등록하는 데에 성공하였습니다.',
@@ -50,7 +50,7 @@ class Admin {
   static async isAdmin(req: Request, res: Response, next: NextFunction) {
     try {
       const user: any = req.user;
-      const [result]: any = await model.GET_QUERY_WHERE(user.ID);
+      const [result]: any = await model.findAllWhere(user.USER_ID);
       if (result) {
         return res.sendStatus(200);
       }

@@ -1,5 +1,6 @@
 import express from 'express';
 import controller from '../controllers/article';
+import { adminCheckMiddleware } from '../middlewares';
 
 const router = express.Router();
 
@@ -11,6 +12,6 @@ router
 router
   .route('/')
   .get(controller.getAllArticle)
-  .post(controller.createOneArticle);
+  .post(adminCheckMiddleware, controller.createOneArticle);
 
 export default router;
