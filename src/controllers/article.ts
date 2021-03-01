@@ -32,6 +32,28 @@ class Article {
     }
   }
 
+  static async editContents(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { ARTICLE_ID } = req.params;
+      const { CONTENTS, TITLE } = req.body;
+
+      const [articles] = await model.editContents({
+        ID: ARTICLE_ID,
+        CONTENTS: CONTENTS,
+        TITLE: TITLE,
+      });
+      return res.status(200).json({
+        message: '특정 게시글입니다.',
+        result: articles[0],
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(401).json({
+        message: '특정 게시글을 가져오는 데에 실패하였습니다.',
+      });
+    }
+  }
+
   static async createOneArticle(
     req: Request,
     res: Response,

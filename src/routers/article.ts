@@ -7,6 +7,7 @@ const router = express.Router();
 router
   .route('/:ARTICLE_ID')
   .get(controller.getOneArticle)
+  .put(adminCheckMiddleware, controller.editContents)
   .delete(adminCheckMiddleware, controller.deleteOneArticle);
 
 router
