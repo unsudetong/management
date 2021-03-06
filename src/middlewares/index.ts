@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from 'express';
+import express, { NextFunction, request, Request, Response } from 'express';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 
@@ -43,7 +43,7 @@ export const adminCheckMiddleware = async (
     return res.sendStatus(401);
   }
   const user: any = req.user;
-  const [isAdmin]: any = await admins.findAllWhere(user.USER_ID);
+  const [isAdmin]: any = await admins.findAllWhere(user.ID);
   if (!isAdmin.length) {
     res.sendStatus(401);
   }
