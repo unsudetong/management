@@ -1,9 +1,9 @@
 import model from '../models/user';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 
 class User {
-  static async getAllUser(req: Request, res: Response, next: NextFunction) {
+  static async getAllUser(req: Request, res: Response) {
     try {
       const [users]: any = await model.findAll();
       return res.status(200).json({
@@ -21,7 +21,7 @@ class User {
     }
   }
 
-  static async createOneUser(req: Request, res: Response, next: NextFunction) {
+  static async createOneUser(req: Request, res: Response) {
     try {
       const {
         USER_ID,
@@ -58,7 +58,7 @@ class User {
     }
   }
 
-  static async deleteOneUser(req: Request, res: Response, next: NextFunction) {
+  static async deleteOneUser(req: Request, res: Response) {
     try {
       const { USER_ID } = await req.params;
       await model.destroy(USER_ID);

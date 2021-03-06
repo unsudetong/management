@@ -1,8 +1,8 @@
 import model from '../models/article';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 class Article {
-  static async getAllArticle(req: Request, res: Response, next: NextFunction) {
+  static async getAllArticle(req: Request, res: Response) {
     try {
       const [articles] = await model.findAll();
       return res
@@ -16,7 +16,7 @@ class Article {
     }
   }
 
-  static async getOneArticle(req: Request, res: Response, next: NextFunction) {
+  static async getOneArticle(req: Request, res: Response) {
     try {
       const { ARTICLE_ID } = req.params;
       const [articles] = await model.findAllWhere(ARTICLE_ID);
@@ -32,7 +32,7 @@ class Article {
     }
   }
 
-  static async editContents(req: Request, res: Response, next: NextFunction) {
+  static async editContents(req: Request, res: Response) {
     try {
       const { ARTICLE_ID } = req.params;
       const { CONTENTS, TITLE } = req.body;
@@ -54,11 +54,7 @@ class Article {
     }
   }
 
-  static async createOneArticle(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
+  static async createOneArticle(req: Request, res: Response) {
     try {
       const { TITLE, PROJECT_ID, CONTENTS, ADMIN_ID, ORDER } = await req.body;
       const newArticle = await model.create({
@@ -79,11 +75,7 @@ class Article {
     }
   }
 
-  static async deleteOneArticle(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
+  static async deleteOneArticle(req: Request, res: Response) {
     try {
       const { ARTICLE_ID } = await req.params;
       await model.destroy(ARTICLE_ID);

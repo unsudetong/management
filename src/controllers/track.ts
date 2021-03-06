@@ -1,8 +1,8 @@
 import model from '../models/track';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 class Track {
-  static async getAllTrack(req: Request, res: Response, next: NextFunction) {
+  static async getAllTrack(req: Request, res: Response) {
     try {
       const [tracks] = await model.findAll();
       return res
@@ -16,7 +16,7 @@ class Track {
     }
   }
 
-  static async createOneTrack(req: Request, res: Response, next: NextFunction) {
+  static async createOneTrack(req: Request, res: Response) {
     try {
       const { DEPARTMENT, ORDER } = await req.body;
       const newTrack = await model.create({ DEPARTMENT, ORDER });
@@ -29,7 +29,7 @@ class Track {
     }
   }
 
-  static async deleteOneTrack(req: Request, res: Response, next: NextFunction) {
+  static async deleteOneTrack(req: Request, res: Response) {
     try {
       const { TRACK_ID } = await req.params;
       await model.destroy(TRACK_ID);

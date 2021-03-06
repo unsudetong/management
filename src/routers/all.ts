@@ -13,7 +13,7 @@ router
       const [projects] = await model.project.findAll();
       const [articles] = await model.article.findAll();
       const [admins] = await model.admin.findAll();
-      const [users] = await model.user.findAll();
+      const [users]: any = await model.user.findAll();
 
       return res.status(200).json({
         message: '수정 가능한 목록입니다.',
@@ -22,7 +22,10 @@ router
           projects: projects,
           articles: articles,
           admins: admins,
-          users: users,
+          users: users.map(user => {
+            const { PASSWORD, ...items } = user;
+            return items;
+          }),
         },
       });
     } catch (error) {

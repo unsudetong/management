@@ -1,8 +1,8 @@
 import model from '../models/admin';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 class Admin {
-  static async getAllAdmin(req: Request, res: Response, next: NextFunction) {
+  static async getAllAdmin(req: Request, res: Response) {
     try {
       const [admins] = await model.findAll();
       return res
@@ -16,7 +16,7 @@ class Admin {
     }
   }
 
-  static async createOneAdmin(req: Request, res: Response, next: NextFunction) {
+  static async createOneAdmin(req: Request, res: Response) {
     try {
       const { ID } = await req.body;
       const newAdmin = await model.create({ USER_ID: ID });
@@ -33,7 +33,7 @@ class Admin {
     }
   }
 
-  static async deleteOneAdmin(req: Request, res: Response, next: NextFunction) {
+  static async deleteOneAdmin(req: Request, res: Response) {
     try {
       const { USER_ID } = await req.params;
       if (!USER_ID) {
@@ -47,10 +47,10 @@ class Admin {
     }
   }
 
-  static async isAdmin(req: Request, res: Response, next: NextFunction) {
+  static async isAdmin(req: Request, res: Response) {
     try {
       const user: any = req.user;
-      const [result]: any = await model.findAllWhere(user.USER_ID);
+      const [result]: any = await model.findAllWhere(user.ID);
       if (result) {
         return res.sendStatus(200);
       }

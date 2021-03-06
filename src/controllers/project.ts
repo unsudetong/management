@@ -1,8 +1,8 @@
 import model from '../models/project';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 class Project {
-  static async getAllProject(req: Request, res: Response, next: NextFunction) {
+  static async getAllProject(req: Request, res: Response) {
     try {
       const [projects] = await model.findAll();
       return res
@@ -16,11 +16,7 @@ class Project {
     }
   }
 
-  static async getAlloProjectOfTrack(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
+  static async getAlloProjectOfTrack(req: Request, res: Response) {
     try {
       const { TRACK_ID } = await req.params;
       const [projects] = await model.findAllWhere(TRACK_ID);
@@ -34,11 +30,7 @@ class Project {
     }
   }
 
-  static async createOneProject(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
+  static async createOneProject(req: Request, res: Response) {
     try {
       const { TITLE, TRACK_ID, WRITER, ORDER } = await req.body;
       const [newProject] = await model.create({
@@ -60,11 +52,7 @@ class Project {
     }
   }
 
-  static async deleteOneProject(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ) {
+  static async deleteOneProject(req: Request, res: Response) {
     try {
       const { PROJECT_ID } = await req.params;
       await model.destroy(PROJECT_ID);
