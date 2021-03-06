@@ -6,10 +6,8 @@ import compression from 'compression';
 import helmet from 'helmet';
 import passport from 'passport';
 import cors from 'cors';
-
-import dotenv from 'dotenv';
 import admins from '../models/admin';
-
+import dotenv from 'dotenv';
 dotenv.config();
 
 const corsOption = {
