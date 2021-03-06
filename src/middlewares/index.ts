@@ -39,6 +39,9 @@ export const adminCheckMiddleware = async (
   res: Response,
   next: NextFunction,
 ) => {
+  if (!req.user) {
+    return res.sendStatus(401);
+  }
   const user: any = req.user;
   const [isAdmin]: any = await admins.findAllWhere(user.USER_ID);
   if (!isAdmin.length) {
