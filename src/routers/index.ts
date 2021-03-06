@@ -11,7 +11,7 @@ import all from './all';
 
 const router = express.Router();
 
-router.use('/all', all);
+router.use('/all', isAuthenticate, all);
 router.use('/admins', isAuthenticate, admin);
 router.use('/articles', isAuthenticate, article);
 router.use('/projects', isAuthenticate, project);
