@@ -13,7 +13,6 @@ import admins from '../models/admin';
 dotenv.config();
 
 const corsOption = {
-  // origin: /\.luckydata\.site$/,
   origin: true,
   methods: 'GET,HEAD,POST,PATCH,DELETE,OPTIONS',
   credentials: true,
@@ -26,7 +25,7 @@ export const expressMiddleware = [
 ];
 
 export const thirdPartyMiddleware = [
-  logger('dev'),
+  logger('common'),
   cookieParser(),
   compression(),
   helmet(),
