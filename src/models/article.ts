@@ -6,7 +6,7 @@ const GET_QUERY_WHERE = term => GET_QUERY + ` WHERE ID = ${term} LIMIT 1`;
 const POST_QUERY = `INSERT INTO ARTICLES SET ?`;
 const DELETE_QUERY = ID => `DELETE FROM ARTICLES WHERE ID = ${ID}`;
 const EDIT_QUERY = (ID, CONTENTS, TITLE) =>
-  `UPDATE ARTICLES SET TITLE='${TITLE}', CONTENTS='${CONTENTS}' WHERE ID = ${ID}`;
+  `UPDATE ARTICLES SET TITLE='${TITLE}', CONTENTS=${CONTENTS} WHERE ID = ${ID}`;
 
 https: class Article extends Model {
   constructor() {
