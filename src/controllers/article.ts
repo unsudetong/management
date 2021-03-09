@@ -1,6 +1,33 @@
 import model from '../models/article';
 import { Request, Response } from 'express';
 
+function mysql_real_escape_string(str) {
+  return str.replace(/[\0\x08\x09\x1a\n\r"'\\\%]/g, function (char) {
+    switch (char) {
+      case '\0':
+        return '\\0';
+      case '\x08':
+        return '\\b';
+      case '\x09':
+        return '\\t';
+      case '\x1a':
+        return '\\z';
+      case '\n':
+        return '\\n';
+      case '\r':
+        return '\\r';
+      case '"':
+      case "'":
+      case '\\':
+      case '%':
+        return '\\' + char; // prepends a backslash to backslash, percent,
+      // and double/single quotes
+      default:
+        return char;
+    }
+  });
+}
+
 class Article {
   static async getAllArticle(req: Request, res: Response) {
     try {
@@ -39,7 +66,7 @@ class Article {
 
       const [articles] = await model.editContents({
         ID: ARTICLE_ID,
-        CONTENTS: CONTENTS,
+        CONTENTS: mysql_real_escape_string(CONTENTS),
         TITLE: TITLE,
       });
       return res.status(200).json({
@@ -58,11 +85,11 @@ class Article {
     try {
       const { TITLE, PROJECT_ID, CONTENTS, ADMIN_ID, ORDER } = await req.body;
       const newArticle = await model.create({
-        PROJECT_ID,
-        TITLE,
-        CONTENTS,
-        ADMIN_ID,
-        ORDER,
+        PROJECT_ID: PROJECT_ID,
+        TITLE: TITLE,
+        CONTENTS: mysql_real_escape_string(CONTENTS),
+        ADMIN_ID: ADMIN_ID,
+        ORDER: ORDER,
       });
 
       return res.status(201).json({
