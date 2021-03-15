@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 import { Project } from './entities/project.entity';
 import { ProjectService } from './project.service';
 
-@Controller('projects')
+@Controller()
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 

@@ -1,4 +1,4 @@
 import { Controller } from '@nestjs/common';
 
-@Controller('user-track')
+@Controller()
 export class UserTrackController {}

@@ -3,7 +3,7 @@ import { Controller, Injectable } from '@nestjs/common';
 import { Track } from './entities/track.entity';
 import { TrackService } from './track.service';
 
-@Controller('tracks')
+@Controller()
 export class TrackController {
   constructor(private readonly trackService: TrackService) {}
 
