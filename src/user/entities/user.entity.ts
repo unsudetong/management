@@ -1,10 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'USERS' })
 export class User extends BaseEntity {
@@ -13,22 +7,26 @@ export class User extends BaseEntity {
 
   @Column({
     type: 'varchar',
+    length: 50,
   })
   USER_ID: string;
 
   @Column({
     type: 'varchar',
+    length: 100,
   })
   PASSWORD: string;
 
   @Column({
     type: 'varchar',
+    length: 18,
     nullable: true,
   })
   NAME: string;
 
   @Column({
     type: 'varchar',
+    length: 18,
     nullable: true,
   })
   MAJOR: string;
@@ -41,12 +39,14 @@ export class User extends BaseEntity {
 
   @Column({
     type: 'varchar',
+    length: 50,
     nullable: true,
   })
   OAUTH_ID: string;
 
   @Column({
     type: 'varchar',
+    length: 18,
     nullable: true,
   })
   DOUBLE_MAJOR: string;
