@@ -1,11 +1,11 @@
-import app from './app';
-import http from 'http';
-// import https from 'https';
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './app.module';
+import dotenv from 'dotenv';
 import fs from 'fs';
-import { Request, Response } from 'express';
-import spdy from 'spdy';
+dotenv.config();
 
-const option: any =
+const httpsOptions: any =
   process.env.NODE_ENV === 'production'
     ? {
         key: fs.readFileSync(
@@ -23,21 +23,17 @@ const option: any =
       }
     : undefined;
 
-option
-  ? spdy.createServer(option, app).listen(4000, () => {
-      console.log('https server on port : ', 4000);
-    })
-  : undefined;
-
-option
-  ? http
-      .createServer((req: Request, res: Response) => {
-        res.writeHead(301, {
-          Location: 'https://' + req.headers['host'] + req.url,
-        });
-        res.end();
-      })
-      .listen(4001)
-  : http.createServer(app).listen(4000, () => {
-      console.log('http server on port : ', 4000);
-    });
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule, {
+    httpsOptions,
+  });
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+  await app.listen(process.env.PORT);
+}
+bootstrap();
