@@ -1,10 +1,11 @@
-import app from '../app';
-import http, { Server } from 'http';
-import https from 'https';
+import app from './app';
+import http from 'http';
+// import https from 'https';
 import fs from 'fs';
 import { Request, Response } from 'express';
+import spdy from 'spdy';
 
-const option =
+const option: any =
   process.env.NODE_ENV === 'production'
     ? {
         key: fs.readFileSync(
@@ -23,7 +24,7 @@ const option =
     : undefined;
 
 option
-  ? https.createServer(option, app).listen(4000, () => {
+  ? spdy.createServer(option, app).listen(4000, () => {
       console.log('https server on port : ', 4000);
     })
   : undefined;

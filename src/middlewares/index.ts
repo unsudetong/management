@@ -23,7 +23,7 @@ export const expressMiddleware = [
 ];
 
 export const thirdPartyMiddleware = [
-  logger('common'),
+  logger('dev'),
   cookieParser(),
   compression(),
   helmet(),
