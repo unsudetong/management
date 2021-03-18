@@ -7,6 +7,7 @@ export class User extends BaseEntity {
 
   @Column({
     type: 'varchar',
+    unique: true,
     length: 50,
   })
   USER_ID: string;
@@ -51,11 +52,15 @@ export class User extends BaseEntity {
   })
   DOUBLE_MAJOR: string;
 
-  @Column({ type: 'datetime' })
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: string;
 
   @Column({
-    type: 'datetime',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
   })
   updatedAt: string;
 }
