@@ -14,6 +14,10 @@ export class CreateUserDto {
   @IsString()
   MAJOR?: string;
 
+  @Length(18)
+  @IsString()
+  NAME?: string;
+
   @IsOptional()
   @Length(18)
   @IsString()

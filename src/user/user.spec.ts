@@ -1,20 +1,14 @@
 import { Test } from '@nestjs/testing';
-import { getRepositoryToken, TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import dotenv from 'dotenv';
-import { UserModule } from './user.module';
-import user from '../models/user';
+import { NotFoundException } from '@nestjs/common';
 dotenv.config();
 
 describe('UserController', () => {
-  const mockRepository = {
-    metaData: {
-      column: [{ propertyName: 'ID', isPrimary: true }],
-      relations: [],
-    },
-  };
+  jest.setTimeout(30000);
   let userController: UserController;
   let userService: UserService;
 
@@ -47,6 +41,16 @@ describe('UserController', () => {
     });
   });
 
+  describe('findOne', () => {
+    it('should return a 404', async () => {
+      try {
+        await userController.findOne(99999);
+      } catch (e) {
+        expect(e).toBeInstanceOf(NotFoundException);
+      }
+    });
+  });
+
   describe('create', () => {
     it('should create user.', async () => {
       const beforeUserCreation = await userController.findAll();
@@ -57,18 +61,24 @@ describe('UserController', () => {
       const afterUserCreation = await userController.findAll();
       expect(afterUserCreation.length - beforeUserCreation.length).toBe(1);
     });
+  });
 
-    it('should delete user', async () => {
+  describe('update', () => {
+    it('should update user', async () => {
       const users = await userController.findAll();
       const usersLength = users.length;
       const createdUser = users[usersLength - 1];
-      // const createdUserPassword = createdUser.PASSWORD;
-      await userController.update(createdUser.ID, { PASSWORD: 'test2' });
+      await userController.update(createdUser.ID, { NAME: 'test2' });
       const updatedUser = await userController.findOne(createdUser.ID);
-      console.log(updatedUser);
-      expect(updatedUser.PASSWORD).toBe('test2');
+      expect(updatedUser.NAME).toBe('test2');
+    });
+  });
 
-      await userController.delete(users[users.length - 1].ID);
+  describe('delete', () => {
+    it('should delete user', async () => {
+      const users = await userController.findAll();
+      const usersLength = users.length;
+      await userController.delete(users[usersLength - 1].ID);
       const afterUserDeletion = await userController.findAll();
       expect(usersLength - afterUserDeletion.length).toBe(1);
     });

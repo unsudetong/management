@@ -12,6 +12,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
+import bcrypt from 'bcrypt';
 
 @Controller()
 export class UserController {
@@ -19,6 +20,8 @@ export class UserController {
 
   @Post()
   async create(@Body() userData: CreateUserDto) {
+    const hashedPassword = await bcrypt.hash(userData.PASSWORD, 12);
+    userData = { ...userData, PASSWORD: hashedPassword };
     const createdUser = await this.userService.create(userData);
     return createdUser;
   }
@@ -28,18 +31,22 @@ export class UserController {
     return this.userService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param() userId: number): Promise<User> {
+  @Get('/:id')
+  async findOne(@Param('id') userId: number): Promise<User> {
     return this.userService.findOne(userId);
   }
 
-  @Delete()
-  async delete(@Param() userId: number) {
+  @Delete('/:id')
+  async delete(@Param('id') userId: number) {
     return this.userService.delete(userId);
   }
 
-  @Put()
-  async update(@Param() userId: number, @Body() userData: UpdateUserDto) {
+  @Put('/:id')
+  async update(@Param('id') userId: number, @Body() userData: UpdateUserDto) {
+    if (userData.PASSWORD) {
+      const hashedPassword = await bcrypt.hash(userData.PASSWORD, 12);
+      userData.PASSWORD = hashedPassword;
+    }
     const updatedUser = await this.userService.update(userId, userData);
     return updatedUser;
   }
