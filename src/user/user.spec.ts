@@ -58,8 +58,8 @@ describe('UserController', () => {
     it('should create user.', async () => {
       const beforeUserCreation = await userController.findAll();
       await userController.create({
-        USER_ID: 'test',
-        PASSWORD: 'test',
+        USER_ID: 'usertest',
+        PASSWORD: 'usertest',
       });
       const afterUserCreation = await userController.findAll();
       expect(afterUserCreation.length - beforeUserCreation.length).toBe(1);
@@ -80,9 +80,11 @@ describe('UserController', () => {
   describe('delete', () => {
     it('should delete user', async () => {
       const users = await userController.findAll();
+      console.log(users);
       const usersLength = users.length;
       await userController.delete(users[usersLength - 1].ID);
       const afterUserDeletion = await userController.findAll();
+      console.log(afterUserDeletion);
       expect(usersLength - afterUserDeletion.length).toBe(1);
     });
   });

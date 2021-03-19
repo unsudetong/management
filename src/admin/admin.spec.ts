@@ -49,17 +49,18 @@ describe('AdminController', () => {
   });
 
   describe('create', () => {
-    it('should create user.', async () => {
+    it('should create admin.', async () => {
       const beforeAdminCreation = await adminController.findAll();
 
       const createdUser = await userController.create({
-        USER_ID: 'test',
-        PASSWORD: 'test',
+        USER_ID: 'admintest',
+        PASSWORD: 'admintest',
       });
-      const createdAdmin = await adminController.create({
+
+      await adminController.create({
         USER_ID: createdUser.ID,
       });
-      console.log(createdUser, createdAdmin);
+      await userController.delete(createdUser.ID);
 
       const afterAdminCreation = await adminController.findAll();
       expect(afterAdminCreation.length - beforeAdminCreation.length).toBe(1);
@@ -67,7 +68,7 @@ describe('AdminController', () => {
   });
 
   describe('delete', () => {
-    it('should delete user', async () => {
+    it('should delete admin', async () => {
       const admins = await adminController.findAll();
       const adminsLength = admins.length;
       await adminController.delete(admins[adminsLength - 1].ID);
