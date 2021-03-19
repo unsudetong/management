@@ -14,7 +14,11 @@ export class AdminService {
     return this.adminReopsitory.find();
   }
 
-  // async create(adminData: CreateAdminDto): Promise<CreateAdminDto & Admin> {
-  // return await this.adminReopsitory.save(adminData);
-  // }
+  async create(adminData: CreateAdminDto): Promise<CreateAdminDto & Admin> {
+    return await this.adminReopsitory.save(adminData);
+  }
+
+  async delete(adminId: number) {
+    return this.adminReopsitory.delete({ ID: adminId });
+  }
 }

@@ -5,10 +5,13 @@ import { AdminController } from './admin.controller';
 import { AdminService } from './admin.service';
 import dotenv from 'dotenv';
 import { User } from '../user/entities/user.entity';
+import { UserController } from '../user/user.controller';
+import { UserService } from '../user/user.service';
 dotenv.config();
 
 describe('AdminController', () => {
   let adminController: AdminController;
+  let userController: UserController;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -25,11 +28,12 @@ describe('AdminController', () => {
         }),
         TypeOrmModule.forFeature([Admin, User]),
       ],
-      controllers: [AdminController],
-      providers: [AdminService],
+      controllers: [AdminController, UserController],
+      providers: [AdminService, UserService],
     }).compile();
 
     adminController = await moduleRef.resolve<AdminController>(AdminController);
+    userController = await moduleRef.resolve<UserController>(UserController);
   });
 
   describe('should be defined.', () => {
@@ -41,6 +45,34 @@ describe('AdminController', () => {
   describe('findAll', () => {
     it('should have repository defined.', async () => {
       expect(await adminController.findAll()).toBeInstanceOf(Array);
+    });
+  });
+
+  describe('create', () => {
+    it('should create user.', async () => {
+      const beforeAdminCreation = await adminController.findAll();
+
+      const createdUser = await userController.create({
+        USER_ID: 'test',
+        PASSWORD: 'test',
+      });
+      const createdAdmin = await adminController.create({
+        USER_ID: createdUser.ID,
+      });
+      console.log(createdUser, createdAdmin);
+
+      const afterAdminCreation = await adminController.findAll();
+      expect(afterAdminCreation.length - beforeAdminCreation.length).toBe(1);
+    });
+  });
+
+  describe('delete', () => {
+    it('should delete user', async () => {
+      const admins = await adminController.findAll();
+      const adminsLength = admins.length;
+      await adminController.delete(admins[adminsLength - 1].ID);
+      const afterAdminDeletion = await adminController.findAll();
+      expect(adminsLength - afterAdminDeletion.length).toBe(1);
     });
   });
 });
