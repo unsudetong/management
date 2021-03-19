@@ -7,7 +7,7 @@ export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
   @Get()
-  async getAll(): Promise<Admin[]> {
-    return await this.adminService.getAll();
+  async findAll(): Promise<Admin[]> {
+    return await this.adminService.findAll();
   }
 }

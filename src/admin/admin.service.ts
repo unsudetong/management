@@ -10,7 +10,7 @@ export class AdminService {
     @InjectRepository(Admin) private adminReopsitory: Repository<Admin>,
   ) {}
 
-  getAll(): Promise<Admin[]> {
+  findAll(): Promise<Admin[]> {
     return this.adminReopsitory.find();
   }
 

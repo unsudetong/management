@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   OneToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
@@ -13,6 +14,18 @@ export class Admin extends BaseEntity {
   ID: number;
 
   @OneToOne(() => User, user => user.ID)
-  @Column()
+  @PrimaryColumn()
   USER_ID: number;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: string;
+
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: string;
 }

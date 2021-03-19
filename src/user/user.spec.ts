@@ -8,9 +8,7 @@ import { NotFoundException } from '@nestjs/common';
 dotenv.config();
 
 describe('UserController', () => {
-  jest.setTimeout(30000);
   let userController: UserController;
-  let userService: UserService;
 
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
@@ -31,8 +29,13 @@ describe('UserController', () => {
       providers: [UserService],
     }).compile();
 
-    userService = await moduleRef.resolve<UserService>(UserService);
     userController = await moduleRef.resolve<UserController>(UserController);
+  });
+
+  describe('should be defined.', () => {
+    it('test', async () => {
+      expect(userController).toBeDefined();
+    });
   });
 
   describe('findAll', () => {
