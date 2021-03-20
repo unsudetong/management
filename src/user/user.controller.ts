@@ -35,6 +35,11 @@ export class UserController {
     return this.userService.findOne(userId);
   }
 
+  @Get('/:id')
+  async findUserId(@Body() userId: string): Promise<User> {
+    return this.userService.findUserId(userId);
+  }
+
   @Delete('/:id')
   async delete(@Param('id') userId: number) {
     return this.userService.delete(userId);

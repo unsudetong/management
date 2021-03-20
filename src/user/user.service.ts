@@ -25,6 +25,18 @@ export class UserService {
     return user;
   }
 
+  async findUserId(userId: string): Promise<User> {
+    const user = await this.userReopsitory.findOne({
+      where: {
+        USER_ID: userId,
+      },
+    });
+    if (!user) {
+      throw new NotFoundException(`User with USER_ID : ${userId} not found.`);
+    }
+    return user;
+  }
+
   async delete(userId: number) {
     return this.userReopsitory.delete({ ID: userId });
   }

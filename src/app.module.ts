@@ -23,6 +23,7 @@ import { HelmetMiddleware } from '@nest-middlewares/helmet';
 import { CorsMiddleware } from '@nest-middlewares/cors';
 
 import dotenv from 'dotenv';
+import { AuthModule } from './auth/auth.module';
 dotenv.config();
 
 const routes: Routes = [
@@ -36,13 +37,14 @@ const routes: Routes = [
       { path: '/projects', module: ProjectModule },
       { path: '/tracks', module: TrackModule },
       { path: '/user-tracks', module: UserTrackModule },
+      { path: '/auth', module: AuthModule },
     ],
   },
 ];
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(database.production),
+    TypeOrmModule.forRoot(database[process.env.NODE_ENV]),
     RouterModule.forRoutes(routes),
     UserModule,
     ArticleModule,
@@ -51,6 +53,7 @@ const routes: Routes = [
     TrackModule,
     UserTrackModule,
     MorganModule,
+    AuthModule,
   ],
   providers: [
     {
