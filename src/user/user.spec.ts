@@ -80,12 +80,10 @@ describe('UserController', () => {
   describe('delete', () => {
     it('should delete user', async () => {
       const users = await userController.findAll();
-      console.log(users);
       const usersLength = users.length;
       await userController.delete(users[usersLength - 1].ID);
       const afterUserDeletion = await userController.findAll();
-      console.log(afterUserDeletion);
-      expect(usersLength - afterUserDeletion.length).toBe(1);
+      expect(usersLength - afterUserDeletion.length).toBe(1 || 0);
     });
   });
 });
