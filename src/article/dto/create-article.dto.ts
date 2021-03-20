@@ -1,14 +1,17 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class CreateProjectDto {
+export class CreateArticleDto {
   @IsString()
   readonly TITLE: string;
 
-  @IsNumber()
-  readonly WRITER: number;
+  @IsString()
+  readonly CONTENTS: string;
 
   @IsNumber()
-  readonly TRACK_ID: number;
+  readonly ADMIN_ID: number;
+
+  @IsNumber()
+  readonly PROJECT_ID: number;
 
   @IsOptional()
   @IsNumber()

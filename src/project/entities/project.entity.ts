@@ -2,12 +2,11 @@ import {
   BaseEntity,
   Column,
   Entity,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Admin } from '../../admin/entities/admin.entity';
 import { Track } from '../../track/entities/track.entity';
-import { User } from '../../user/entities/user.entity';
 
 @Entity({ name: 'PROJECTS' })
 export class Project extends BaseEntity {
@@ -29,7 +28,7 @@ export class Project extends BaseEntity {
   })
   updatedAt: string;
 
-  @OneToOne(() => User, user => user.ID)
+  @OneToOne(() => Admin, admin => admin.ID)
   @Column()
   WRITER: number;
 

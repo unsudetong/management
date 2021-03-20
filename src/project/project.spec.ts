@@ -5,8 +5,9 @@ import { ProjectController } from './project.controller';
 import { ProjectService } from './project.service';
 import dotenv from 'dotenv';
 import { NotFoundException } from '@nestjs/common';
-import { User } from '../user/entities/user.entity';
 import { Track } from '../track/entities/track.entity';
+import { Admin } from '../admin/entities/admin.entity';
+import { User } from '../user/entities/user.entity';
 dotenv.config();
 
 describe('ProjectController', () => {
@@ -22,10 +23,10 @@ describe('ProjectController', () => {
           username: process.env.DB_USER,
           password: process.env.DB_PASSWORD,
           database: process.env.TEST_DB_NAME,
-          entities: [Project, User, Track],
+          entities: [Project, Admin, User, Track],
           synchronize: true,
         }),
-        TypeOrmModule.forFeature([Project, User, Track]),
+        TypeOrmModule.forFeature([Project, Admin, User, Track]),
       ],
       controllers: [ProjectController],
       providers: [ProjectService],
@@ -64,8 +65,8 @@ describe('ProjectController', () => {
       const beforeProjectCreation = await projectController.findAll();
       await projectController.create({
         TITLE: 'testproject',
-        WRITER: 100,
-        TRACK_ID: 12,
+        WRITER: 4,
+        TRACK_ID: 5,
       });
       const afterProjectCreation = await projectController.findAll();
       expect(afterProjectCreation.length - beforeProjectCreation.length).toBe(

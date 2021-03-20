@@ -1,17 +1,21 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
 
-export class UpdateProjectDto {
+export class UpdateArticleDto {
   @IsOptional()
   @IsString()
   readonly TITLE?: string;
 
   @IsOptional()
-  @IsNumber()
-  readonly WRITER?: number;
+  @IsString()
+  readonly CONTENTS?: string;
 
   @IsOptional()
   @IsNumber()
-  readonly TRACK_ID?: number;
+  readonly ADMIN_ID?: number;
+
+  @IsOptional()
+  @IsNumber()
+  readonly PROJECT_ID?: number;
 
   @IsOptional()
   @IsNumber()

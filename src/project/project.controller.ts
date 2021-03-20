@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { CreatedProjectDto } from './dto/create.project.dto';
+import { CreateProjectDto } from './dto/create.project.dto';
 import { UpdateProjectDto } from './dto/update.project.dto';
 import { Project } from './entities/project.entity';
 import { ProjectService } from './project.service';
@@ -17,7 +17,7 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
   @Post()
-  async create(@Body() projectData: CreatedProjectDto) {
+  async create(@Body() projectData: CreateProjectDto) {
     return await this.projectService.create(projectData);
   }
 

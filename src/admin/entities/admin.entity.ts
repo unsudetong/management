@@ -3,7 +3,6 @@ import {
   Column,
   Entity,
   OneToOne,
-  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
@@ -14,7 +13,9 @@ export class Admin extends BaseEntity {
   ID: number;
 
   @OneToOne(() => User, user => user.ID)
-  @PrimaryColumn()
+  @Column({
+    unique: true,
+  })
   USER_ID: number;
 
   @Column({

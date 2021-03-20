@@ -83,7 +83,7 @@ describe('UserController', () => {
       const usersLength = users.length;
       await userController.delete(users[usersLength - 1].ID);
       const afterUserDeletion = await userController.findAll();
-      expect(usersLength - afterUserDeletion.length).toBe(1 || 0);
+      expect(usersLength - afterUserDeletion.length).toBeGreaterThan(0);
     });
   });
 });
