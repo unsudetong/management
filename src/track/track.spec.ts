@@ -4,6 +4,7 @@ import { Track } from './entities/track.entity';
 import { TrackController } from './track.controller';
 import { TrackService } from './track.service';
 import dotenv from 'dotenv';
+import { database } from '../config/database';
 dotenv.config();
 
 describe('TrackController', () => {
@@ -12,16 +13,7 @@ describe('TrackController', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot({
-          type: 'mysql',
-          host: process.env.DB_HOST,
-          port: Number(process.env.DB_PORT),
-          username: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-          database: process.env.TEST_DB_NAME,
-          entities: [Track],
-          synchronize: true,
-        }),
+        TypeOrmModule.forRoot(database.development),
         TypeOrmModule.forFeature([Track]),
       ],
       controllers: [TrackController],

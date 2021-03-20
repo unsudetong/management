@@ -62,7 +62,9 @@ describe('UserController', () => {
         PASSWORD: 'usertest',
       });
       const afterUserCreation = await userController.findAll();
-      expect(afterUserCreation.length - beforeUserCreation.length).toBe(1);
+      expect(
+        afterUserCreation.length - beforeUserCreation.length,
+      ).toBeGreaterThan(0);
     });
   });
 

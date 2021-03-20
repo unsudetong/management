@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import { User } from '../user/entities/user.entity';
 import { UserController } from '../user/user.controller';
 import { UserService } from '../user/user.service';
+import { database } from '../config/database';
 dotenv.config();
 
 describe('AdminController', () => {
@@ -16,16 +17,7 @@ describe('AdminController', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot({
-          type: 'mysql',
-          host: process.env.DB_HOST,
-          port: Number(process.env.DB_PORT),
-          username: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-          database: process.env.TEST_DB_NAME,
-          entities: [Admin, User],
-          synchronize: true,
-        }),
+        TypeOrmModule.forRoot(database.development),
         TypeOrmModule.forFeature([Admin, User]),
       ],
       controllers: [AdminController, UserController],

@@ -8,6 +8,7 @@ import { NotFoundException } from '@nestjs/common';
 import { Track } from '../track/entities/track.entity';
 import { Admin } from '../admin/entities/admin.entity';
 import { User } from '../user/entities/user.entity';
+import { database } from '../config/database';
 dotenv.config();
 
 describe('ProjectController', () => {
@@ -16,16 +17,7 @@ describe('ProjectController', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot({
-          type: 'mysql',
-          host: process.env.DB_HOST,
-          port: Number(process.env.DB_PORT),
-          username: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-          database: process.env.TEST_DB_NAME,
-          entities: [Project, Admin, User, Track],
-          synchronize: true,
-        }),
+        TypeOrmModule.forRoot(database.development),
         TypeOrmModule.forFeature([Project, Admin, User, Track]),
       ],
       controllers: [ProjectController],

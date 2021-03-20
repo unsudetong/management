@@ -9,6 +9,7 @@ import { Project } from '../project/entities/project.entity';
 import { Admin } from '../admin/entities/admin.entity';
 import { User } from '../user/entities/user.entity';
 import { Track } from '../track/entities/track.entity';
+import { database } from '../config/database';
 dotenv.config();
 
 describe('ArticleController', () => {
@@ -17,16 +18,7 @@ describe('ArticleController', () => {
   beforeAll(async () => {
     const moduleRef = await Test.createTestingModule({
       imports: [
-        TypeOrmModule.forRoot({
-          type: 'mysql',
-          host: process.env.DB_HOST,
-          port: Number(process.env.DB_PORT),
-          username: process.env.DB_USER,
-          password: process.env.DB_PASSWORD,
-          database: process.env.TEST_DB_NAME,
-          entities: [Article, Project, Admin, User, Track],
-          synchronize: true,
-        }),
+        TypeOrmModule.forRoot(database.development),
         TypeOrmModule.forFeature([Article, Project, Admin, User, Track]),
       ],
       controllers: [ArticleController],
