@@ -1,4 +1,10 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestMiddleware,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { ArticleModule } from './article/article.module';
 import { AdminModule } from './admin/admin.module';
 import { ProjectModule } from './project/project.module';
@@ -9,10 +15,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { MorganModule, MorganInterceptor } from 'nest-morgan';
 import { RouterModule, Routes } from 'nest-router';
-
-import path from 'path';
-import dotenv from 'dotenv';
 import { ApiModule } from './api.module';
+import { database } from './config/database';
+
+import { CompressionMiddleware } from '@nest-middlewares/compression';
+import { HelmetMiddleware } from '@nest-middlewares/helmet';
+import { CorsMiddleware } from '@nest-middlewares/cors';
+
+import dotenv from 'dotenv';
 dotenv.config();
 
 const routes: Routes = [
@@ -32,16 +42,7 @@ const routes: Routes = [
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT),
-      username: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      database: process.env.TEST_DB_NAME,
-      entities: [path.join(__dirname, '/**/*.entity.js')],
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(database.production),
     RouterModule.forRoutes(routes),
     UserModule,
     ArticleModule,
@@ -59,4 +60,10 @@ const routes: Routes = [
   ],
   controllers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(HelmetMiddleware, CompressionMiddleware, CorsMiddleware)
+      .forRoutes({ path: 'api/', method: RequestMethod.ALL });
+  }
+}

@@ -1,18 +1,18 @@
-import express from 'express';
-import controller from '../controllers/article';
-import { adminCheckMiddleware } from '../middlewares';
+// import express from 'express';
+// import controller from '../controllers/article';
+// import { adminCheckMiddleware } from '../middlewares';
 
-const router = express.Router();
+// const router = express.Router();
 
-router
-  .route('/:ARTICLE_ID')
-  .get(controller.getOneArticle)
-  .put(adminCheckMiddleware, controller.editContents)
-  .delete(adminCheckMiddleware, controller.deleteOneArticle);
+// router
+//   .route('/:ARTICLE_ID')
+//   .get(controller.getOneArticle)
+//   .put(adminCheckMiddleware, controller.editContents)
+//   .delete(adminCheckMiddleware, controller.deleteOneArticle);
 
-router
-  .route('/')
-  .get(controller.getAllArticle)
-  .post(adminCheckMiddleware, controller.createOneArticle);
+// router
+//   .route('/')
+//   .get(controller.getAllArticle)
+//   .post(adminCheckMiddleware, controller.createOneArticle);
 
-export default router;
+// export default router;
