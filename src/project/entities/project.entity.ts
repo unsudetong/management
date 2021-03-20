@@ -17,13 +17,19 @@ export class Project extends BaseEntity {
   @Column()
   TITLE: string;
 
-  @Column({ type: 'datetime' })
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: string;
 
-  @Column({ type: 'datetime' })
+  @Column({
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   updatedAt: string;
 
-  @OneToMany(() => User, user => user.ID)
+  @OneToOne(() => User, user => user.ID)
   @Column()
   WRITER: number;
 
@@ -31,6 +37,11 @@ export class Project extends BaseEntity {
   @Column()
   TRACK_ID: number;
 
-  @Column()
+  @Column({
+    type: 'decimal',
+    precision: 5,
+    scale: 2,
+    default: 0,
+  })
   ORDER: number;
 }

@@ -1,4 +1,3 @@
-import { IsOptional } from 'class-validator';
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'TRACKS' })
@@ -9,7 +8,6 @@ export class Track extends BaseEntity {
   @Column({ type: 'varchar', length: 18, unique: true })
   DEPARTMENT: string;
 
-  @IsOptional()
   @Column({
     type: 'decimal',
     precision: 5,

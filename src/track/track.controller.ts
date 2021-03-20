@@ -10,7 +10,7 @@ export class TrackController {
   constructor(private readonly trackService: TrackService) {}
 
   @Post()
-  async create(@Body() trackData: CreateTrackDto) {
+  async create(@Body() @Body() trackData: CreateTrackDto) {
     const createdTrack = await this.trackService.create(trackData);
     return createdTrack;
   }
@@ -21,17 +21,20 @@ export class TrackController {
   }
 
   @Get(':id')
-  async findOne(@Param() trackId: number) {
+  async findOne(@Param('id') trackId: number) {
     return await this.trackService.findOne(trackId);
   }
 
   @Put(':id')
-  async update(@Param() trackId: number, trackData: UpdateTrackDto) {
+  async update(
+    @Param('id') trackId: number,
+    @Body() trackData: UpdateTrackDto,
+  ) {
     return await this.trackService.update(trackId, trackData);
   }
 
   @Delete(':id')
-  async delete(@Param() trackId: number) {
+  async delete(@Param('id') trackId: number) {
     return await this.trackService.delete(trackId);
   }
 }
