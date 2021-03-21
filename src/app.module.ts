@@ -45,6 +45,7 @@ const routes: Routes = [
 @Module({
   imports: [
     TypeOrmModule.forRoot(database[process.env.NODE_ENV]),
+    // TypeOrmModule.forRoot(database.production),
     RouterModule.forRoutes(routes),
     UserModule,
     ArticleModule,

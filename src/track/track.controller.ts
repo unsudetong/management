@@ -10,6 +10,7 @@ import { TrackService } from './track.service';
 export class TrackController {
   constructor(private readonly trackService: TrackService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() @Body() trackData: CreateTrackDto) {
     const createdTrack = await this.trackService.create(trackData);
@@ -22,11 +23,13 @@ export class TrackController {
     return await this.trackService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') trackId: number) {
     return await this.trackService.findOne(trackId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update(
     @Param('id') trackId: number,
@@ -35,6 +38,7 @@ export class TrackController {
     return await this.trackService.update(trackId, trackData);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') trackId: number) {
     return await this.trackService.delete(trackId);

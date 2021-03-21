@@ -1,7 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as helmet from 'helmet';
 import dotenv from 'dotenv';
 import fs from 'fs';
 dotenv.config();
