@@ -25,7 +25,7 @@ export class AuthService {
       DATE: new Date(),
     };
     return {
-      accessToken: this.jwtService.sign(payload),
+      token: this.jwtService.sign(payload),
     };
   }
 }
