@@ -25,6 +25,11 @@ export class UserController {
     return createdUser;
   }
 
+  @Post()
+  async findOneByUserId(@Body() userId: string): Promise<User> {
+    return this.userService.findOneByUserId(userId);
+  }
+
   @Get()
   async findAll(): Promise<User[]> {
     return this.userService.findAll();
@@ -33,11 +38,6 @@ export class UserController {
   @Get('/:id')
   async findOne(@Param('id') userId: number): Promise<User> {
     return this.userService.findOne(userId);
-  }
-
-  @Get('/:id')
-  async findUserId(@Body() userId: string): Promise<User> {
-    return this.userService.findUserId(userId);
   }
 
   @Delete('/:id')

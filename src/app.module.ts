@@ -61,7 +61,6 @@ const routes: Routes = [
       useClass: MorganInterceptor('dev'),
     },
   ],
-  controllers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

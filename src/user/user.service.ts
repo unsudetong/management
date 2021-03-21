@@ -25,14 +25,14 @@ export class UserService {
     return user;
   }
 
-  async findUserId(userId: string): Promise<User> {
+  async findOneByUserId(USER_ID: string): Promise<User> {
     const user = await this.userReopsitory.findOne({
       where: {
-        USER_ID: userId,
+        USER_ID: USER_ID,
       },
     });
     if (!user) {
-      throw new NotFoundException(`User with USER_ID : ${userId} not found.`);
+      throw new NotFoundException(`User with USER_ID : ${USER_ID} not found.`);
     }
     return user;
   }
