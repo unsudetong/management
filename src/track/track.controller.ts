@@ -1,5 +1,6 @@
-import { Body, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { Controller, Injectable } from '@nestjs/common';
+import { Body, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/guards/auth.jwt.guard';
 import { CreateTrackDto } from './dto/create-track.dto';
 import { UpdateTrackDto } from './dto/update-track.dto';
 import { Track } from './entities/track.entity';
@@ -15,6 +16,7 @@ export class TrackController {
     return createdTrack;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll(): Promise<Track[]> {
     return await this.trackService.findAll();

@@ -22,9 +22,11 @@ export class AuthController {
     return await this.authService.login(req.user);
   }
 
+  // 실제로는 guard만 쓰일 것이며, 아래 API는 사용되지 않음.
+  @Get('jwt')
   @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Req() req) {
-    return req.user;
+  @HttpCode(HttpStatus.OK)
+  async getProfile(@Req() req) {
+    return await this.authService.login(req.user);
   }
 }
