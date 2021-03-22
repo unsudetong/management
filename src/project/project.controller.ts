@@ -18,22 +18,38 @@ export class ProjectController {
 
   @Post()
   async create(@Body() projectData: CreateProjectDto) {
-    return await this.projectService.create(projectData);
+    const createdProject = await this.projectService.create(projectData);
+    return {
+      message: '프로젝트를 새로 생성하였습니다.',
+      result: createdProject,
+    };
   }
 
   @Get()
-  async findAll(): Promise<Project[]> {
-    return this.projectService.findAll();
+  async findAll() {
+    const projects = await this.projectService.findAll();
+    return {
+      message: '프로젝트를 가져왔습니다.',
+      result: projects,
+    };
   }
 
   @Get(':id')
-  async findOne(@Param('id') projectId: number): Promise<Project> {
-    return this.projectService.findOne(projectId);
+  async findOne(@Param('id') projectId: number) {
+    const project = await this.projectService.findOne(projectId);
+    return {
+      message: '단일 프로젝트를 가져왔습니다.',
+      result: project,
+    };
   }
 
   @Get(':track_id')
   async findAllOfTrack(@Param('track_id') trackId: number) {
-    return this.projectService.findAllOfTrack(trackId);
+    const projects = await this.projectService.findAllOfTrack(trackId);
+    return {
+      message: '특정 트랙의 프로젝트를 가져왔습니다.',
+      result: projects,
+    };
   }
 
   @Put(':id')
@@ -41,11 +57,22 @@ export class ProjectController {
     @Param('id') projectId: number,
     @Body() projectData: UpdateProjectDto,
   ) {
-    return this.projectService.update(projectId, projectData);
+    const updatedProject = await this.projectService.update(
+      projectId,
+      projectData,
+    );
+    return {
+      message: '프로젝트를 수정하였습니다.',
+      result: updatedProject,
+    };
   }
 
   @Delete(':id')
   async delete(@Param('id') projectId: number) {
-    return this.projectService.delete(projectId);
+    const deletedProject = await this.projectService.delete(projectId);
+    return {
+      message: '프로젝트를 삭제하였습니다.',
+      result: deletedProject,
+    };
   }
 }

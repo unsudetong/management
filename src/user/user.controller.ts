@@ -25,31 +25,50 @@ export class UserController {
     const hashedPassword = await bcrypt.hash(userData.PASSWORD, 12);
     userData = { ...userData, PASSWORD: hashedPassword };
     const createdUser = await this.userService.create(userData);
-    return createdUser;
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Post()
-  async findOneByUserId(@Body() userId: string): Promise<User> {
-    return this.userService.findOneByUserId(userId);
+    return {
+      message: '유저를 새로 생성하였습니다.',
+      result: createdUser,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll(): Promise<User[]> {
-    return this.userService.findAll();
+  async findAll() {
+    const users = await this.userService.findAll();
+    return {
+      message: '유저를 가져왔습니다.',
+      result: users,
+    };
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  async findOneByUserId(@Body() userId: string) {
+    const user = await this.userService.findOneByUserId(userId);
+    return {
+      message: '로그인에 성공하였습니다.',
+      result: user,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/:id')
-  async findOne(@Param('id') userId: number): Promise<User> {
-    return this.userService.findOne(userId);
+  async findOne(@Param('id') userId: number) {
+    const user = await this.userService.findOne(userId);
+    return {
+      message: '단일 유저를 가져왔습니다.',
+      result: user,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   async delete(@Param('id') userId: number) {
-    return this.userService.delete(userId);
+    const deletedUser = await this.userService.delete(userId);
+    return {
+      message: '유저를 삭제하였습니다.',
+      result: deletedUser,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
@@ -60,6 +79,9 @@ export class UserController {
       userData.PASSWORD = hashedPassword;
     }
     const updatedUser = await this.userService.update(userId, userData);
-    return updatedUser;
+    return {
+      message: '유저를 수정하였습니다.',
+      result: updatedUser,
+    };
   }
 }

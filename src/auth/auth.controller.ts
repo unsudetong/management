@@ -19,7 +19,11 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @HttpCode(HttpStatus.OK)
   async login(@Req() req) {
-    return await this.authService.login(req.user);
+    const token = await this.authService.login(req.user);
+    return {
+      message: '로그인에 성공하였습니다.',
+      result: token,
+    };
   }
 
   // 실제로는 guard만 쓰일 것이며, 아래 API는 사용되지 않음.

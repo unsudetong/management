@@ -1,6 +1,5 @@
 import { Body, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { Controller } from '@nestjs/common';
-import { Article } from './entities/article.entity';
 import { ArticleService } from './article.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -13,19 +12,31 @@ export class ArticleController {
   @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() articleData: CreateArticleDto) {
-    return await this.ArticleService.create(articleData);
+    const createdArticle = await this.ArticleService.create(articleData);
+    return {
+      message: '게시글 데이터를 새로 생성하였습니다.',
+      result: createdArticle,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll(): Promise<Article[]> {
-    return await this.ArticleService.findAll();
+  async findAll() {
+    const articles = await this.ArticleService.findAll();
+    return {
+      message: '게시글 데이터를 가져왔습니다.',
+      result: articles,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  async findOne(@Param('id') articleId: number): Promise<Article> {
-    return this.ArticleService.findOne(articleId);
+  async findOne(@Param('id') articleId: number) {
+    const article = await this.ArticleService.findOne(articleId);
+    return {
+      message: '단일 게시글을 가져왔습니다.',
+      result: article,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
@@ -34,12 +45,23 @@ export class ArticleController {
     @Param('id') articleId: number,
     @Body() articleData: UpdateArticleDto,
   ) {
-    return this.ArticleService.update(articleId, articleData);
+    const updatedArticle = await this.ArticleService.update(
+      articleId,
+      articleData,
+    );
+    return {
+      message: '게시글을 수정하였습니다.',
+      result: updatedArticle,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') articleId: number) {
-    return this.ArticleService.delete(articleId);
+    const deletedArticle = await this.ArticleService.delete(articleId);
+    return {
+      message: '게시글을 삭제하였습니다.',
+      result: deletedArticle,
+    };
   }
 }

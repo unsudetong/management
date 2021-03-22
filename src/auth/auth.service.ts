@@ -24,8 +24,7 @@ export class AuthService {
       USER_ID: authCredentialDto.USER_ID,
       DATE: new Date(),
     };
-    return {
-      token: this.jwtService.sign(payload),
-    };
+    const token = this.jwtService.sign(payload);
+    return token;
   }
 }

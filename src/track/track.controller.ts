@@ -14,19 +14,30 @@ export class TrackController {
   @Post()
   async create(@Body() @Body() trackData: CreateTrackDto) {
     const createdTrack = await this.trackService.create(trackData);
-    return createdTrack;
+    return {
+      message: '트랙을 생성하였습니다.',
+      result: createdTrack,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  async findAll(): Promise<Track[]> {
-    return await this.trackService.findAll();
+  async findAll() {
+    const tracks = await this.trackService.findAll();
+    return {
+      message: '트랙을 가져왔습니다.',
+      result: tracks,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') trackId: number) {
-    return await this.trackService.findOne(trackId);
+    const track = await this.trackService.findOne(trackId);
+    return {
+      message: '단일 트랙을 가져왔습니다.',
+      result: track,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
@@ -35,12 +46,20 @@ export class TrackController {
     @Param('id') trackId: number,
     @Body() trackData: UpdateTrackDto,
   ) {
-    return await this.trackService.update(trackId, trackData);
+    const updatedTrack = await this.trackService.update(trackId, trackData);
+    return {
+      message: '트랙을 수정하였습니다.',
+      result: updatedTrack,
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') trackId: number) {
-    return await this.trackService.delete(trackId);
+    const deletedTrack = await this.trackService.delete(trackId);
+    return {
+      message: '트랙을 삭제하였습니다.',
+      result: deletedTrack,
+    };
   }
 }
